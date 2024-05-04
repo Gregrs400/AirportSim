@@ -27,26 +27,9 @@ public class Airport
 
         numOfGates = 50;
 
-        //Integer ArrayList flightNumbers to be passed to the Airline class during Airline construction
+        // Integer ArrayList flightNumbers to be passed to the Airline class during Airline construction
 
-        ArrayList<Integer> flightNumbers = new ArrayList<>();
-
-        //String ArrayList alOneDestinations, representing the destinations served by Airline One
-
-        //Adding the destinations for Airline One to the alOneDestinations ArrayList
-
-        ArrayList<String> alOneDestinations = new ArrayList<>(Arrays.asList("Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
-                "Indianapolis", "Fort Lauderdale", "Savannah", "Roanoke", "Detroit", "Tampa", "Atlanta", "Orlando",
-                "Los Angeles", "Denver", "San Francisco", "West Palm Beach", "San Jose", "Seattle", "Portland", "Dallas",
-                "Austin", "Houston", "Daytona Beach", "Newark", "New York City", "Cincinnati", "Des Moines", "San Diego",
-                "Minneapolis", "Phoenix", "Las Vegas", "Boston", "Philadelphia", "Nashville", "Chicago",
-                "Key West", "New Orleans", "Birmingham", "Albuquerque", "Oklahoma City", "St. Louis", "Kansas City",
-                "Milwaukee", "Boise", "San Antonio", "Jackson", "Memphis", "Huntsville", "Fort Meyers", "Louisville",
-                "Green Bay"));
-
-        //Creating the Airline object for Airline One, passing the destinations and flightNumbers ArrayLists
-
-        Airline airlineOne = new Airline(alOneDestinations, flightNumbers);
+        Airline airlineOne = getAirline();
 
         //determining location of airport and making flight times to other airports
 
@@ -116,6 +99,28 @@ public class Airport
 
     }//end main method
 
+    private static Airline getAirline() {
+        ArrayList<Integer> flightNumbers = new ArrayList<>();
+
+        //String ArrayList alOneDestinations, representing the destinations served by Airline One
+
+        //Adding the destinations for Airline One to the alOneDestinations ArrayList
+
+        ArrayList<String> alOneDestinations = new ArrayList<>(Arrays.asList("Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
+                "Indianapolis", "Fort Lauderdale", "Savannah", "Roanoke", "Detroit", "Tampa", "Atlanta", "Orlando",
+                "Los Angeles", "Denver", "San Francisco", "West Palm Beach", "San Jose", "Seattle", "Portland", "Dallas",
+                "Austin", "Houston", "Daytona Beach", "Newark", "New York City", "Cincinnati", "Des Moines", "San Diego",
+                "Minneapolis", "Phoenix", "Las Vegas", "Boston", "Philadelphia", "Nashville", "Chicago",
+                "Key West", "New Orleans", "Birmingham", "Albuquerque", "Oklahoma City", "St. Louis", "Kansas City",
+                "Milwaukee", "Boise", "San Antonio", "Jackson", "Memphis", "Huntsville", "Fort Meyers", "Louisville",
+                "Green Bay"));
+
+        //Creating the Airline object for Airline One, passing the destinations and flightNumbers ArrayLists
+
+        return new Airline(alOneDestinations, flightNumbers);
+
+    }
+
     public static void newDay(Airline airLine, String origin, ArrayList<Passenger> paxInAirport)
     {//begin newDay
 
@@ -162,14 +167,19 @@ public class Airport
                 for(Gate gate : gates)
                 {//begin additional flight creator
 
-                    int gateFlightDepTime = gate.planeQueue.peekLast().getFlight().getDepartureTime();
+                    if (!gate.planeQueue.isEmpty())
+                    {
 
-                    if(minutes > (gateFlightDepTime)+15)
-                    {//begin flight generator when gate will be empty for 15 min
+                        int gateFlightDepTime = gate.planeQueue.peekLast().getFlight().getDepartureTime();
 
-                        genFlightAndInfo(airLine, origin, minutes, gate);
+                        if(minutes > (gateFlightDepTime)+15)
+                        {//begin flight generator when gate will be empty for 15 min
 
-                    }//end flight generator when gate will be empty for 15 min
+                            genFlightAndInfo(airLine, origin, minutes, gate);
+
+                        }//end flight generator when gate will be empty for 15 min
+
+                    }
 
                 }//end additional flight creator
 
@@ -204,7 +214,7 @@ public class Airport
 
             }//end passenger arrival iterator
 
-            if(paxInAirport.size() > 0)
+            if(!paxInAirport.isEmpty())
             {//begin if passengers are in airport
 
                 for (int paxElement = 0; paxElement < paxInAirport.size(); paxElement++)
