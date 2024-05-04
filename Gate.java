@@ -22,20 +22,6 @@ public class Gate
 
         planeQueue.add(plane);
 
-        if(gs.equals(gateStatus.EMPTY))
-        {
-
-            setPlane(planeQueue.poll());
-
-        }
-
-    }
-
-    public void nextPlane()
-    {
-
-        setPlane(planeQueue.poll());
-
     }
 
     public Plane getLastPlane(){return planeQueue.peekLast();}
@@ -46,15 +32,6 @@ public class Gate
 
     public void setName(String name){this.name = name;}
 
-    private Plane plane;
-
-    public void setPlane(Plane plane)
-    {
-
-            this.plane = plane;
-
-    }
-
     public Gate(int numOfSeats, String name)
     {//begin Gate parameterized constructor
 
@@ -63,7 +40,7 @@ public class Gate
 
     }//end Gate parameterized constructor
 
-    private ArrayList<Passenger> paxAtGate = new ArrayList<>();
+    private final ArrayList<Passenger> paxAtGate = new ArrayList<>();
 
     public ArrayList<Passenger> getPaxAtGate(){return paxAtGate;}
 
