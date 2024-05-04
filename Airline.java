@@ -21,19 +21,19 @@ public class Airline
 
     //Flight object ArrayList storing the flights created by the airline
 
-    private ArrayList<Flight> flights = new ArrayList<>();
+    private final ArrayList<Flight> flights = new ArrayList<>();
 
     public ArrayList<Flight> getFlights() {return flights;}
 
     //Plane object ArrayList storing the different plane models in an airline's fleet
 
-    private ArrayList<Plane> airlineFleet = new ArrayList<>();
+    private final ArrayList<Plane> airlineFleet = new ArrayList<>();
 
     public ArrayList<Plane> getAirlineFleet() {return airlineFleet;}
 
     //Hashmap allowing retrieval of Flight objects when given flight numbers
 
-    private HashMap<Integer, Flight> flightNumToFlight = new HashMap<>();
+    private final HashMap<Integer, Flight> flightNumToFlight = new HashMap<>();
 
     public HashMap<Integer, Flight> getFlightNumToFlight() {return flightNumToFlight;}
 
@@ -65,7 +65,7 @@ public class Airline
 
         String destination;
 
-        int flightNumber = 0;
+        int flightNumber;
 
         //do-while loop to ensure each flight number is unique
 
@@ -95,13 +95,13 @@ public class Airline
     public void printFlightNumbers(String destination)
     {//begin printFlightNumbers
 
-        for(int i = 0; i < flights.size(); i++)
+        for(Flight flight : flights)
         {//begin for loop
 
-            if(flights.get(i).getDestination() == destination)
+            if(flight.getDestination().equals(destination))
             {//begin if statement
 
-                System.out.println(flights.get(i).getNumber());
+                System.out.println(flight.getNumber());
 
             }//end if statement
 
@@ -112,13 +112,13 @@ public class Airline
     public void printFlightsWithSameDest(String destination)
     {//begin printFlightsWithSameDest
 
-        for(int i = 0; i < flights.size(); i++)
+        for(Flight flight : flights)
         {//begin for loop
 
-            if(flights.get(i).getDestination() == destination)
+            if(flight.getDestination().equals(destination))
             {//begin if statement
 
-                flights.get(i).printFlight();
+                flight.printFlight();
 
             }//end if statement
 
@@ -185,9 +185,7 @@ public class Airline
 
     public Flight paxFlightFromNum(Passenger passenger)
     {
-        Flight flight = getFlightNumToFlight().get(passenger.getFlightNumber());
-
-        return flight;
+        return getFlightNumToFlight().get(passenger.getFlightNumber());
     }
 
     public void removeFromDestinations(String destination)
