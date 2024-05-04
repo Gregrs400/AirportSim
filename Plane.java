@@ -1,23 +1,15 @@
 package FinalProject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Plane
 {//begin Plane class
 
-    //creating Random object for determining passenger's number of bags and each bag's weight
-    private Random random = new Random();
-
     //declaring int variable to store how many passengers can board plane, defining characteristic of each plane
-    private int passengerCapacity;
+    private final int passengerCapacity;
 
     public int getPassengerCapacity() {
         return passengerCapacity;
-    }
-
-    public void setPassengerCapacity(int passengerCapacity) {
-        this.passengerCapacity = passengerCapacity;
     }
 
     //declaring Passenger type ArrayList for storing the Passenger objects on the plane
@@ -31,19 +23,7 @@ public class Plane
         this.passengers = passengers;
     }
 
-    private int seatsTaken;
-
-    public int getSeatsTaken() {
-        return seatsTaken;
-    }
-
-    public void setSeatsTaken(int seatsTaken) {
-        this.seatsTaken = seatsTaken;
-    }
-
-    private int gateOccupationTime = 15;
-
-    private int taxiingToRunwayTime, takeingOffTime, enRouteTime, descendingTime, landingTime, taxiingToGateTime;
+    private int taxiingToRunwayTime, takingOffTime, enRouteTime, descendingTime, landingTime, taxiingToGateTime;
 
     private Flight flight;
 
@@ -54,30 +34,6 @@ public class Plane
 
         this.flight = flight;
 
-    }
-
-    private Gate gate;
-
-    public void setGate(Gate gate)
-    {
-
-        this.gate = gate;
-
-    }
-
-    private Airline airline;
-
-    public void setAirline(Airline airline)
-    {
-
-        this.airline = airline;
-
-    }
-
-    private boolean print = false;
-
-    public void setPrint(boolean print) {
-        this.print = print;
     }
 
     public void setFlightTimes(int flightTime)
@@ -91,12 +47,12 @@ public class Plane
         {
             int taxiingTime = 1;
 
-            ascentDescentTime = Math.round(enRouteTime / 6);
+            ascentDescentTime = Math.round((float) enRouteTime / 6);
 
             taxiingToRunwayTime = taxiingTime;
             enRouteTime = enRouteTime-taxiingToRunwayTime;
 
-            takeingOffTime = ascentDescentTime;
+            takingOffTime = ascentDescentTime;
             enRouteTime = enRouteTime-ascentDescentTime;
 
             descendingTime = ascentDescentTime;
@@ -119,7 +75,7 @@ public class Plane
 
             ascentDescentTime = 15;
 
-            takeingOffTime = ascentDescentTime;
+            takingOffTime = ascentDescentTime;
             enRouteTime = enRouteTime-ascentDescentTime;
 
             descendingTime = ascentDescentTime;
@@ -141,11 +97,11 @@ public class Plane
         AT_DEPART_GATE,
         READY_TO_TAXI,
         TAXIING,
-        TAKEING_OFF,
+        TAKING_OFF,
         EN_ROUTE,
         DESCENDING,
         LANDING,
-        LANDED,
+        // LANDED,
         TAXIING_TO_GATE,
         AT_GATE
 
@@ -163,31 +119,12 @@ public class Plane
 
     }//end Plane parameterized constructor
 
-    public Plane()
-    {//begin Plane no args constructor
-
-    }//end Plane no args constructor
-
     public void addPaxToPlane(Passenger passenger)
     {//begin addPaxToPlane
 
         passengers.add(passenger);
 
     }//end addPaxToPlane
-
-    public boolean isFull()
-    {//begin isFull
-
-        if(passengers.size() == passengerCapacity)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-    }//end isFull
 
     public void movePlane()
     {
@@ -197,27 +134,7 @@ public class Plane
 
             ps = planeStatus.TAXIING;
 
-            if(print == true)
-                System.out.println(ps);
-
             taxiingToRunwayTime--;
-
-        }
-
-        if(gate.gs.equals(Gate.gateStatus.OCCUPIED))
-        {
-
-            gateOccupationTime--;
-
-            if(gateOccupationTime == 0)
-            {
-
-                gate.gs = Gate.gateStatus.EMPTY;
-
-                gate.nextPlane();
-
-            }
-
 
         }
 
@@ -227,12 +144,9 @@ public class Plane
             if(taxiingToRunwayTime == 0)
             {
 
-                ps = planeStatus.TAKEING_OFF;
+                ps = planeStatus.TAKING_OFF;
 
-                if(print == true)
-                    System.out.println(ps);
-
-                takeingOffTime--;
+                takingOffTime--;
 
             }
             else
@@ -243,16 +157,13 @@ public class Plane
             }
 
         }
-        if(ps.equals(planeStatus.TAKEING_OFF))
+        if(ps.equals(planeStatus.TAKING_OFF))
         {
 
-            if(takeingOffTime == 0)
+            if(takingOffTime == 0)
             {
 
                 ps = planeStatus.EN_ROUTE;
-
-                if(print == true)
-                System.out.println(ps);
 
                 enRouteTime--;
 
@@ -260,7 +171,7 @@ public class Plane
             else
             {
 
-                takeingOffTime--;
+                takingOffTime--;
 
             }
 
@@ -272,9 +183,6 @@ public class Plane
             {
 
                 ps = planeStatus.DESCENDING;
-
-                if(print == true)
-                    System.out.println(ps);
 
                 descendingTime--;
 
@@ -295,9 +203,6 @@ public class Plane
 
                 ps = planeStatus.LANDING;
 
-                if(print == true)
-                    System.out.println(ps);
-
                 landingTime--;
 
             }
@@ -315,15 +220,7 @@ public class Plane
             if(landingTime == 0)
             {
 
-                ps = planeStatus.LANDED;
-
-                if(print == true)
-                    System.out.println(ps);
-
                 ps = planeStatus.TAXIING_TO_GATE;
-
-                if(print == true)
-                    System.out.println(ps);
 
                 taxiingToGateTime--;
 
@@ -344,13 +241,6 @@ public class Plane
 
                 ps = planeStatus.AT_GATE;
 
-                if(print == true)
-                    System.out.println(ps);
-
-                if(print == true)
-                    System.out.println("Flight " + flight.getNumber() + " made it to the gate.");
-
-
 
             }
             else
@@ -363,47 +253,5 @@ public class Plane
         }
 
     }
-
-
-    //fillPlane method which fills plane to passengerCapacity with passengers
-        //may be removed after time is implemented
-
-//    public void fillPlane(int flightNumber)
-//    {//begin fillPlane
-//
-//    //outer loop, "i" representing the element of the passenger ArrayList, as well as the id of the passenger
-//
-//        for(int i = 0; i < passengerCapacity; i++)
-//        {//begin outer for loop
-//
-//            ArrayList<Integer> passengerBags = new ArrayList<>();
-//
-//            //assigning random int between 1 and 3 inclusive, determining the amount of times the inner loop will run, and the number of bags that will be created
-//
-//            int jCounter = random.nextInt(3) + 1;
-//
-//            //inner loop, "j" representing the creation of a passenger's bag, and the element of that bag in the bags ArrayList
-//            //bagWeight represents the weight of a passenger's bag in pounds, 50 being the upper limit. All bags are between 20 and 50 pounds inclusive at the moment
-//
-//            for (int j = 0; j < jCounter; j++)
-//            {//begin inner for loop
-//
-//                int bagWeight = 0;
-//
-//                bagWeight = random.nextInt(30)+20;
-//
-//                passengerBags.add(bagWeight);
-//
-//            }//end inner for loop
-//
-//            //creating the Passenger objects and adding them to the passengers ArrayList
-//
-//            Passenger passenger = new Passenger(flightNumber, flightNumber + "_" + (i+1), passengerBags);
-//
-//            passengers.add(passenger);
-//
-//        }//end outer for loop
-//
-//    }//end fillPlane
 
 }//end Plane class
