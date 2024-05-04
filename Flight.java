@@ -13,8 +13,6 @@ public class Flight
     public void setDepartureTime(int departureTime) {this.departureTime = departureTime;}
     private int departureTimeHour;
 
-    public int getDepartureTimeHour() {return departureTimeMin;}
-
     public void setDepartureTimeHour(int departureTimeHour) {
         this.departureTimeHour = departureTimeHour;
     }
@@ -34,10 +32,6 @@ public class Flight
     private int landingTimeMin;
 
     public void setLandingTimeMin(int landingTimeMin) {this.landingTimeMin = landingTimeMin;}
-
-    private int flightTime;
-
-    public void setFlightTime(int flightTime) {this.flightTime = flightTime;}
 
     //int variable number representing the flight number
     private int number;

@@ -518,8 +518,6 @@ public class Airport
 
         int departureTime = flight.getDepartureTime();
 
-        flight.setFlightTime(flightTime);
-
         int landingTime = (departureTime + flightTime);
 
         flight.setLandingTime(landingTime);
