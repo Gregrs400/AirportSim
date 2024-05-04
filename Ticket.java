@@ -2,32 +2,21 @@ package FinalProject;
 
 import java.text.DecimalFormat;
 
+// Originally written by Osama Aljamal
 
 public class Ticket {
 
     String ticketNum = "";
 
     public Ticket() {
-        ticketNum = formatter(ticketNum);
+        ticketNum = formatter();
     }
 
-    public String getTicketNum() {
-        return ticketNum;
-    }
-
-    public void setTicketNum(String ticketNum) {
-        formatter(ticketNum);
-        this.ticketNum = ticketNum;
-    }
-
-    public String formatter(String ticketNum) {
+    public String formatter() {
 
         DecimalFormat df = new DecimalFormat("#");
         df.setMaximumFractionDigits(0);
-        ticketNum = "1" + String.valueOf(df.format(Math.random() *1000000000000L));
-        return ticketNum;
+        return "1" + df.format(Math.random() * 1000000000000L);
     }
-
-
 
 }
