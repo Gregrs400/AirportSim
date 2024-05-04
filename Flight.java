@@ -73,9 +73,9 @@ public class Flight
 
     }
 
-    private flightStatus fs;
+    private final flightStatus fs;
 
-    private ArrayList<Passenger> paxWithTickets = new ArrayList<>();
+    private final ArrayList<Passenger> paxWithTickets = new ArrayList<>();
 
     public ArrayList<Passenger> getPaxWithTickets() {return paxWithTickets;}
 
@@ -100,25 +100,9 @@ public class Flight
     public boolean isSoldOut()
     {//begin isSoldOut
 
-        if(paxWithTickets.size() < plane.getPassengerCapacity())
-        {//begin if
-
-            return false;
-
-        }//end if
-        else
-        {//begin else
-
-            return true;
-
-        }//end else
+        return paxWithTickets.size() >= plane.getPassengerCapacity();
 
     }//end isSoldOut
-
-    public Flight()
-    {//begin Flight no args constructor
-
-    }//end Flight no args constructor
 
 
     //flight status enum to assign a flight status depending on the events of the flight
@@ -126,35 +110,25 @@ public class Flight
     enum flightStatus
     {//begin flightStatus enum
 
-        EARLY,
+        // EARLY,
         ONTIME,
-        DELAYED,
-        CANCELLED;
+        // DELAYED,
+        // CANCELLED
 
     }//end flightStatus enum
 
-    public int getSeatsTakenOnFlight() {return paxWithTickets.size();}
-
-    public void printFlight()
+    public String toString()
     {
 
-        System.out.println("\nFlight Number: " + number);
-
-        System.out.println("Origin: " + originAirport);
-
-        System.out.println("Destination: " + destination);
-
-        printTime("Departure", departureTimeHour, departureTimeMin, departureTime);
-
-        printTime("Landing", landingTimeHour, landingTimeMin, landingTime);
-
-        System.out.println("Gate: " + gate.getName());
-
-        System.out.println("Flight Status: " + fs);
+        return ("\nFlight Number: " + number + "\nOrigin: " + originAirport + "\nDestination: " + destination +
+                "\n" + formatTime("Departure", departureTimeHour, departureTimeMin, departureTime) +
+                "\n" + formatTime("Landing", landingTimeHour, landingTimeMin, landingTime) +
+                "\nGate: " + gate.getName() +
+                "\nFlight Status: " + fs);
 
     }
     
-    public void printTime(String status, int hour, int min, int time)
+    public String formatTime(String status, int hour, int min, int time)
     {//begin printTime
 
         String suffix, zero;
@@ -175,7 +149,7 @@ public class Flight
         if (hour > 12)
             hour -= 12;
 
-        System.out.println(status + " time: " + hour + ":" + zero + min + suffix);
+        return status + " time: " + hour + ":" + zero + min + suffix;
 
     }//end printTime
 
