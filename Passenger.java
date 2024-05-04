@@ -41,19 +41,13 @@ public class Passenger extends Person
 
     }//end getPassengerBags
 
-    public ArrayList<Integer> getBags() {return bags;}
-
-    public void setBags(ArrayList<Integer> bags) {this.bags = bags;}
-
     //placeholder int variable for Flight Numbers before they are passed in during passenger construction
 
-    private int flightNumber = 0;
+    private final int flightNumber;
 
     public int getFlightNumber() {return flightNumber;}
 
-    private String destination;
-
-    public String getDestination() {return destination;}
+    private final String destination;
 
     private int curbToCheckIn, checkInToSecurity, securityToGate, gateToPlane;
 
@@ -75,26 +69,24 @@ public class Passenger extends Person
     {//begin airportTravel enum
 
         DROPPED_OFF,
-        CHECKING_IN,
+        // CHECKING_IN,
         CHECKED_IN,
-        AT_SECURITY,
+        // AT_SECURITY,
         THROUGH_SECURITY,
-        WALKING_TO_GATE,
+        // WALKING_TO_GATE,
         AT_GATE,
-        BOARDING_PLANE
+        // BOARDING_PLANE
 
     }//end airportTravel enum
 
     airportTravel at;
 
-    private Gate gate;
-
-    private Ticket ticket;
+    private final Ticket ticket;
 
 
     //Passenger parameterized constructor, assigning each passenger a flight number, an id, and 1-3 bags inclusive
 
-    public Passenger(int flightNumber, String destination, String id, Gate gate)
+    public Passenger(int flightNumber, String destination, String id)
     {//begin Passenger parameterized constructor
 
         this.flightNumber = flightNumber;
@@ -102,7 +94,6 @@ public class Passenger extends Person
         setId(id);
         bags = generatePassengerBags();
         commuteThroughAirport();
-        this.gate = gate;
         ticket = new Ticket();
 
         curbToCheckIn = getCurbToCheckIn();
@@ -114,13 +105,6 @@ public class Passenger extends Person
 
 
     }//end Passenger parameterized constructor
-
-    //Passenger no args constructor to access values of a passenger
-
-    public Passenger()
-    {//begin Passenger default no args constructor
-
-    }//end Passenger default no args constructor
 
     //printPassenger to print information about a passenger
 
@@ -201,14 +185,5 @@ public class Passenger extends Person
         }//end if passenger is through security but not gotten to gate
 
     }//end movePassenger
-
-    //prints the enum currently set to the Passenger object
-
-    public void printPaxAirportStatus()
-    {//begin printPaxAirportStatus
-
-        System.out.println(at);
-
-    }//end printPaxAirportStatus
 
 }//end Passenger class
