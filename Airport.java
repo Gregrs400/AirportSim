@@ -262,18 +262,6 @@ public class Airport
 
             }//end if passengers are in airport
 
-            for(Gate gate : gates)
-            {//begin gate for each loop
-
-                if(gate.gs.equals(Gate.gateStatus.EMPTY))
-                {//begin if statement to cycle planes from deque that have left gates
-
-                    gate.nextPlane();
-
-                }//end if statement to cycle planes from deque that have left gates
-
-            }//end gate for each loop
-
             if(!(movingPlanes.get(min).isEmpty()))
             {//begin if statement checking for moving planes
 
@@ -312,7 +300,7 @@ public class Airport
             }while(ranFlight.isSoldOut());
 
             Passenger passenger = new Passenger(ranFlight.getNumber(), ranFlight.getDestination(), (ranFlight.getNumber() +
-                    "_" + (ranFlight.getPaxWithTickets().size() + 1)), ranFlight.getGate());
+                    "_" + (ranFlight.getPaxWithTickets().size() + 1)));
 
             paxInAirport.add(passenger);
 
