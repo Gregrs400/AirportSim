@@ -90,54 +90,6 @@ public class Airline
 
     }
 
-    //printFlightNumbers method to print any flight numbers in the flights ArrayList that match the destination in the call
-
-    public void printFlightNumbers(String destination)
-    {//begin printFlightNumbers
-
-        for(Flight flight : flights)
-        {//begin for loop
-
-            if(flight.getDestination().equals(destination))
-            {//begin if statement
-
-                System.out.println(flight.getNumber());
-
-            }//end if statement
-
-        }//end for loop
-
-    }//end printFlightNumbers
-
-    public void printFlightsWithSameDest(String destination)
-    {//begin printFlightsWithSameDest
-
-        for(Flight flight : flights)
-        {//begin for loop
-
-            if(flight.getDestination().equals(destination))
-            {//begin if statement
-
-                flight.printFlight();
-
-            }//end if statement
-
-        }//end for loop
-
-    }//end printFlightsWithSameDest
-
-    public void printAllFlights()
-    {
-
-        for(Flight flight : flights)
-        {
-
-            flight.printFlight();
-
-        }
-
-    }
-
     public int getPassengerTotal()
     {
 
@@ -155,32 +107,6 @@ public class Airline
 
         return passengerTotal;
 
-    }
-
-    public Passenger getPassengerOnFlight(int flightElement, int passengerElement)
-    {
-
-        return getFlights().get(flightElement).getPaxWithTickets().get(passengerElement);
-
-    }
-
-    public void printPaxWithSameDest(String destination)
-    {
-
-        for(Flight flight : flights)
-        {
-
-            if(flight.getDestination().equals(destination))
-            {
-
-                for(Passenger passenger : flight.getPaxWithTickets())
-                {
-
-                    passenger.printPassenger();
-
-                }
-            }
-        }
     }
 
     public Flight paxFlightFromNum(Passenger passenger)
