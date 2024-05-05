@@ -83,14 +83,6 @@ public class Airport
 
         newDay(airlineOne, airportLocation, paxInAirport);
 
-        Flight flight = airlineOne.getFlights().get(2);
-
-        //flight.printFlight();
-
-        Passenger passenger = flight.getPlane().getPassengers().get(2);
-
-        passenger.printPassenger();
-
         System.out.println("\nNum of Flights: " + airlineOne.getFlights().size());
 
         System.out.println("Total pax: " + airlineOne.getPassengerTotal());
