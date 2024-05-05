@@ -37,6 +37,7 @@ public class Gate
 
         setSeats(numOfSeats);
         setName(name);
+        gs = gateStatus.EMPTY;
 
     }//end Gate parameterized constructor
 
