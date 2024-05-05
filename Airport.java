@@ -117,11 +117,7 @@ public class Airport
         for(int i = 0; i < numOfGates; i++)
         {//begin gate declaration loop
 
-            Gate gate = new Gate(50, i+1 + "");
-
-            gate.gs = Gate.gateStatus.EMPTY;
-
-            gates.add(gate);
+            gates.add(new Gate(50, i+1 + ""));
 
         }//end gate declaration loop
 
