@@ -222,18 +222,8 @@ public class Airport
                         passengerUtility.movePassenger();
 
                     }//end if passenger needs to move
-
-                    if(passengerUtility.getSecurityToGate() == 0 && (!(passengerUtility.isAtGate())))
-                    {//begin if passenger can be added to gate
-
-                        if(paxGate.getPaxAtGate().size() < paxGate.getSeats())
+                    else if(paxGate.getPaxAtGate().size() < paxGate.getSeats())
                             paxGate.addPaxToGate(passengerUtility);
-
-                        passengerUtility.setAtGate(true);
-
-                        passengerUtility.at = Passenger.airportTravel.AT_GATE;
-
-                    }//end if passenger can be added to gate
 
                     if (passengerUtility.isAtGate() && ((min > (paxFlight.getDepartureTime() - 15)) && min < paxFlight.getDepartureTime()))
                     {//begin if passenger can board plane

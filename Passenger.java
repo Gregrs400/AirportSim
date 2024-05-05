@@ -59,11 +59,7 @@ public class Passenger extends Person
 
     public int getGateToPlane() {return gateToPlane;}
 
-    private boolean atGate = false;
-
-    public boolean isAtGate() {return atGate;}
-
-    public void setAtGate(boolean atGate) {this.atGate = atGate;}
+    public boolean isAtGate() {return at == airportTravel.AT_GATE;}
 
     enum airportTravel
     {//begin airportTravel enum
