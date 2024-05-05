@@ -134,48 +134,15 @@ public class Airport
         int minutes = 600;
         //flight generation loop
 
-        for (int i = 0; (minutes < 1000); i++)
+        while (minutes < 1000)
         {//begin flight generation loop
 
-            if(i < gates.size())
-            {//begin flight generator before all gates have been assigned
+            if(!(availableGates.isEmpty()))
+            {//begin flight generator
 
-                genFlightAndInfo(airLine, origin, minutes, gates.get(i));
+                genFlightAndInfo(airLine, origin, minutes+15, availableGates.get(minutes).get(0));
 
-                if(i > 0)
-                    for (int j = 0; j < i; j++)
-                    {//begin flight generator when previous gates will be empty
-
-                        if(minutes > gates.get(j).getLastPlane().getFlight().getDepartureTime() + 15)
-                            genFlightAndInfo(airLine, origin, minutes, gates.get(j));
-
-                    }//end flight generator when previous gates will be empty
-
-            }//end flight generator before all gates have been assigned
-
-            if(i > gates.size())
-            {//begin if all gates have been assigned a plane
-
-                for(Gate gate : gates)
-                {//begin additional flight creator
-
-                    if (!gate.planeQueue.isEmpty())
-                    {
-
-                        int gateFlightDepTime = gate.planeQueue.peekLast().getFlight().getDepartureTime();
-
-                        if(minutes > (gateFlightDepTime)+15)
-                        {//begin flight generator when gate will be empty for 15 min
-
-                            genFlightAndInfo(airLine, origin, minutes, gate);
-
-                        }//end flight generator when gate will be empty for 15 min
-
-                    }
-
-                }//end additional flight creator
-
-            }//end if all gates have been assigned a plane
+            }//end flight generator
 
             minutes += random.nextInt(10)+1;
 
