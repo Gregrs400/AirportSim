@@ -27,8 +27,6 @@ public class Airport
 
         numOfGates = 50;
 
-        // Integer ArrayList flightNumbers to be passed to the Airline class during Airline construction
-
         Airline airlineOne = getAirline();
 
         //determining location of airport and making flight times to other airports
@@ -516,11 +514,7 @@ public class Airport
 
         plane.setFlight(flight);
 
-        plane.setGate(flight.getGate());
-
         plane.setFlightTimes(flightTime);
-
-        plane.setAirline(airLine);
 
         for(int i = departureTime; i <= landingTime; i++)
         {//begin movingPlanes addition for loop
