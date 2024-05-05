@@ -182,6 +182,13 @@ public class Passenger extends Person
 
             securityToGate--;
 
+            if(securityToGate == 0)
+            {
+
+                at = airportTravel.AT_GATE;
+
+            }
+
         }//end if passenger is through security but not gotten to gate
 
     }//end movePassenger
