@@ -104,26 +104,24 @@ public class Passenger extends Person
 
     //printPassenger to print information about a passenger
 
-    public void printPassenger()
-    {//begin printPassenger
+    public String toString()
+    {//begin Passenger toString
 
-        System.out.println("\nPassenger Flight Number: " + flightNumber);
+        String paxInfo = "\nPassenger Flight Number: " + flightNumber + "\nPassenger ID: " + getId() +
+        "\nTicket Number: " + ticket.ticketNum + "\nPassenger destination: " + destination;
 
-        System.out.println("Passenger ID: " + getId());
-
-        System.out.println("Ticket Number: " + ticket.ticketNum);
-
-        System.out.println("Passenger destination: " + destination);
+        StringBuilder paxBags = new StringBuilder();
 
         for(int i = 0; i < bags.size(); i++)
         {//begin for loop to print all passenger's bag weights
 
-            System.out.println("Bag " + (i+1) + " Weight: " + bags.get(i) + " pounds");
+            paxBags.append("\nBag ").append(i + 1).append(" Weight: ").append(bags.get(i)).append(" pounds");
 
         }//end for loop to print all passenger's bag weights
 
+        return paxInfo + paxBags;
 
-    }//end printPassenger
+    }//end Passenger toString()
 
     /* commuteThroughAirport generates durations for each stage of
     a passenger getting from the curb to the gate of their airport */
