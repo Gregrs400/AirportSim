@@ -29,6 +29,15 @@ public class Airport
 
         numOfGates = 50;
 
+        //create gates
+
+        for(int i = 0; i < numOfGates; i++)
+        {//begin gate declaration loop
+
+            gates.add(new Gate(50, i+1 + ""));
+
+        }//end gate declaration loop
+
         Airline airlineOne = getAirline();
 
         //determining location of airport and making flight times to other airports
@@ -116,15 +125,6 @@ public class Airport
 
     public static void newDay(Airline airLine, String origin, ArrayList<Passenger> paxInAirport)
     {//begin newDay
-
-        //create gates
-
-        for(int i = 0; i < numOfGates; i++)
-        {//begin gate declaration loop
-
-            gates.add(new Gate(50, i+1 + ""));
-
-        }//end gate declaration loop
 
         //Passenger class object for accessing and updating passengers
 
