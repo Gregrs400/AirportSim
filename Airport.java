@@ -499,6 +499,13 @@ public class Airport
 
         plane.setFlightTimes(flightTime);
 
+        for(int i = departureTime-15; i < departureTime; i++)
+        {
+
+            availableGates.get(i).remove(gate);
+
+        }
+
         for(int i = departureTime; i <= landingTime; i++)
         {//begin movingPlanes addition for loop
 
