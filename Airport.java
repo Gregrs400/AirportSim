@@ -50,6 +50,7 @@ public class Airport
         {
 
             movingPlanes.add(new ArrayList<>());
+            availableGates.add(new ArrayList<>());
 
         }
 
