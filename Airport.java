@@ -60,6 +60,7 @@ public class Airport
 
             movingPlanes.add(new ArrayList<>());
             availableGates.add(new ArrayList<>());
+            availableGates.get(i).add(gates.get(i));
 
         }
 
