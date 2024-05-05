@@ -20,6 +20,8 @@ public class Airport
 
     static ArrayList<ArrayList<Flight>> movingPlanes = new ArrayList<>();
 
+    static ArrayList<ArrayList<Gate>> availableGates = new ArrayList<>();
+
     static int numOfGates;
 
     public static void main(String[] args)
