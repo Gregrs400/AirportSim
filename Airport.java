@@ -114,6 +114,8 @@ public class Airport
     public static void newDay(Airline airLine, String origin, ArrayList<Passenger> paxInAirport)
     {//begin newDay
 
+        //create gates
+
         for(int i = 0; i < numOfGates; i++)
         {//begin gate declaration loop
 
