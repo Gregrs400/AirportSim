@@ -59,7 +59,7 @@ public class Airport
         {
 
             movingPlanes.add(new ArrayList<>());
-            availableGates.add(gates);
+                availableGates.add(new ArrayList<>(gates));
 
         }
 
@@ -136,7 +136,7 @@ public class Airport
         while (minutes < 1000)
         {//begin flight generation loop
 
-            if(!(availableGates.get(minutes).isEmpty()))
+            while(!(availableGates.get(minutes).isEmpty()))
             {//begin flight generator
 
                 genFlightAndInfo(airLine, origin, minutes+15, availableGates.get(minutes).get(0));
