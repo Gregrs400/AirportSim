@@ -130,10 +130,9 @@ public class Airport
 
         Passenger passengerUtility;
 
-        int minutes = 600;
         //flight generation loop
 
-        while (minutes < 1000)
+        for (int minutes = 600; minutes < 1000; minutes++)
         {//begin flight generation loop
 
             while(!(availableGates.get(minutes).isEmpty()))
@@ -142,8 +141,6 @@ public class Airport
                 genFlightAndInfo(airLine, origin, minutes+15, availableGates.get(minutes).get(0));
 
             }//end flight generator
-
-            minutes += random.nextInt(10)+1;
 
         }//end flight generation loop
 
