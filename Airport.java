@@ -20,12 +20,23 @@ public class Airport
 
     static ArrayList<ArrayList<Flight>> movingPlanes = new ArrayList<>();
 
+    static ArrayList<ArrayList<Gate>> availableGates = new ArrayList<>();
+
     static int numOfGates;
 
     public static void main(String[] args)
     {//begin main method
 
         numOfGates = 50;
+
+        //create gates
+
+        for(int i = 0; i < numOfGates; i++)
+        {//begin gate declaration loop
+
+            gates.add(new Gate(50, i+1 + ""));
+
+        }//end gate declaration loop
 
         Airline airlineOne = getAirline();
 
@@ -48,6 +59,7 @@ public class Airport
         {
 
             movingPlanes.add(new ArrayList<>());
+                availableGates.add(new ArrayList<>(gates));
 
         }
 
@@ -114,66 +126,21 @@ public class Airport
     public static void newDay(Airline airLine, String origin, ArrayList<Passenger> paxInAirport)
     {//begin newDay
 
-        //create gates
-
-        for(int i = 0; i < numOfGates; i++)
-        {//begin gate declaration loop
-
-            gates.add(new Gate(50, i+1 + ""));
-
-        }//end gate declaration loop
-
         //Passenger class object for accessing and updating passengers
 
         Passenger passengerUtility;
 
-        int minutes = 600;
         //flight generation loop
 
-        for (int i = 0; (minutes < 1000); i++)
+        for (int minutes = 600; minutes < 1000; minutes++)
         {//begin flight generation loop
 
-            if(i < gates.size())
-            {//begin flight generator before all gates have been assigned
+            while(!(availableGates.get(minutes).isEmpty()))
+            {//begin flight generator
 
-                genFlightAndInfo(airLine, origin, minutes, gates.get(i));
+                genFlightAndInfo(airLine, origin, minutes+15, availableGates.get(minutes).get(0));
 
-                if(i > 0)
-                    for (int j = 0; j < i; j++)
-                    {//begin flight generator when previous gates will be empty
-
-                        if(minutes > gates.get(j).getLastPlane().getFlight().getDepartureTime() + 15)
-                            genFlightAndInfo(airLine, origin, minutes, gates.get(j));
-
-                    }//end flight generator when previous gates will be empty
-
-            }//end flight generator before all gates have been assigned
-
-            if(i > gates.size())
-            {//begin if all gates have been assigned a plane
-
-                for(Gate gate : gates)
-                {//begin additional flight creator
-
-                    if (!gate.planeQueue.isEmpty())
-                    {
-
-                        int gateFlightDepTime = gate.planeQueue.peekLast().getFlight().getDepartureTime();
-
-                        if(minutes > (gateFlightDepTime)+15)
-                        {//begin flight generator when gate will be empty for 15 min
-
-                            genFlightAndInfo(airLine, origin, minutes, gate);
-
-                        }//end flight generator when gate will be empty for 15 min
-
-                    }
-
-                }//end additional flight creator
-
-            }//end if all gates have been assigned a plane
-
-            minutes += random.nextInt(10)+1;
+            }//end flight generator
 
         }//end flight generation loop
 
@@ -495,6 +462,13 @@ public class Airport
         plane.setFlight(flight);
 
         plane.setFlightTimes(flightTime);
+
+        for(int i = departureTime-15; i < departureTime; i++)
+        {
+
+            availableGates.get(i).remove(gate);
+
+        }
 
         for(int i = departureTime; i <= landingTime; i++)
         {//begin movingPlanes addition for loop
