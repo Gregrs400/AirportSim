@@ -63,8 +63,6 @@ public class Airport
 
         }
 
-        fillDestMap(destMap);
-
         String airportLocation = "Seattle";
 
         int[] originCoords = findAirportCoords(airportLocation);
@@ -274,87 +272,6 @@ public class Airport
         return minutes % 60;
 
     }
-
-    public static void fillDestMap(ArrayList<ArrayList<ArrayList<String>>> destMap)
-    {//begin fillDestMap
-
-        // "Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
-
-        destMap.get(8).get(12).add("Miami");
-        destMap.get(5).get(12).add("Charlotte");
-        destMap.get(3).get(13).add("Harrisburg");
-        destMap.get(4).get(13).add("Washington DC");
-        destMap.get(4).get(13).add("Baltimore");
-        destMap.get(8).get(12).add("Jacksonville");
-
-        // "Indianapolis", "Fort Lauderdale", "Savannah", "Roanoke", "Detroit", "Tampa", "Atlanta", "Orlando",
-
-        destMap.get(4).get(11).add("Indianapolis");
-        destMap.get(8).get(12).add("Fort Lauderdale");
-        destMap.get(7).get(12).add("Savannah");
-        destMap.get(4).get(12).add("Roanoke");
-        destMap.get(3).get(11).add("Detroit");
-        destMap.get(7).get(12).add("Tampa");
-        destMap.get(6).get(11).add("Atlanta");
-        destMap.get(7).get(12).add("Orlando");
-
-        // "Los Angeles", "Denver", "San Francisco", "West Palm Beach", "San Jose", "Seattle", "Portland", "Dallas",
-
-        destMap.get(6).get(2).add("Los Angeles");
-        destMap.get(4).get(5).add("Denver");
-        destMap.get(4).get(0).add("San Francisco");
-        destMap.get(8).get(12).add("West Palm Beach");
-        destMap.get(4).get(1).add("San Jose");
-        destMap.get(1).get(1).add("Seattle");
-        destMap.get(1).get(0).add("Portland");
-        destMap.get(6).get(8).add("Dallas");
-
-        // "Austin", "Houston", "Daytona Beach", "Newark", "New York City", "Cincinnati", "Des Moines", "San Diego",
-
-        destMap.get(7).get(7).add("Austin");
-        destMap.get(7).get(8).add("Houston");
-        destMap.get(7).get(12).add("Daytona Beach");
-        destMap.get(3).get(14).add("Newark");
-        destMap.get(3).get(14).add("New York City");
-        destMap.get(4).get(11).add("Cincinnati");
-        destMap.get(3).get(8).add("Des Moines");
-        destMap.get(6).get(2).add("San Diego");
-
-        // "Minneapolis", "Phoenix", "Las Vegas", "Boston", "Philadelphia", "Nashville", "Chicago",
-
-        destMap.get(2).get(9).add("Minneapolis");
-        destMap.get(6).get(3).add("Phoenix");
-        destMap.get(5).get(3).add("Las Vegas");
-        destMap.get(3).get(15).add("Boston");
-        destMap.get(3).get(13).add("Philadelphia");
-        destMap.get(5).get(10).add("Nashville");
-        destMap.get(3).get(10).add("Chicago");
-
-        // "Key West", "New Orleans", "Birmingham", "Albuquerque", "Oklahoma City", "St. Louis", "Kansas City",
-
-        destMap.get(8).get(12).add("Key West");
-        destMap.get(7).get(9).add("New Orleans");
-        destMap.get(6).get(10).add("Birmingham");
-        destMap.get(5).get(5).add("Albuquerque");
-        destMap.get(5).get(7).add("Oklahoma City");
-        destMap.get(4).get(9).add("St. Louis");
-        destMap.get(4).get(8).add("Kansas City");
-
-        // "Milwaukee", "Boise", "San Antonio", "Jackson", "Memphis", "Huntsville", "Fort Meyers", "Louisville",
-
-        destMap.get(2).get(10).add("Milwaukee");
-        destMap.get(2).get(2).add("Boise");
-        destMap.get(6).get(9).add("Jackson");
-        destMap.get(5).get(9).add("Memphis");
-        destMap.get(5).get(10).add("Huntsville");
-        destMap.get(8).get(12).add("Fort Meyers");
-        destMap.get(4).get(11).add("Louisville");
-
-        // "Green Bay"
-
-        destMap.get(2).get(10).add("Green Bay");
-
-    }//end fillDestMap
 
     public static int[] findAirportCoords(String city)
     {
