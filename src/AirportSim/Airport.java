@@ -12,8 +12,6 @@ public class Airport
 
     static Random random = new Random();
 
-    static ArrayList<ArrayList<Integer>> flightTimes = new ArrayList<>();
-
     static ArrayList<Gate> gates = new ArrayList<>();
 
     static ArrayList<ArrayList<Flight>> movingPlanes = new ArrayList<>();
