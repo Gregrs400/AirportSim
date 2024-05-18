@@ -12,8 +12,6 @@ public class Airport
 
     static Random random = new Random();
 
-    static ArrayList<ArrayList<ArrayList<String>>> destMap = new ArrayList<>();
-
     static ArrayList<ArrayList<Integer>> flightTimes = new ArrayList<>();
 
     static ArrayList<Gate> gates = new ArrayList<>();
@@ -40,21 +38,6 @@ public class Airport
 
         Airline airlineOne = getAirline();
 
-        //determining location of airport and making flight times to other airports
-
-        for(int i = 0; i < 9; i++) {
-
-            destMap.add(new ArrayList<>());
-
-            for(int j = 0; j < 16; j++)
-            {
-
-                destMap.get(i).add(new ArrayList<>());
-
-            }
-
-        }
-
         for(int i = 0; i < 2880; i++)
         {
 
@@ -65,13 +48,7 @@ public class Airport
 
         String airportLocation = "Seattle";
 
-        int[] originCoords = findAirportCoords(airportLocation);
-
         airlineOne.removeFromDestinations(airportLocation);
-
-        int[] mapSize = {destMap.size(), destMap.get(0).size()};
-
-        generateFlightTimesAL(originCoords, mapSize);
 
         //creating a plane, plane1, with 50 passenger capacity
 
@@ -273,88 +250,6 @@ public class Airport
 
     }
 
-    public static int[] findAirportCoords(String city)
-    {
-
-        int[] airportCoords = new int[2];
-
-        int destRow = -1;
-        int destColumn = -1;
-
-        int row = 0;
-        int column;
-
-        do
-        {
-
-            column = 0;
-
-            do
-            {
-
-                if(destMap.get(row).get(column).contains(city))
-                {
-
-                    destRow = row;
-                    destColumn = column;
-
-                    airportCoords[0] = row;
-                    airportCoords[1] = column;
-
-                }
-
-                column++;
-
-            }while(destColumn == -1 && column < destMap.get(row).size());
-
-            row++;
-
-        }while(destRow == -1 && row < destMap.size());
-
-        return airportCoords;
-
-    }
-
-    public static int generateLandingTime(String destination)
-    {
-
-        int[] destCoords = findAirportCoords(destination);
-
-        return flightTimes.get(destCoords[0]).get(destCoords[1]);
-
-    }
-
-    public static void generateFlightTimesAL(int[] originCoords, int[] mapSize)
-    {
-
-        for(int i = 0; i < mapSize[0]; i++)
-        {
-
-            flightTimes.add(new ArrayList<>());
-
-        }
-        for(int row = 0; row < mapSize[0]; row++)
-        {
-
-            for (int col = 0; col < mapSize[1]; col++)
-            {
-
-                 int flightDistanceLat = Math.abs((row-originCoords[0]));
-                 int flightDistanceLong = Math.abs((col-originCoords[1]));
-
-                 int flightTime = (int) Math.round(Math.sqrt(Math.pow(((30) * flightDistanceLat),2)+(Math.pow(((30) * flightDistanceLong),2))));
-
-                 if(flightTime == 0)
-                     flightTime = 30;
-
-                 flightTimes.get(row).add(flightTime);
-
-            }
-
-        }
-
-    }
-
     //method for creating flights, and setting the other fields associated with the Flight
 
     public static void genFlightAndInfo(Airline airLine, String origin, int minutes, Gate gate)
@@ -364,7 +259,7 @@ public class Airport
 
         Flight flight = airLine.generateFlight(plane, origin, getHour(minutes), getMin(minutes), minutes, gate);
 
-        int flightTime = generateLandingTime(flight.getDestination());
+        int flightTime = 0;
 
         int departureTime = flight.getDepartureTime();
 
