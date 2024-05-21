@@ -1,0 +1,29 @@
+Multiple Airport program run process
+
+- First passengers generated
+    - need to get to gate in time to get on plane
+
+- Planes get to gates
+
+- Planes have flights generated per day
+
+- Flights store the time they end, so next flight can be generated from that point
+
+- All Passengers for day created before they enter airport, in 2d ArrayList
+    - get transferred to paxInAirport when they arrive
+    - passenger generation based on flights that will leave within the next 4 hours, stored in ArrayList
+    - flights will be deleted from ArrayList as they fill up
+    - need to figure out maximum time needed to get to gate, to determine minimum time of flight departure for passenger assignment
+
+- Flights generated
+- ArrayList of flights passed to paxArrival for generating movingPax 2d ArrayList
+- Passengers generated, put in a Passenger master ArrayList, and in movingPax ArrayList
+
+Different way to handle updating objects
+
+- if object has not made it to destination, whatever that is, keep in list, being updated
+- reduces copies and makes program run faster
+- Problem: making a shallow copy
+    - use Object object = new Object();
+    - Object cloneObject = new Object(object);
+
