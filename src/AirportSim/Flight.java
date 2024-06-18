@@ -42,15 +42,15 @@ public class Flight
 
     //String object destination representing the destination of the flight
 
-    private String destination;
+    private Airport destination;
 
-    public String getDestination() {return destination;}
+    public Airport getDestination() {return destination;}
 
-    public void setDestination(String destination) {this.destination = destination;}
+    public void setDestination(Airport destination) {this.destination = destination;}
 
-    private String originAirport;
+    private Airport originAirport;
 
-    public void setOriginAirport(String originAirport) {this.originAirport = originAirport;}
+    public void setOriginAirport(Airport originAirport) {this.originAirport = originAirport;}
 
     //Plane object being used for Flight parameterized constructor
 
@@ -81,7 +81,18 @@ public class Flight
 
     //Flight parameterized constructor, assigning a plane, a destination, a number, and the departure time of each flight
 
-    public Flight(Plane plane, String destination, String originAirport, int number, int departureTimeHour, int departureTimeMin, int departureTime, Gate gate)
+    public Flight(Plane plane, Airport destination, Airport originAirport, int number)
+    {//begin Flight parameterized constructor
+
+        setPlane(plane);
+        setDestination(destination);
+        setOriginAirport(originAirport);
+        setNumber(number);
+        fs = flightStatus.ONTIME;
+
+    }//end Flight parameterized constructor
+
+    public Flight(Plane plane, Airport destination, Airport originAirport, int number, int departureTimeHour, int departureTimeMin, int departureTime, Gate gate)
     {//begin Flight parameterized constructor
 
         setPlane(plane);
@@ -96,6 +107,21 @@ public class Flight
         fs = flightStatus.ONTIME;
 
     }//end Flight parameterized constructor
+
+    // copy constructor
+
+    public Flight(Flight anotherFlight)
+    {
+
+        this(anotherFlight.plane, anotherFlight.destination, anotherFlight.originAirport,
+                anotherFlight.number, anotherFlight.departureTimeHour, anotherFlight.departureTimeMin,
+                anotherFlight.departureTime, anotherFlight.gate);
+        this.landingTime = anotherFlight.landingTime;
+        this.landingTimeHour = anotherFlight.landingTimeHour;
+        this.landingTimeMin = anotherFlight.landingTimeMin;
+        this.gate = anotherFlight.gate;
+
+    }
 
     public boolean isSoldOut()
     {//begin isSoldOut
