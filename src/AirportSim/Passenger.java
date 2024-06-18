@@ -6,7 +6,7 @@ import java.util.Random;
 public class Passenger extends Person
 {//begin Passenger class
 
-    Random random = new Random();
+    private final Random random = new Random();
 
     //Integer ArrayList storing the weights of passengers' bags
 
@@ -47,9 +47,11 @@ public class Passenger extends Person
 
     public int getFlightNumber() {return flightNumber;}
 
-    private final String destination;
+    private final Airport destination;
 
     private int curbToCheckIn, checkInToSecurity, securityToGate, gateToPlane;
+
+    private final int airportArrivalTime;
 
     public int getCurbToCheckIn() {return curbToCheckIn;}
 
@@ -79,18 +81,17 @@ public class Passenger extends Person
 
     private final Ticket ticket;
 
-
     //Passenger parameterized constructor, assigning each passenger a flight number, an id, and 1-3 bags inclusive
 
-    public Passenger(int flightNumber, String destination, String id)
+    public Passenger(Flight flight, String id)
     {//begin Passenger parameterized constructor
 
-        this.flightNumber = flightNumber;
-        this.destination = destination;
+        this.flightNumber = flight.getNumber();
+        this.destination = flight.getDestination();
         setId(id);
         bags = generatePassengerBags();
         commuteThroughAirport();
-        ticket = new Ticket();
+        ticket = new Ticket(flight);
 
         curbToCheckIn = getCurbToCheckIn();
         checkInToSecurity = getCheckInToSecurity();
@@ -99,8 +100,20 @@ public class Passenger extends Person
 
         at = airportTravel.DROPPED_OFF;
 
+        int arrivalTime = flight.getDepartureTime()-(curbToCheckIn + checkInToSecurity + securityToGate + gateToPlane);
+        if (arrivalTime < 0){ arrivalTime = 0; }
+
+        this.airportArrivalTime = arrivalTime;
+
 
     }//end Passenger parameterized constructor
+
+    public Passenger(Passenger originalPassenger)
+    {
+
+        this(originalPassenger.ticket.getFlight(), originalPassenger.getId());
+
+    }
 
     //printPassenger to print information about a passenger
 
