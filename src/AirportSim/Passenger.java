@@ -81,6 +81,10 @@ public class Passenger extends Person
 
     private final Ticket ticket;
 
+    public Ticket getTicket() {
+        return ticket;
+    }
+
     //Passenger parameterized constructor, assigning each passenger a flight number, an id, and 1-3 bags inclusive
 
     public Passenger(Flight flight, String id)
