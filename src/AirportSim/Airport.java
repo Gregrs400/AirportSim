@@ -25,9 +25,29 @@ public class Airport
 
     private final String airportLocation;
 
+    private double latitude;
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    private double longitude;
+
+    public double getLongitude() {
+        return longitude;
+    }
+
     private final ArrayList<Flight> departures = new ArrayList<>();
 
+    public ArrayList<Flight> getDepartures() {
+        return departures;
+    }
+
     private final ArrayList<Flight> arrivals = new ArrayList<>();
+
+    public ArrayList<Flight> getArrivals() {
+        return arrivals;
+    }
 
     public Airport(String location, int numOfGates)
     {
@@ -219,16 +239,6 @@ public class Airport
 
         return !availableGates.get(minutes).isEmpty();
 
-    }
-
-    public void addToDepartures(Flight flight)
-    {
-        departures.add(flight);
-    }
-
-    public void addToArrivals(Flight flight)
-    {
-        arrivals.add(flight);
     }
 
 }//end Airport class
