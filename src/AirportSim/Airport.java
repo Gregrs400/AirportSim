@@ -49,10 +49,12 @@ public class Airport
         return arrivals;
     }
 
-    public Airport(String location, int numOfGates)
+    public Airport(String location, double latitude, double longitude, int numOfGates)
     {
 
         airportLocation = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.numOfGates = numOfGates;
         for(int i = 0; i < numOfGates; i++)
         {//begin gate declaration loop
@@ -75,7 +77,8 @@ public class Airport
     public Airport(Airport anotherAirport)
     {
 
-        this(anotherAirport.airportLocation, anotherAirport.numOfGates);
+        this(anotherAirport.airportLocation, anotherAirport.getLatitude(),
+                anotherAirport.getLongitude(), anotherAirport.numOfGates);
 
     }
 
