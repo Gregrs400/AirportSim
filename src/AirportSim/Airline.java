@@ -114,6 +114,9 @@ public class Airline
 
         flights.add(flight);
 
+        addFlightToDepartures(origin, flight);
+        addFlightToArrivals(destination, flight);
+
         flightNumToFlight.put(flight.getNumber(), flight);
 
         return flight;
@@ -209,5 +212,19 @@ public class Airline
         destinations.remove(destination);
 
     }//end removeFromDestinations
+
+    public void addFlightToDepartures(Airport origin, Flight flight)
+    {
+
+        origin.getDepartures().add(flight);
+
+    }
+
+    public void addFlightToArrivals(Airport destination, Flight flight)
+    {
+
+        destination.getArrivals().add(flight);
+
+    }
 
 }//end Airline class
