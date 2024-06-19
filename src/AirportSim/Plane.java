@@ -1,6 +1,8 @@
 package AirportSim;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Plane
 {//begin Plane class
@@ -25,16 +27,18 @@ public class Plane
 
     private int taxiingToRunwayTime, takingOffTime, enRouteTime, descendingTime, landingTime, taxiingToGateTime;
 
-    private Flight flight;
+    private Flight currentFlight;
 
-    public Flight getFlight(){return flight;}
+    public Flight getCurrentFlight(){return currentFlight;}
 
-    public void setFlight(Flight flight)
+    public void setCurrentFlight(Flight currentFlight)
     {
 
-        this.flight = flight;
+        this.currentFlight = currentFlight;
 
     }
+
+    Queue<Flight> flightQueue = new LinkedList<>();
 
     public void setFlightTimes(int flightTime)
     {
@@ -125,6 +129,13 @@ public class Plane
         passengers.add(passenger);
 
     }//end addPaxToPlane
+
+    public void addFlightToQueue(Flight flight)
+    {
+
+        flightQueue.add(flight);
+
+    }
 
     public void movePlane()
     {
