@@ -1,7 +1,6 @@
 package AirportSim;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Airport
@@ -10,122 +9,82 @@ public class Airport
     //Random object used to create flights, picking from the destinations ArrayList randomly
         //declared outside main method to be used in any method
 
-    static Random random = new Random();
+    private final Random random = new Random();
 
-    static ArrayList<Gate> gates = new ArrayList<>();
+    private final Time time = new Time();
 
-    static ArrayList<ArrayList<Flight>> movingPlanes = new ArrayList<>();
+    private final ArrayList<Gate> gates = new ArrayList<>();
 
-    static ArrayList<ArrayList<Gate>> availableGates = new ArrayList<>();
+    private final ArrayList<ArrayList<Gate>> availableGates = new ArrayList<>();
 
-    static int numOfGates;
+    private final ArrayList<Passenger> paxInAirport = new ArrayList<>();
 
-    public static void main(String[] args)
-    {//begin main method
+    private final ArrayList<Passenger> activePax = new ArrayList<>();
 
-        numOfGates = 50;
+    private final int numOfGates;
 
-        //create gates
+    private final String airportLocation;
 
+    private final ArrayList<Flight> departures = new ArrayList<>();
+
+    private final ArrayList<Flight> arrivals = new ArrayList<>();
+
+    public Airport(String location, int numOfGates)
+    {
+
+        airportLocation = location;
+        this.numOfGates = numOfGates;
         for(int i = 0; i < numOfGates; i++)
         {//begin gate declaration loop
 
             gates.add(new Gate(50, i+1 + ""));
 
         }//end gate declaration loop
-
-        Airline airlineOne = getAirline();
-
-        for(int i = 0; i < 2880; i++)
+        for(int i = 0; i < 1440; i++)
         {
 
-            movingPlanes.add(new ArrayList<>());
-                availableGates.add(new ArrayList<>(gates));
+            availableGates.add(new ArrayList<>(gates));
+            activePax.add(null);
 
         }
 
-        String airportLocation = "Seattle";
+    }
 
-        airlineOne.removeFromDestinations(airportLocation);
+    // Airport copy constructor
 
-        //creating a plane, plane1, with 50 passenger capacity
+    public Airport(Airport anotherAirport)
+    {
 
-        Plane plane1 = new Plane(50);
-
-        //adding plane1 to airlineOne's fleet
-
-        airlineOne.addPlane(plane1);
-
-        //creating a plane, plane2, with 100 passenger capacity
-
-        Plane plane2 = new Plane(100);
-
-        //adding plane2 to airlineOne's fleet
-
-        airlineOne.addPlane(plane2);
-
-        ArrayList<Passenger> paxInAirport = new ArrayList<>();
-
-        newDay(airlineOne, airportLocation, paxInAirport);
-
-        System.out.println("\nNum of Flights: " + airlineOne.getFlights().size());
-
-        System.out.println("Total pax: " + airlineOne.getPassengerTotal());
-
-    }//end main method
-
-    private static Airline getAirline() {
-        ArrayList<Integer> flightNumbers = new ArrayList<>();
-
-        //String ArrayList alOneDestinations, representing the destinations served by Airline One
-
-        //Adding the destinations for Airline One to the alOneDestinations ArrayList
-
-        ArrayList<String> alOneDestinations = new ArrayList<>(Arrays.asList("Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
-                "Indianapolis", "Fort Lauderdale", "Savannah", "Roanoke", "Detroit", "Tampa", "Atlanta", "Orlando",
-                "Los Angeles", "Denver", "San Francisco", "West Palm Beach", "San Jose", "Seattle", "Portland", "Dallas",
-                "Austin", "Houston", "Daytona Beach", "Newark", "New York City", "Cincinnati", "Des Moines", "San Diego",
-                "Minneapolis", "Phoenix", "Las Vegas", "Boston", "Philadelphia", "Nashville", "Chicago",
-                "Key West", "New Orleans", "Birmingham", "Albuquerque", "Oklahoma City", "St. Louis", "Kansas City",
-                "Milwaukee", "Boise", "San Antonio", "Jackson", "Memphis", "Huntsville", "Fort Meyers", "Louisville",
-                "Green Bay"));
-
-        //Creating the Airline object for Airline One, passing the destinations and flightNumbers ArrayLists
-
-        return new Airline(alOneDestinations, flightNumbers);
+        this(anotherAirport.airportLocation, anotherAirport.numOfGates);
 
     }
 
-    public static void newDay(Airline airLine, String origin, ArrayList<Passenger> paxInAirport)
-    {//begin newDay
+    public void updateAirport()
+    {
+
+        //actual airport operations loop
 
         //Passenger class object for accessing and updating passengers
 
         Passenger passengerUtility;
 
-        //flight generation loop
+        int paxGenerated = 0;
+        int paxBeingGenerated = 300;
+        int totalPaxCapacity = 0;
 
-        for (int minutes = 600; minutes < 1000; minutes++)
-        {//begin flight generation loop
+        for (Flight flight : departures)
+        {
 
-            while(!(availableGates.get(minutes).isEmpty()))
-            {//begin flight generator
+            totalPaxCapacity += flight.getPlane().getPassengerCapacity();
 
-                genFlightAndInfo(airLine, origin, minutes+15, availableGates.get(minutes).get(0));
+        }
 
-            }//end flight generator
+        for (Flight flight : arrivals)
+        {
 
-        }//end flight generation loop
+            totalPaxCapacity += flight.getPlane().getPassengerCapacity();
 
-        //actual airport operations loop
-
-        int paxGenerated, paxBeingGenerated;
-
-        paxGenerated = 0;
-
-        paxBeingGenerated = 300;
-
-        int totalPaxCapacity = airLine.getFlights().size() * 50;
+        }
 
         for (int min = 0; min < 1440; min++)
         {//begin outer for loop
@@ -136,7 +95,7 @@ public class Airport
                 if(totalPaxCapacity - paxGenerated < paxBeingGenerated)
                     paxBeingGenerated = totalPaxCapacity - paxGenerated;
 
-                paxArrival(airLine, paxInAirport, paxBeingGenerated);
+                paxArrival(paxInAirport, paxBeingGenerated);
 
                 paxGenerated += paxBeingGenerated;
 
@@ -150,7 +109,7 @@ public class Airport
 
                     passengerUtility = paxInAirport.get(paxElement);
 
-                    Flight paxFlight = airLine.paxFlightFromNum(passengerUtility);
+                    Flight paxFlight = passengerUtility.getTicket().getFlight();
 
                     Plane paxPlane = paxFlight.getPlane();
 
@@ -163,7 +122,7 @@ public class Airport
 
                     }//end if passenger needs to move
                     else if(paxGate.getPaxAtGate().size() < paxGate.getSeats())
-                            paxGate.addPaxToGate(passengerUtility);
+                        paxGate.addPaxToGate(passengerUtility);
 
                     if (passengerUtility.isAtGate() && ((min > (paxFlight.getDepartureTime() - 15)) && min < paxFlight.getDepartureTime()))
                     {//begin if passenger can board plane
@@ -180,30 +139,14 @@ public class Airport
 
             }//end if passengers are in airport
 
-            if(!(movingPlanes.get(min).isEmpty()))
-            {//begin if statement checking for moving planes
-
-                for(int j = 0; j < movingPlanes.get(min).size(); j++)
-                {//begin for loop that moves planes in movingPlanes
-
-                    Flight flight = movingPlanes.get(min).get(j);
-
-                    Plane flightPlane = flight.getPlane();
-
-                    flightPlane.movePlane();
-
-                }//end for loop that moves planes in movingPlanes
-
-            }//end if statement to move planes
-
         }//end outer for loop
 
-    }//end newDay
+    }
 
-    public static void paxArrival(Airline airline, ArrayList<Passenger> paxInAirport, int pax)
+    public void paxArrival(ArrayList<Passenger> paxInAirport, int pax)
     {
 
-        ArrayList<Flight> airlineFlights = airline.getFlights();
+        ArrayList<Flight> flightsWithEmptySeats = new ArrayList<>(departures);
 
         for (int i = 0; i < pax; i++)
         {//begin for loop
@@ -213,11 +156,18 @@ public class Airport
             do
             {
 
-                ranFlight = airlineFlights.get(random.nextInt(airline.getFlights().size()));
+                ranFlight = flightsWithEmptySeats.get(random.nextInt(flightsWithEmptySeats.size()));
+
+                if (ranFlight.isSoldOut())
+                {
+
+                    flightsWithEmptySeats.remove(ranFlight);
+
+                }
 
             }while(ranFlight.isSoldOut());
 
-            Passenger passenger = new Passenger(ranFlight.getNumber(), ranFlight.getDestination(), (ranFlight.getNumber() +
+            Passenger passenger = new Passenger(ranFlight, (ranFlight.getNumber() +
                     "_" + (ranFlight.getPaxWithTickets().size() + 1)));
 
             paxInAirport.add(passenger);
@@ -228,34 +178,14 @@ public class Airport
 
     }//end paxArrival
 
-    public static int getHour(int minutes)
-    {
-
-        if(minutes > 1440)
-            minutes -= 1440;
-
-        return minutes / 60;
-
-    }
-
-    public static int getMin(int minutes)
-    {
-
-        if(minutes > 1440)
-            minutes -= 1440;
-
-        return minutes % 60;
-
-    }
-
     //method for creating flights, and setting the other fields associated with the Flight
 
-    public static void genFlightAndInfo(Airline airLine, String origin, int minutes, Gate gate)
+    public void genFlightAndInfo(Airline airLine, Airport origin, int minutes, Gate gate)
     {//begin genFlightAndInfo
 
         Plane plane = new Plane(airLine.getAirlineFleet().get(0).getPassengerCapacity());
 
-        Flight flight = airLine.generateFlight(plane, origin, getHour(minutes), getMin(minutes), minutes, gate);
+        Flight flight = airLine.generateFlight(plane, origin, time.getHour(minutes), time.getMin(minutes), minutes, gate);
 
         int flightTime = 0;
 
@@ -265,11 +195,11 @@ public class Airport
 
         flight.setLandingTime(landingTime);
 
-        flight.setLandingTimeHour(getHour(landingTime));
+        flight.setLandingTimeHour(time.getHour(landingTime));
 
-        flight.setLandingTimeMin(getMin(landingTime));
+        flight.setLandingTimeMin(time.getMin(landingTime));
 
-        plane.setFlight(flight);
+        plane.setCurrentFlight(flight);
 
         plane.setFlightTimes(flightTime);
 
@@ -280,13 +210,25 @@ public class Airport
 
         }
 
-        for(int i = departureTime; i <= landingTime; i++)
-        {//begin movingPlanes addition for loop
-
-            movingPlanes.get(i).add(flight);
-
-        }//end movingPlanes addition for loop
-
     }//end genFlightAndInfo
+
+    public String getLocation(){ return airportLocation; }
+
+    public boolean hasOpenGates(int minutes)
+    {
+
+        return !availableGates.get(minutes).isEmpty();
+
+    }
+
+    public void addToDepartures(Flight flight)
+    {
+        departures.add(flight);
+    }
+
+    public void addToArrivals(Flight flight)
+    {
+        arrivals.add(flight);
+    }
 
 }//end Airport class
