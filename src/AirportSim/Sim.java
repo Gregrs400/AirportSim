@@ -36,13 +36,22 @@ public class Sim   // upper level class to enclose all objects
 
         }
 
-        Airline airline = new Airline(airports);
-        airlines.add(airline);
+        Airline airlineOne = new Airline(airports);
+        airlines.add(airlineOne);
 
         Plane plane1 = new Plane(50);
-        airline.addPlane(plane1);
+        airlineOne.addPlane(plane1);
 
         //flight generation loop
+
+        for(Airline airline : airlines)
+        {
+
+            airline.generateFlights();
+
+        }
+
+        //simulation loop
 
         for (int min = 0; min < 1440; min++)
         {
