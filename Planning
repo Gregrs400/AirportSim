@@ -29,5 +29,8 @@ Different way to handle updating objects
 
 Need to figure out how to generate flights
 - Not sure how to determine the start time of flights
-     - maybe the max amount of time it could take for a passenger to get to their gate
+     - max amount of time it could take for a passenger to get to their gate
+        - 85 minutes is maximum amount of time from drop off to at gate
+        - need to consider how long it could take for the last passenger to be generated
+        - give passengers of first flight 2 hours to make it to their plane
 
