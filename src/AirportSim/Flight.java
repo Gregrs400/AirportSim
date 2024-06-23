@@ -92,12 +92,12 @@ public class Flight
 
     }//end Flight parameterized constructor
 
-    public Flight(Plane plane, Airport destination, Airport originAirport, int number, int departureTimeHour, int departureTimeMin, int departureTime, Gate gate)
+    public Flight(Plane plane, Airport originAirport, Airport destination, int number, int departureTimeHour, int departureTimeMin, int departureTime, Gate gate)
     {//begin Flight parameterized constructor
 
         setPlane(plane);
-        setDestination(destination);
         setOriginAirport(originAirport);
+        setDestination(destination);
         setNumber(number);
         setDepartureTimeHour(departureTimeHour);
         setDepartureTimeMin(departureTimeMin);
