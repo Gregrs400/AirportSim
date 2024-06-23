@@ -29,5 +29,6 @@ Need to figure out how to generate flights
      - max amount of time it could take for a passenger to get to their gate
         - 85 minutes is maximum amount of time from drop off to at gate
         - need to consider how long it could take for the last passenger to be generated
-        - give passengers of first flight 2 hours to make it to their plane
+        - give passengers of first flight 4 hours to make it to their plane, based on 4 hour flight departure passenger generation
+        - flights on first day will depart at 4 AM at the earliest
 
