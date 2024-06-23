@@ -27,3 +27,7 @@ Different way to handle updating objects
     - use Object object = new Object();
     - Object cloneObject = new Object(object);
 
+Need to figure out how to generate flights
+- Not sure how to determine the start time of flights
+     - maybe the max amount of time it could take for a passenger to get to their gate
+
