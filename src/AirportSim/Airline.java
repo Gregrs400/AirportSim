@@ -142,7 +142,7 @@ public class Airline
 
         destination = destinations.get(random.nextInt(destinations.size()));
 
-        Flight flight = new Flight(plane, destination, origin, flightNumber, departHour, departMin, departTime, gate);
+        Flight flight = new Flight(plane, origin, destination, flightNumber, departHour, departMin, departTime, gate);
 
         flights.add(flight);
 
