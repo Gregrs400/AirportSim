@@ -1,7 +1,7 @@
 package AirportSim;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Sim   // upper level class to enclose all objects
 {
@@ -10,14 +10,7 @@ public class Sim   // upper level class to enclose all objects
 
     static ArrayList<Airline> airlines = new ArrayList<>();
 
-    static ArrayList<String> destinationCities = new ArrayList<>(Arrays.asList("Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
-            "Indianapolis", "Fort Lauderdale", "Savannah", "Roanoke", "Detroit", "Tampa", "Atlanta", "Orlando",
-            "Los Angeles", "Denver", "San Francisco", "West Palm Beach", "San Jose", "Seattle", "Portland", "Dallas",
-            "Austin", "Houston", "Daytona Beach", "Newark", "New York City", "Cincinnati", "Des Moines", "San Diego",
-            "Minneapolis", "Phoenix", "Las Vegas", "Boston", "Philadelphia", "Nashville", "Chicago",
-            "Key West", "New Orleans", "Birmingham", "Albuquerque", "Oklahoma City", "St. Louis", "Kansas City",
-            "Milwaukee", "Boise", "San Antonio", "Jackson", "Memphis", "Huntsville", "Fort Meyers", "Louisville",
-            "Green Bay"));
+    static Scanner airportFileReader = new Scanner("airportNamesAndCoords.txt");
 
     static ArrayList<Airport> airports = new ArrayList<>();
 
@@ -31,14 +24,20 @@ public class Sim   // upper level class to enclose all objects
 
         }
 
-        for (String city : destinationCities)
+        while (airportFileReader.hasNext())
         {
 
-            airports.add(new Airport(city, 50));
+            String airportFileLine = airportFileReader.nextLine();
+            String[] airportItems = airportFileLine.split(",");
+            Airport airport = new Airport(airportItems[0], Double.parseDouble(airportItems[1]),
+                                  Double.parseDouble(airportItems[2]), 50);
+            airports.add(airport);
+
 
         }
 
         Airline airline = new Airline(airports);
+        airlines.add(airline);
 
         Plane plane1 = new Plane(50);
         airline.addPlane(plane1);
