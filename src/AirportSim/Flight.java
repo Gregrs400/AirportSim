@@ -81,12 +81,12 @@ public class Flight
 
     //Flight parameterized constructor, assigning a plane, a destination, a number, and the departure time of each flight
 
-    public Flight(Plane plane, Airport destination, Airport originAirport, int number)
+    public Flight(Plane plane, Airport originAirport, Airport destination, int number)
     {//begin Flight parameterized constructor
 
         setPlane(plane);
-        setDestination(destination);
         setOriginAirport(originAirport);
+        setDestination(destination);
         setNumber(number);
         fs = flightStatus.ONTIME;
 
