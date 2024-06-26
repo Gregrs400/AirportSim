@@ -127,22 +127,12 @@ public class Airline
 
         Airport destination;
 
-        int flightNumber;
-
         //do-while loop to ensure each flight number is unique
-
-        do
-        {//begin do-while loop
-
-            flightNumber = random.nextInt(9999)+1;
-
-        }while(flightNumbers.contains(flightNumber)); //end do-while loop
-
-        flightNumbers.add(flightNumber);
 
         destination = destinations.get(random.nextInt(destinations.size()));
 
-        Flight flight = new Flight(plane, origin, destination, flightNumber, departHour, departMin, departTime, gate);
+        Flight flight = new Flight(plane, origin, destination, generateFlightNumber(),
+                                   departHour, departMin, departTime, gate);
 
         flights.add(flight);
 
@@ -176,7 +166,10 @@ public class Airline
             Airport origin = destinations.get(originIndex);
             Airport destination = destinations.get(destIndex);
 
+            Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
 
+            flights.add(flight);
+            flightNumToFlight.put(flight.getNumber(), flight);
 
         }
 
@@ -224,6 +217,50 @@ public class Airline
     {
 
         destination.getArrivals().add(flight);
+
+    }
+
+    public int generateFlightNumber()
+    {
+
+        int flightNumber;
+
+        do
+        {//begin do-while loop
+
+            flightNumber = random.nextInt(9999)+1;
+
+        }while(flightNumbers.contains(flightNumber)); //end do-while loop
+
+        flightNumbers.add(flightNumber);
+
+        return flightNumber;
+
+    }
+
+    public int generateFlightTime(int filedSpeed, Airport origin, Airport destination)
+    {
+
+        double differenceLat;
+        double differenceLong;
+        double numA;
+        double numB;
+        double pythagDistanceMiles;
+        double pythagDistanceNM;
+        int flightTime;
+
+        differenceLat = destination.getLatitude() - origin.getLatitude();
+        differenceLong = destination.getLongitude() - origin.getLongitude();
+
+        numA = Math.abs(differenceLat) * 69;
+        numB = Math.cos(differenceLat*(Math.PI / 180) * 69) * Math.abs(differenceLong);
+
+        pythagDistanceMiles = Math.sqrt(Math.pow(numA, 2) + Math.pow(numB, 2));
+        pythagDistanceNM = pythagDistanceMiles * 0.868976;
+
+        flightTime = (int) pythagDistanceNM * (filedSpeed / 60);
+
+        return flightTime;
 
     }
 
