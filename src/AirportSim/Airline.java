@@ -38,10 +38,6 @@ public class Airline
 
     //Hashmap allowing retrieval of Flight objects when given flight numbers
 
-    private final HashMap<Integer, Flight> flightNumToFlight = new HashMap<>();
-
-    public HashMap<Integer, Flight> getFlightNumToFlight() {return flightNumToFlight;}
-
     private final ArrayList<Plane> availablePlanes = new ArrayList<>();
 
     //Airline parameterized constructor
@@ -117,8 +113,6 @@ public class Airline
         addFlightToDepartures(origin, flight);
         addFlightToArrivals(destination, flight);
 
-        flightNumToFlight.put(flight.getNumber(), flight);
-
         return flight;
 
     }
@@ -135,8 +129,6 @@ public class Airline
                                    departHour, departMin, departTime, gate);
 
         flights.add(flight);
-
-        flightNumToFlight.put(flight.getNumber(), flight);
 
         return flight;
 
@@ -169,7 +161,6 @@ public class Airline
             Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
 
             flights.add(flight);
-            flightNumToFlight.put(flight.getNumber(), flight);
 
         }
 
@@ -192,11 +183,6 @@ public class Airline
 
         return passengerTotal;
 
-    }
-
-    public Flight paxFlightFromNum(Passenger passenger)
-    {
-        return getFlightNumToFlight().get(passenger.getFlightNumber());
     }
 
     public void removeFromDestinations(Airport destination)
