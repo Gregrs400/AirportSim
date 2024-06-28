@@ -250,4 +250,6 @@ public class Airline
 
     }
 
+    public double milesToNauticalMiles(double miles){ return miles * 0.86897624; }
+
 }//end Airline class
