@@ -227,24 +227,13 @@ public class Airline
     public int generateFlightTime(int filedSpeed, Airport origin, Airport destination)
     {
 
-        double differenceLat;
-        double differenceLong;
-        double numA;
-        double numB;
-        double pythagDistanceMiles;
-        double pythagDistanceNM;
+        double earthRadiusMiles;
+        double earthRadiusNM;
+        double earthArcAngle;
+        double earthGreatCircleDistance = 0;
         int flightTime;
 
-        differenceLat = destination.getLatitude() - origin.getLatitude();
-        differenceLong = destination.getLongitude() - origin.getLongitude();
-
-        numA = Math.abs(differenceLat) * 69;
-        numB = Math.cos(differenceLat*(Math.PI / 180) * 69) * Math.abs(differenceLong);
-
-        pythagDistanceMiles = Math.sqrt(Math.pow(numA, 2) + Math.pow(numB, 2));
-        pythagDistanceNM = pythagDistanceMiles * 0.868976;
-
-        flightTime = (int) pythagDistanceNM * (filedSpeed / 60);
+        flightTime = (int) earthGreatCircleDistance * (filedSpeed / 60);
 
         return flightTime;
 
