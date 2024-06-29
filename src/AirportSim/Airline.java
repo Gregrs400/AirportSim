@@ -230,10 +230,21 @@ public class Airline
         double earthRadiusMiles;
         double earthRadiusNM;
         double earthArcAngle;
-        double earthGreatCircleDistance = 0;
+        double earthGreatCircleDistance;
         int flightTime;
 
-        flightTime = (int) earthGreatCircleDistance * (filedSpeed / 60);
+        earthRadiusMiles = 3959;
+        earthRadiusNM = milesToNauticalMiles(earthRadiusMiles);
+
+        earthArcAngle = Math.acos((Math.sin(origin.getLatitude() * Math.PI / 180)
+                                  * Math.sin(destination.getLatitude() * Math.PI / 180))
+                                  + (Math.cos(origin.getLatitude() * Math.PI / 180)
+                                  * Math.cos(destination.getLatitude() * Math.PI / 180)
+                                  * Math.cos((origin.getLongitude() - destination.getLongitude()) * Math.PI / 180)));
+
+        earthGreatCircleDistance = earthArcAngle * earthRadiusNM;
+
+        flightTime = (int) earthGreatCircleDistance / (filedSpeed / 60);
 
         return flightTime;
 
