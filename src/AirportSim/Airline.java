@@ -231,6 +231,19 @@ public class Airline
         double earthRadiusNM;
         double earthArcAngle;
         double earthGreatCircleDistance;
+        int cruiseAltitude;
+        int ascentVerticalSpeed;
+        int descentVerticalSpeed;
+        double ascentAcceleration;
+        double descentAcceleration;
+        double ascentDistance;
+        double cruiseDistance;
+        double descentDistance;
+        double ascentTime;
+        double cruiseTime;
+        double descentTime;
+        double takeoffSpeed = 150;
+
         int flightTime;
 
         earthRadiusMiles = 3959;
@@ -244,7 +257,37 @@ public class Airline
 
         earthGreatCircleDistance = earthArcAngle * earthRadiusNM;
 
-        flightTime = (int) earthGreatCircleDistance / (filedSpeed / 60);
+        if (earthGreatCircleDistance < 150)
+        {
+            cruiseAltitude = 10000;
+        }
+        else if (earthGreatCircleDistance >= 150 && earthGreatCircleDistance < 250)
+        {
+            cruiseAltitude = 16000;
+        }
+        else
+            cruiseAltitude = 32000;
+
+        ascentVerticalSpeed = cruiseAltitude / 10;
+        descentVerticalSpeed = cruiseAltitude / -20;
+
+        ascentTime = (double) cruiseAltitude / ascentVerticalSpeed / 60;
+        descentTime = (double) -cruiseAltitude / descentVerticalSpeed / 60;
+
+        ascentAcceleration = (filedSpeed - takeoffSpeed) / ascentTime / 60;
+        descentAcceleration = (filedSpeed - takeoffSpeed) / descentTime / 60;
+
+        ascentDistance = (takeoffSpeed * ascentTime) +
+                         (((double) 1 / 2) * ascentAcceleration * Math.pow(ascentTime, 2));
+
+        descentDistance = (filedSpeed * descentTime) +
+                          (((double) 1 / 2) * descentAcceleration * Math.pow(descentTime, 2));
+
+        cruiseDistance = earthGreatCircleDistance - (ascentDistance + descentDistance);
+
+        cruiseTime =  cruiseDistance / filedSpeed;
+
+        flightTime = (int) (ascentTime + cruiseTime + descentTime);
 
         return flightTime;
 
