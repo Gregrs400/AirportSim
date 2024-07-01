@@ -42,35 +42,37 @@ public class Sim   // upper level class to enclose all objects
         Plane plane1 = new Plane(50);
         airlineOne.addPlane(plane1);
 
-        //flight generation loop
-
-        for(Airline airline : airlines)
-        {
-
-            airline.generateFlights();
-
-        }
-
         //simulation loop
 
-        for (int min = 0; min < 1440; min++)
+        for (int day = 0; day < 5; day++)
         {
 
-            if(!(movingPlanes.get(min).isEmpty()))
-            {//begin if statement checking for moving planes
+            //flight generation loop
 
-                for(int j = 0; j < movingPlanes.get(min).size(); j++)
-                {//begin for loop that moves planes in movingPlanes
+            for(Airline airline : airlines)
+            {
 
-                    Flight flight = movingPlanes.get(min).get(j);
+                airline.generateFlights(day);
 
-                    Plane flightPlane = flight.getPlane();
+            }
 
-                    flightPlane.movePlane();
+            for (int min = 0; min < 1440; min++) {
 
-                }//end for loop that moves planes in movingPlanes
+                if (!(movingPlanes.get(min).isEmpty())) {//begin if statement checking for moving planes
 
-            }//end if statement to move planes
+                    for (int j = 0; j < movingPlanes.get(min).size(); j++) {//begin for loop that moves planes in movingPlanes
+
+                        Flight flight = movingPlanes.get(min).get(j);
+
+                        Plane flightPlane = flight.getPlane();
+
+                        flightPlane.movePlane();
+
+                    }//end for loop that moves planes in movingPlanes
+
+                }//end if statement to move planes
+
+            }
 
         }
 
