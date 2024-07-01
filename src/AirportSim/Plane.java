@@ -25,7 +25,8 @@ public class Plane
         this.passengers = passengers;
     }
 
-    private int taxiingToRunwayTime, takingOffTime, enRouteTime, descendingTime, landingTime, taxiingToGateTime;
+    private int taxiingToRunwayDuration, ascentDuration, cruiseDuration, descentDuration, taxiingToGateDuration,
+            gateToGateDuration;
 
     private Flight currentFlight;
 
@@ -40,58 +41,12 @@ public class Plane
 
     Queue<Flight> flightQueue = new LinkedList<>();
 
-    public void setFlightTimes(int flightTime)
+    public void setFlightTimes(int ascentTime, int cruiseTime, int descentTime)
     {
 
-        int ascentDescentTime;
-
-        enRouteTime = flightTime;
-
-        if(enRouteTime <= 60)
-        {
-            int taxiingTime = 1;
-
-            ascentDescentTime = Math.round((float) enRouteTime / 6);
-
-            taxiingToRunwayTime = taxiingTime;
-            enRouteTime = enRouteTime-taxiingToRunwayTime;
-
-            takingOffTime = ascentDescentTime;
-            enRouteTime = enRouteTime-ascentDescentTime;
-
-            descendingTime = ascentDescentTime;
-            enRouteTime = enRouteTime-ascentDescentTime;
-
-            landingTime = 3;
-            descendingTime = descendingTime-landingTime;
-
-            taxiingToGateTime = taxiingTime;
-            enRouteTime = enRouteTime-taxiingToGateTime;
-
-        }
-
-        if(enRouteTime > 60)
-        {
-            int taxiingTime = 5;
-
-            taxiingToRunwayTime = taxiingTime;
-            enRouteTime = enRouteTime-taxiingToRunwayTime;
-
-            ascentDescentTime = 15;
-
-            takingOffTime = ascentDescentTime;
-            enRouteTime = enRouteTime-ascentDescentTime;
-
-            descendingTime = ascentDescentTime;
-            enRouteTime = enRouteTime-ascentDescentTime;
-
-            landingTime = 5;
-            descendingTime = descendingTime-landingTime;
-
-            taxiingToGateTime = taxiingTime;
-            enRouteTime = enRouteTime-taxiingToGateTime;
-
-        }
+        ascentDuration = ascentTime;
+        cruiseDuration = cruiseTime;
+        descentDuration = descentTime;
 
     }
 
@@ -104,7 +59,6 @@ public class Plane
         TAKING_OFF,
         EN_ROUTE,
         DESCENDING,
-        LANDING,
         // LANDED,
         TAXIING_TO_GATE,
         AT_GATE
@@ -145,25 +99,25 @@ public class Plane
 
             ps = planeStatus.TAXIING;
 
-            taxiingToRunwayTime--;
+            taxiingToRunwayDuration--;
 
         }
 
         if(ps.equals(planeStatus.TAXIING))
         {
 
-            if(taxiingToRunwayTime == 0)
+            if(taxiingToRunwayDuration == 0)
             {
 
                 ps = planeStatus.TAKING_OFF;
 
-                takingOffTime--;
+                ascentDuration--;
 
             }
             else
             {
 
-                taxiingToRunwayTime--;
+                taxiingToRunwayDuration--;
 
             }
 
@@ -171,18 +125,18 @@ public class Plane
         if(ps.equals(planeStatus.TAKING_OFF))
         {
 
-            if(takingOffTime == 0)
+            if(ascentDuration == 0)
             {
 
                 ps = planeStatus.EN_ROUTE;
 
-                enRouteTime--;
+                cruiseDuration--;
 
             }
             else
             {
 
-                takingOffTime--;
+                ascentDuration--;
 
             }
 
@@ -190,18 +144,18 @@ public class Plane
         if(ps.equals(planeStatus.EN_ROUTE))
         {
 
-            if(enRouteTime == 0)
+            if(cruiseDuration == 0)
             {
 
                 ps = planeStatus.DESCENDING;
 
-                descendingTime--;
+                descentDuration--;
 
             }
             else
             {
 
-                enRouteTime--;
+                cruiseDuration--;
 
             }
 
@@ -209,37 +163,18 @@ public class Plane
         if (ps.equals(planeStatus.DESCENDING))
         {
 
-            if(descendingTime == 0)
-            {
-
-                ps = planeStatus.LANDING;
-
-                landingTime--;
-
-            }
-            else
-            {
-
-                descendingTime--;
-
-            }
-
-        }
-        if(ps.equals(planeStatus.LANDING))
-        {
-
-            if(landingTime == 0)
+            if(descentDuration == 0)
             {
 
                 ps = planeStatus.TAXIING_TO_GATE;
 
-                taxiingToGateTime--;
+                taxiingToGateDuration--;
 
             }
             else
             {
 
-                landingTime--;
+                descentDuration--;
 
             }
 
@@ -247,7 +182,7 @@ public class Plane
         if(ps.equals(planeStatus.TAXIING_TO_GATE))
         {
 
-            if(taxiingToGateTime == 0)
+            if(taxiingToGateDuration == 0)
             {
 
                 ps = planeStatus.AT_GATE;
@@ -257,7 +192,7 @@ public class Plane
             else
             {
 
-                taxiingToGateTime--;
+                taxiingToGateDuration--;
 
             }
 
