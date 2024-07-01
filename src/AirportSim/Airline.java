@@ -160,7 +160,10 @@ public class Airline
 
             Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
 
-            int flightTime = generateFlightTime(380, origin, destination);
+            int[] flightTimes = generateFlightTime(380, origin, destination);
+
+            plane.setFlightTimes(flightTimes[0], flightTimes[1], flightTimes[2]);
+
             int gateToTakeoffTime = random.nextInt(10) + 15;
 
             if (day == 0)
