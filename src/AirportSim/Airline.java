@@ -134,7 +134,7 @@ public class Airline
 
     }
 
-    public void generateFlights()
+    public void generateFlights(int day)
     {
 
         for (Plane plane : airlineFleet)
@@ -159,6 +159,14 @@ public class Airline
             Airport destination = destinations.get(destIndex);
 
             Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
+
+            int flightTime = generateFlightTime(380, origin, destination);
+            int gateToTakeoffTime = random.nextInt(10) + 15;
+
+            if (day == 0)
+            {
+                flight.setDepartureTime(240);
+            }
 
             flights.add(flight);
 
@@ -224,7 +232,7 @@ public class Airline
 
     }
 
-    public int generateFlightTime(int filedSpeed, Airport origin, Airport destination)
+    public int[] generateFlightTime(int filedSpeed, Airport origin, Airport destination)
     {
 
         double earthRadiusMiles;
@@ -239,12 +247,12 @@ public class Airline
         double ascentDistance;
         double cruiseDistance;
         double descentDistance;
-        double ascentTime;
-        double cruiseTime;
-        double descentTime;
+        int ascentTime;
+        int cruiseTime;
+        int descentTime;
         double takeoffSpeed = 150;
 
-        int flightTime;
+        int[] flightTimes = new int[3];
 
         earthRadiusMiles = 3959;
         earthRadiusNM = milesToNauticalMiles(earthRadiusMiles);
@@ -271,8 +279,8 @@ public class Airline
         ascentVerticalSpeed = cruiseAltitude / 10;
         descentVerticalSpeed = cruiseAltitude / -20;
 
-        ascentTime = (double) cruiseAltitude / ascentVerticalSpeed / 60;
-        descentTime = (double) -cruiseAltitude / descentVerticalSpeed / 60;
+        ascentTime =  cruiseAltitude / ascentVerticalSpeed;
+        descentTime =  -cruiseAltitude / descentVerticalSpeed;
 
         ascentAcceleration = (filedSpeed - takeoffSpeed) / ascentTime / 60;
         descentAcceleration = (filedSpeed - takeoffSpeed) / descentTime / 60;
@@ -285,11 +293,13 @@ public class Airline
 
         cruiseDistance = earthGreatCircleDistance - (ascentDistance + descentDistance);
 
-        cruiseTime =  cruiseDistance / filedSpeed;
+        cruiseTime = (int) cruiseDistance / filedSpeed;
 
-        flightTime = (int) (ascentTime + cruiseTime + descentTime);
+        flightTimes[0] = ascentTime;
+        flightTimes[1] = cruiseTime;
+        flightTimes[2] = descentTime;
 
-        return flightTime;
+        return flightTimes;
 
     }
 
