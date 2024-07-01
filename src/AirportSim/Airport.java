@@ -201,40 +201,6 @@ public class Airport
 
     }//end paxArrival
 
-    //method for creating flights, and setting the other fields associated with the Flight
-
-    public void genFlightAndInfo(Airline airLine, Airport origin, int minutes, Gate gate)
-    {//begin genFlightAndInfo
-
-        Plane plane = new Plane(airLine.getAirlineFleet().get(0).getPassengerCapacity());
-
-        Flight flight = airLine.generateFlight(plane, origin, time.getHour(minutes), time.getMin(minutes), minutes, gate);
-
-        int flightTime = 0;
-
-        int departureTime = flight.getDepartureTime();
-
-        int landingTime = (departureTime + flightTime);
-
-        flight.setLandingTime(landingTime);
-
-        flight.setLandingTimeHour(time.getHour(landingTime));
-
-        flight.setLandingTimeMin(time.getMin(landingTime));
-
-        plane.setCurrentFlight(flight);
-
-        plane.setFlightTimes(flightTime);
-
-        for(int i = departureTime-15; i < departureTime; i++)
-        {
-
-            availableGates.get(i).remove(gate);
-
-        }
-
-    }//end genFlightAndInfo
-
     public String getLocation(){ return airportLocation; }
 
     public boolean hasOpenGates(int minutes)
