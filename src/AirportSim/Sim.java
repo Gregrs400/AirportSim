@@ -40,7 +40,13 @@ public class Sim   // upper level class to enclose all objects
         airlines.add(airlineOne);
 
         Plane plane1 = new Plane(50);
-        airlineOne.addPlane(plane1);
+
+        for (int i = 0; i < 50; i++)
+        {
+
+            airlineOne.addPlane(plane1);
+
+        }
 
         //simulation loop
 
