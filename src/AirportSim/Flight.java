@@ -6,6 +6,7 @@ public class Flight
 {//begin Flight class
 
     //integer variables which store different times
+
     private int departureTime;
 
     public int getDepartureTime() {return departureTime;}
@@ -34,6 +35,7 @@ public class Flight
     public void setLandingTimeMin(int landingTimeMin) {this.landingTimeMin = landingTimeMin;}
 
     //int variable number representing the flight number
+
     private int number;
 
     public int getNumber() {return number;}
