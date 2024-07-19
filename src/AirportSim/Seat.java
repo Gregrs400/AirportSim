@@ -5,8 +5,6 @@ public abstract class Seat
 
     private String seatID;
 
-    private boolean occupied;
-
     private Passenger passenger;
 
     public Seat(String seatID)
@@ -20,7 +18,6 @@ public abstract class Seat
     public void occupySeat(Passenger passenger)
     {
 
-        occupied = true;
         setPassenger(passenger);
 
     }
@@ -28,7 +25,6 @@ public abstract class Seat
     public void vacantSeat()
     {
 
-        occupied = false;
         setPassenger(null);
 
     }
