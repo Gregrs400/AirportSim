@@ -8,6 +8,8 @@ public class PlaneSeat extends Seat
     private Airline airline;
     private Plane plane;
     private PlaneSeatClass seatClass;
+    private String planeSeatDescription;
+
 
     public void setAirline(Airline airline){ this.airline = airline; }
     public void setPlane(Plane plane){ this.plane = plane; }
