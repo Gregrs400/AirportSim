@@ -32,6 +32,8 @@ public class Plane
 
     public Flight getCurrentFlight(){return currentFlight;}
 
+    private PlaneSeat[][] seatLayout;
+
     public void setCurrentFlight(Flight currentFlight)
     {
 
@@ -197,6 +199,13 @@ public class Plane
             }
 
         }
+
+    }
+
+    public void setSeatLayout(String layoutString)
+    {
+
+
 
     }
 
