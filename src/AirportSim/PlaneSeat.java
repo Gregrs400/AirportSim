@@ -15,12 +15,11 @@ public class PlaneSeat extends Seat
     public void setPlane(Plane plane){ this.plane = plane; }
     public void setSeatClass(PlaneSeatClass seatClass){ this.seatClass = seatClass; }
 
-    public PlaneSeat(String seatID, Airline airline, Plane plane, PlaneSeatClass seatClass)
+    public PlaneSeat(String seatID, Airline airline, PlaneSeatClass seatClass)
     {
 
         super(seatID);
         setAirline(airline);
-        setPlane(plane);
         setSeatClass(seatClass);
 
     }

@@ -40,6 +40,8 @@ public class Airline
 
     private final ArrayList<Plane> availablePlanes = new ArrayList<>();
 
+    private ArrayList<PlaneSeat> planeSeats;
+
     //Airline parameterized constructor
 
     public Airline(ArrayList<Airport> destinations)
@@ -202,6 +204,13 @@ public class Airline
         destinations.remove(destination);
 
     }//end removeFromDestinations
+
+    public void addPlaneSeat(PlaneSeat planeSeat)
+    {
+
+        planeSeats.add(planeSeat);
+
+    }
 
     public void addFlightToDepartures(Airport origin, Flight flight)
     {

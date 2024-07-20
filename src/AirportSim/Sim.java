@@ -1,6 +1,8 @@
 package AirportSim;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Sim   // upper level class to enclose all objects
@@ -40,6 +42,16 @@ public class Sim   // upper level class to enclose all objects
         airlines.add(airlineOne);
 
         Plane plane1 = new Plane(50);
+
+        PlaneSeatClass airlineOneEconomyClass = new PlaneSeatClass("airlineOneEconomy",
+                new ArrayList<>(List.of("Seat")), "E");
+
+        PlaneSeatClass airlineOneFirstClass = new PlaneSeatClass("airlineOneFirst",
+                new ArrayList<>(List.of("Lie-flat Seat", "Pillows", "Blanket")), "F");
+
+        PlaneSeat airlineOneEconomySeat = new PlaneSeat("a1sampleEconomy", airlineOne, airlineOneEconomyClass);
+
+        PlaneSeat airlineOneFirstSeat = new PlaneSeat("a1sampleFirst", airlineOne, airlineOneFirstClass);
 
         for (int i = 0; i < 50; i++)
         {
