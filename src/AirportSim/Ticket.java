@@ -10,6 +10,8 @@ public class Ticket {
 
     private Flight flight;
 
+    private PlaneSeat seat;
+
     public Ticket(Flight flight) {
         ticketNum = formatter();
         this.flight = flight;
