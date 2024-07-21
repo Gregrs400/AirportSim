@@ -15,25 +15,12 @@ public abstract class Seat
 
     }
 
-    public void occupySeat(Passenger passenger)
-    {
+    public void occupySeat(Passenger passenger) { setPassenger(passenger); }
 
-        setPassenger(passenger);
+    public void vacantSeat() { setPassenger(null); }
 
-    }
+    public void setPassenger(Passenger passenger) { this.passenger = passenger; }
 
-    public void vacantSeat()
-    {
-
-        setPassenger(null);
-
-    }
-
-    public void setPassenger(Passenger passenger)
-    {
-
-        this.passenger = passenger;
-
-    }
+    public String getSeatID(){ return seatID; }
 
 }
