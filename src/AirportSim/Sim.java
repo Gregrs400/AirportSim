@@ -41,7 +41,7 @@ public class Sim   // upper level class to enclose all objects
         Airline airlineOne = new Airline(airports);
         airlines.add(airlineOne);
 
-        Plane plane1 = new Plane(50);
+        Plane plane1Template = new Plane(50);
 
         PlaneSeatClass airlineOneEconomyClass = new PlaneSeatClass("airlineOneEconomy",
                 new ArrayList<>(List.of("Seat")), "E");
@@ -56,7 +56,7 @@ public class Sim   // upper level class to enclose all objects
         for (int i = 0; i < 50; i++)
         {
 
-            airlineOne.addPlane(plane1);
+            airlineOne.addPlane(new Plane(plane1Template, "a1p1_"+i));
 
         }
 

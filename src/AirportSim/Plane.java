@@ -7,7 +7,13 @@ import java.util.Queue;
 public class Plane
 {//begin Plane class
 
+    private String planeID;
+
+    public String getPlaneID(){ return planeID; }
+    public void setPlaneID(String planeID){ this.planeID = planeID; }
+
     //declaring int variable to store how many passengers can board plane, defining characteristic of each plane
+
     private final int passengerCapacity;
 
     public int getPassengerCapacity() {
@@ -69,15 +75,47 @@ public class Plane
 
     planeStatus ps;
 
-    //Plane parameterized constructor for use by airlines
+    public planeStatus getPlaneStatus(){ return ps; }
+
     public Plane(int capacity)
     {//begin Plane parameterized constructor
 
         this.passengerCapacity = capacity;
-        setPassengers(passengers);
+        setPassengers(new ArrayList<>());
         ps = planeStatus.AT_DEPART_GATE;
 
     }//end Plane parameterized constructor
+
+    //Plane parameterized constructor for use by airlines
+    public Plane(String id, int capacity)
+    {//begin Plane parameterized constructor
+
+        setPlaneID(id);
+        this.passengerCapacity = capacity;
+        setPassengers(new ArrayList<>());
+        ps = planeStatus.AT_DEPART_GATE;
+
+    }//end Plane parameterized constructor
+
+    // Plane copy constructor
+
+    public Plane(Plane anotherPlane)
+    {
+
+        this(anotherPlane.getPlaneID(), anotherPlane.getPassengerCapacity());
+        setPassengers(anotherPlane.getPassengers());
+        ps = anotherPlane.getPlaneStatus();
+
+    }
+
+    public Plane(Plane planeTemplate, String planeID)
+    {
+
+        this(planeID, planeTemplate.getPassengerCapacity());
+        setPassengers(planeTemplate.getPassengers());
+        ps = planeStatus.AT_DEPART_GATE;
+
+    }
 
     public void addPaxToPlane(Passenger passenger)
     {//begin addPaxToPlane
