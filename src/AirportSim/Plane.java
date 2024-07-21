@@ -2,6 +2,7 @@ package AirportSim;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 public class Plane
@@ -82,7 +83,17 @@ public class Plane
 
         this.passengerCapacity = capacity;
         setPassengers(new ArrayList<>());
+
+    }//end Plane parameterized constructor
+
+
+    public Plane(Plane planeTemplate, String seatLayoutStr, Map<String, PlaneSeat> seatTemplateMap)
+    {//begin Plane parameterized constructor
+
+        this(planeTemplate.getPlaneID(), planeTemplate.getPassengerCapacity());
+        setPassengers(new ArrayList<>());
         ps = planeStatus.AT_DEPART_GATE;
+        generateSeatLayout(seatLayoutStr, seatTemplateMap);
 
     }//end Plane parameterized constructor
 
@@ -114,6 +125,7 @@ public class Plane
         this(planeID, planeTemplate.getPassengerCapacity());
         setPassengers(planeTemplate.getPassengers());
         ps = planeStatus.AT_DEPART_GATE;
+        setSeatLayout(planeTemplate.getSeatLayout());
 
     }
 
@@ -240,10 +252,74 @@ public class Plane
 
     }
 
-    public void setSeatLayout(String layoutString)
+    public PlaneSeat[][] getSeatLayout() { return seatLayout; }
+    public void setSeatLayout(PlaneSeat[][] seatLayout) { this.seatLayout = seatLayout; }
+    public void generateSeatLayout(String layoutString, Map<String, PlaneSeat> seatTemplateMap)
     {
+        // Row 1: FF
+        // Row 2-13: EEEE
 
+        String[] layoutInstructions = layoutString.split(",");
 
+        String lastLayoutInstruction = layoutInstructions[layoutInstructions.length-1];
+
+        int seatLayoutRowLength;
+
+        if (lastLayoutInstruction.charAt(5) == '-')
+        {
+            seatLayoutRowLength = Integer.parseInt(lastLayoutInstruction.substring(6, 7));
+            PlaneSeat[][] seatLayout = new PlaneSeat[seatLayoutRowLength][];
+        }
+        else
+        {
+            seatLayoutRowLength = Integer.parseInt(lastLayoutInstruction.substring(4, 5));
+            PlaneSeat[][] seatLayout = new PlaneSeat[seatLayoutRowLength][];
+        }
+
+        for(String layoutInstruction : layoutInstructions)
+        {
+
+            int seatNum = 1;
+            int startingRow = Integer.parseInt(String.valueOf(layoutInstruction.charAt(4)))-1;
+            int colonIndex = layoutInstruction.indexOf(':');
+            String seatCodeString = layoutInstruction.substring(colonIndex+1);
+            if (layoutInstruction.charAt(5) == '-')
+            {
+
+                int endingRow = Integer.parseInt(String.valueOf(layoutInstruction.charAt(6)))-1;
+                int instructionNumOfRows = endingRow - startingRow + 1;
+                for (int i = startingRow; i < instructionNumOfRows; i++)
+                {
+                    seatLayout[i] = new PlaneSeat[seatCodeString.length()-1];
+                    for (int j = 0; j < seatCodeString.length(); j++)
+                    {
+
+                        String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
+                        seatLayout[i][j] = new PlaneSeat(seatTemplateMap.get(currentSeatCode), planeID+"_"+seatNum);
+                        seatNum++;
+
+                    }
+
+                }
+
+            }
+            else
+            {
+
+                int seatCodeLength = seatCodeString.length();
+                seatLayout[startingRow] = new PlaneSeat[seatCodeLength];
+
+                for (int j = 0; j < seatCodeLength; j++)
+                {
+
+                    String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
+                    seatLayout[startingRow][j] = new PlaneSeat(seatTemplateMap.get(currentSeatCode));
+
+                }
+
+            }
+
+        }
 
     }
 

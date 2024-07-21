@@ -17,4 +17,6 @@ public class PlaneSeatClass
         this.classCode = classCode;
 
     }
+
+    public String getClassCode(){ return classCode; }
 }

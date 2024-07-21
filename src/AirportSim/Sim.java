@@ -1,9 +1,6 @@
 package AirportSim;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Sim   // upper level class to enclose all objects
 {
@@ -41,7 +38,9 @@ public class Sim   // upper level class to enclose all objects
         Airline airlineOne = new Airline(airports);
         airlines.add(airlineOne);
 
-        Plane plane1Template = new Plane(50);
+        Plane plane1 = new Plane(50);
+
+        String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
 
         PlaneSeatClass airlineOneEconomyClass = new PlaneSeatClass("airlineOneEconomy",
                 new ArrayList<>(List.of("Seat")), "E");
@@ -53,10 +52,16 @@ public class Sim   // upper level class to enclose all objects
 
         PlaneSeat airlineOneFirstSeat = new PlaneSeat("a1sampleFirst", airlineOne, airlineOneFirstClass);
 
+        Map<String, PlaneSeat> airlineOneSeatTemplateMap = new HashMap<>();
+        airlineOneSeatTemplateMap.put(airlineOneEconomySeat.getSeatClass().getClassCode(), airlineOneEconomySeat);
+        airlineOneSeatTemplateMap.put(airlineOneFirstSeat.getSeatClass().getClassCode(), airlineOneFirstSeat);
+
+        Plane airlineOnePlane1Template = new Plane(plane1, airlineOnePlane1SeatLayoutStr, airlineOneSeatTemplateMap);
+
         for (int i = 0; i < 50; i++)
         {
 
-            airlineOne.addPlane(new Plane(plane1Template, "a1p1_"+i));
+            airlineOne.addPlane(new Plane(airlineOnePlane1Template, "a1p1_"+i));
 
         }
 
