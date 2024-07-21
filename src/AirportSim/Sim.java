@@ -32,7 +32,6 @@ public class Sim   // upper level class to enclose all objects
                                   Double.parseDouble(airportItems[2]), 50);
             airports.add(airport);
 
-
         }
 
         Airline airlineOne = new Airline(airports);
@@ -44,12 +43,10 @@ public class Sim   // upper level class to enclose all objects
 
         PlaneSeatClass airlineOneEconomyClass = new PlaneSeatClass("airlineOneEconomy",
                 new ArrayList<>(List.of("Seat")), "E");
-
         PlaneSeatClass airlineOneFirstClass = new PlaneSeatClass("airlineOneFirst",
                 new ArrayList<>(List.of("Lie-flat Seat", "Pillows", "Blanket")), "F");
 
         PlaneSeat airlineOneEconomySeat = new PlaneSeat("a1sampleEconomy", airlineOne, airlineOneEconomyClass);
-
         PlaneSeat airlineOneFirstSeat = new PlaneSeat("a1sampleFirst", airlineOne, airlineOneFirstClass);
 
         Map<String, PlaneSeat> airlineOneSeatTemplateMap = new HashMap<>();
