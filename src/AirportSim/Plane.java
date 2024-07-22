@@ -268,12 +268,12 @@ public class Plane
         if (lastLayoutInstruction.charAt(5) == '-')
         {
             seatLayoutRowLength = Integer.parseInt(lastLayoutInstruction.substring(6, 7));
-            PlaneSeat[][] seatLayout = new PlaneSeat[seatLayoutRowLength][];
+            seatLayout = new PlaneSeat[seatLayoutRowLength][];
         }
         else
         {
             seatLayoutRowLength = Integer.parseInt(lastLayoutInstruction.substring(4, 5));
-            PlaneSeat[][] seatLayout = new PlaneSeat[seatLayoutRowLength][];
+            seatLayout = new PlaneSeat[seatLayoutRowLength][];
         }
 
         for(String layoutInstruction : layoutInstructions)

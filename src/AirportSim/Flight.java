@@ -81,6 +81,27 @@ public class Flight
 
     public ArrayList<Passenger> getPaxWithTickets() {return paxWithTickets;}
 
+    private Passenger[][] seatingChart;
+    private ArrayList<Passenger> unreservedSeats;
+
+    public void setSeatingChart(Passenger[][] seatingChart)
+    {
+        unreservedSeats = new ArrayList<>();
+
+        this.seatingChart = seatingChart;
+
+        for (Passenger[] passengers : seatingChart) {
+
+            for (Passenger passenger : passengers) {
+
+                unreservedSeats.add(new Passenger(passenger));
+
+            }
+
+        }
+
+    }
+
     //Flight parameterized constructor, assigning a plane, a destination, a number, and the departure time of each flight
 
     public Flight(Plane plane, Airport originAirport, Airport destination, int number)

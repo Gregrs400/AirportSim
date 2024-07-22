@@ -162,6 +162,8 @@ public class Airline
 
             Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
 
+            flight.setSeatingChart(generateSeatReservationChart(plane.getSeatLayout()));
+
             int[] flightTimes = generateFlightTime(380, origin, destination);
 
             plane.setFlightTimes(flightTimes[0], flightTimes[1], flightTimes[2]);
@@ -316,5 +318,22 @@ public class Airline
     }
 
     private double milesToNauticalMiles(double miles){ return miles * 0.86897624; }
+
+    public Passenger[][] generateSeatReservationChart(PlaneSeat[][] planeSeatLayout)
+    {
+
+        Passenger[][] seatingChart = new Passenger[planeSeatLayout.length][];
+
+        for (int layoutRowNum = 0; layoutRowNum < planeSeatLayout.length; layoutRowNum++)
+        {
+
+            int currentLayoutRowLength = planeSeatLayout[layoutRowNum].length;
+            seatingChart[layoutRowNum] = new Passenger[currentLayoutRowLength];
+
+        }
+
+        return seatingChart;
+
+    }
 
 }//end Airline class
