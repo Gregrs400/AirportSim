@@ -82,23 +82,17 @@ public class Flight
     public ArrayList<Passenger> getPaxWithTickets() {return paxWithTickets;}
 
     private Passenger[][] seatingChart;
-    private ArrayList<Passenger> unreservedSeats;
+    public Passenger[][] getSeatingChart() { return seatingChart; }
+    private ArrayList<String> unreservedSeats;
 
-    public void setSeatingChart(Passenger[][] seatingChart)
+    private ArrayList<Ticket> tickets;
+
+    public ArrayList<Ticket> getTickets() { return tickets; }
+
+    public ArrayList<String> getUnreservedSeats()
     {
-        unreservedSeats = new ArrayList<>();
 
-        this.seatingChart = seatingChart;
-
-        for (Passenger[] passengers : seatingChart) {
-
-            for (Passenger passenger : passengers) {
-
-                unreservedSeats.add(new Passenger(passenger));
-
-            }
-
-        }
+        return unreservedSeats;
 
     }
 
@@ -128,6 +122,7 @@ public class Flight
         setGate(gate);
         gate.addPlane(plane);
         fs = flightStatus.ONTIME;
+        tickets = new ArrayList<>(plane.getPassengerCapacity());
 
     }//end Flight parameterized constructor
 
@@ -149,7 +144,7 @@ public class Flight
     public boolean isSoldOut()
     {//begin isSoldOut
 
-        return paxWithTickets.size() >= plane.getPassengerCapacity();
+        return tickets.isEmpty();
 
     }//end isSoldOut
 
