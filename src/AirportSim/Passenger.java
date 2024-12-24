@@ -53,6 +53,8 @@ public class Passenger extends Person
 
     private final int airportArrivalTime;
 
+    private PlaneSeat reservedSeat;
+
     public int getCurbToCheckIn() {return curbToCheckIn;}
 
     public int getCheckInToSecurity() {return checkInToSecurity;}
@@ -79,11 +81,13 @@ public class Passenger extends Person
 
     airportTravel at;
 
-    private final Ticket ticket;
+    private Ticket ticket;
 
     public Ticket getTicket() {
         return ticket;
     }
+
+    public void setTicket(Ticket ticket) { this.ticket = ticket;}
 
     //Passenger parameterized constructor, assigning each passenger a flight number, an id, and 1-3 bags inclusive
 
@@ -95,7 +99,7 @@ public class Passenger extends Person
         setId(id);
         bags = generatePassengerBags();
         commuteThroughAirport();
-        ticket = new Ticket(flight);
+//        ticket = flight.
 
         curbToCheckIn = getCurbToCheckIn();
         checkInToSecurity = getCheckInToSecurity();
@@ -203,5 +207,31 @@ public class Passenger extends Person
         }//end if passenger is through security but not gotten to gate
 
     }//end movePassenger
+
+    public void reservePlaneSeat(int seatIndex)
+    {
+
+        ArrayList<String> unreservedSeats = ticket.getFlight().getUnreservedSeats();
+        String reservingSeatNum = unreservedSeats.get(seatIndex);
+        unreservedSeats.remove(seatIndex);
+        // Airline flightAirline =
+
+    }
+
+    public void boardPlane()
+    {
+
+        // passenger object is removed from gate and added to plane
+        // passenger is assigned their PlaneSeat object (use ticket)
+        //
+
+    }
+
+    public void deboardPlane()
+    {
+
+
+
+    }
 
 }//end Passenger class
