@@ -162,7 +162,18 @@ public class Airline
 
             Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
 
-            flight.setSeatingChart(generateSeatReservationChart(plane.getSeatLayout()));
+            ArrayList<Ticket> flightTickets = flight.getTickets();
+
+            ArrayList<String> seatCodes = new ArrayList<>(plane.getSeats().keySet());
+
+            for (int i = 0; i < flight.getTickets().size(); i++)
+            {
+
+                Ticket ticket = new Ticket(this, flight);
+                ticket.setSeatCode(seatCodes.get(i));
+                flightTickets.set(i, ticket);
+
+            }
 
             int[] flightTimes = generateFlightTime(380, origin, destination);
 
@@ -174,6 +185,9 @@ public class Airline
             {
                 flight.setDepartureTime(240);
             }
+
+            // else
+            // flight.setDepartureTime();
 
             flights.add(flight);
 
@@ -319,20 +333,47 @@ public class Airline
 
     private double milesToNauticalMiles(double miles){ return miles * 0.86897624; }
 
-    public Passenger[][] generateSeatReservationChart(PlaneSeat[][] planeSeatLayout)
+    public void assignPaxToSeat(String seatNum, Flight flight)
     {
 
-        Passenger[][] seatingChart = new Passenger[planeSeatLayout.length][];
+        // 4A
 
-        for (int layoutRowNum = 0; layoutRowNum < planeSeatLayout.length; layoutRowNum++)
+        StringBuilder rowNumStr = new StringBuilder();  // 4
+        StringBuilder colNumStr = new StringBuilder();  // A
+
+        char[] seatNumAsArray = seatNum.toCharArray();
+
+        for (char seatNumChar : seatNumAsArray)
         {
 
-            int currentLayoutRowLength = planeSeatLayout[layoutRowNum].length;
-            seatingChart[layoutRowNum] = new Passenger[currentLayoutRowLength];
+            if (seatNumChar > 47 && seatNumChar < 58)
+            {
+
+                rowNumStr.append(seatNumChar);
+
+            }
+            else
+            {
+
+                colNumStr.append(seatNumChar);
+
+            }
 
         }
 
-        return seatingChart;
+        Passenger[][] flightSeatingChart = flight.getSeatingChart();
+
+        int rowNum = Integer.parseInt(String.valueOf(rowNumStr));
+
+    }
+
+    public void assignTicketToPassenger(Flight flight, Passenger passenger)
+    {
+
+        ArrayList<Ticket> tickets = flight.getTickets();
+        Ticket ranTicket = tickets.get(random.nextInt(tickets.size()));
+        passenger.setTicket(ranTicket);
+        tickets.remove(ranTicket);
 
     }
 
