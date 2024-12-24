@@ -1,5 +1,7 @@
 package AirportSim;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Sim   // upper level class to enclose all objects
@@ -9,7 +11,17 @@ public class Sim   // upper level class to enclose all objects
 
     static ArrayList<Airline> airlines = new ArrayList<>();
 
-    static Scanner airportFileReader = new Scanner("airportNamesAndCoords.txt");
+    static File airportFile = new File("airportNamesAndCoords");
+
+    static Scanner airportFileReader;
+
+    static {
+        try {
+            airportFileReader = new Scanner(airportFile);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     static ArrayList<Airport> airports = new ArrayList<>();
 
@@ -28,8 +40,8 @@ public class Sim   // upper level class to enclose all objects
 
             String airportFileLine = airportFileReader.nextLine();
             String[] airportItems = airportFileLine.split(",");
-            Airport airport = new Airport(airportItems[0], Double.parseDouble(airportItems[1]),
-                                  Double.parseDouble(airportItems[2]), 50);
+            Airport airport = new Airport(airportItems[0], airportItems[1], Double.parseDouble(airportItems[2]),
+                                  Double.parseDouble(airportItems[3]), 50);
             airports.add(airport);
 
         }
@@ -64,37 +76,45 @@ public class Sim   // upper level class to enclose all objects
 
         //simulation loop
 
-        for (int day = 0; day < 5; day++)
-        {
+//        for (int day = 0; day < 5; day++)
+//        {
+//
+//            //flight generation loop
+//
+//            for(Airline airline : airlines)
+//            {
+//
+//                airline.generateFlights(day);
+//
+//            }
+//
+//            for (int min = 0; min < 1440; min++) {
+//
+//                if (!(movingPlanes.get(min).isEmpty())) {//begin if statement checking for moving planes
+//
+//                    for (int j = 0; j < movingPlanes.get(min).size(); j++) {//begin for loop that moves planes in movingPlanes
+//
+//                        Flight flight = movingPlanes.get(min).get(j);
+//
+//                        Plane flightPlane = flight.getPlane();
+//
+//                        flightPlane.movePlane();
+//
+//                    }//end for loop that moves planes in movingPlanes
+//
+//                }//end if statement to move planes
+//
+//            }
+//
+//        }
 
-            //flight generation loop
+        Plane testPlane = airlineOne.getAirlineFleet().get(1);
+        Flight flight1 = new Flight(testPlane, airports.get(2), airports.get(5), 1);
 
-            for(Airline airline : airlines)
-            {
+        Passenger passenger1 = new Passenger(flight1, "pax1");
 
-                airline.generateFlights(day);
+        passenger1.reservePlaneSeat(1);
 
-            }
-
-            for (int min = 0; min < 1440; min++) {
-
-                if (!(movingPlanes.get(min).isEmpty())) {//begin if statement checking for moving planes
-
-                    for (int j = 0; j < movingPlanes.get(min).size(); j++) {//begin for loop that moves planes in movingPlanes
-
-                        Flight flight = movingPlanes.get(min).get(j);
-
-                        Plane flightPlane = flight.getPlane();
-
-                        flightPlane.movePlane();
-
-                    }//end for loop that moves planes in movingPlanes
-
-                }//end if statement to move planes
-
-            }
-
-        }
 
     }
 
