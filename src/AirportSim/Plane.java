@@ -1,9 +1,6 @@
 package AirportSim;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class Plane
 {//begin Plane class
@@ -33,13 +30,22 @@ public class Plane
     }
 
     private int taxiingToRunwayDuration, ascentDuration, cruiseDuration, descentDuration, taxiingToGateDuration,
-            gateToGateDuration;
+            passengerDeboardingDuration, baggageUnloadingDuration, planeRefuelingDuration, baggageLoadingDuration,
+            passengerBoardingDuration, atGateDuration;
+
+    private Airport currentAirport;
+
+    public Airport getCurrentAirport() { return currentAirport; }
+
+    public void setCurrentAirport(Airport currentAirport) { this.currentAirport = currentAirport; }
+
+    private HashMap<String,PlaneSeat> seats;
+
+    Queue<Flight> flightQueue = new LinkedList<>();
 
     private Flight currentFlight;
 
     public Flight getCurrentFlight(){return currentFlight;}
-
-    private PlaneSeat[][] seatLayout;
 
     public void setCurrentFlight(Flight currentFlight)
     {
@@ -47,8 +53,6 @@ public class Plane
         this.currentFlight = currentFlight;
 
     }
-
-    Queue<Flight> flightQueue = new LinkedList<>();
 
     public void setFlightTimes(int ascentTime, int cruiseTime, int descentTime)
     {
@@ -93,7 +97,7 @@ public class Plane
         this(planeTemplate.getPlaneID(), planeTemplate.getPassengerCapacity());
         setPassengers(new ArrayList<>());
         ps = planeStatus.AT_DEPART_GATE;
-        generateSeatLayout(seatLayoutStr, seatTemplateMap);
+        generateSeats(seatLayoutStr, seatTemplateMap);
 
     }//end Plane parameterized constructor
 
@@ -125,10 +129,16 @@ public class Plane
         this(planeID, planeTemplate.getPassengerCapacity());
         setPassengers(planeTemplate.getPassengers());
         ps = planeStatus.AT_DEPART_GATE;
-        setSeatLayout(planeTemplate.getSeatLayout());
+        setSeats(planeTemplate.getSeats());
 
     }
 
+    public void generateCommuteTimes()
+    {
+
+
+
+    }
     public void addPaxToPlane(Passenger passenger)
     {//begin addPaxToPlane
 
@@ -150,7 +160,6 @@ public class Plane
         {
 
             ps = planeStatus.TAXIING;
-
             taxiingToRunwayDuration--;
 
         }
@@ -162,15 +171,12 @@ public class Plane
             {
 
                 ps = planeStatus.TAKING_OFF;
-
                 ascentDuration--;
 
             }
             else
             {
-
                 taxiingToRunwayDuration--;
-
             }
 
         }
@@ -181,15 +187,12 @@ public class Plane
             {
 
                 ps = planeStatus.EN_ROUTE;
-
                 cruiseDuration--;
 
             }
             else
             {
-
                 ascentDuration--;
-
             }
 
         }
@@ -200,15 +203,12 @@ public class Plane
             {
 
                 ps = planeStatus.DESCENDING;
-
                 descentDuration--;
 
             }
             else
             {
-
                 cruiseDuration--;
-
             }
 
         }
@@ -219,15 +219,13 @@ public class Plane
             {
 
                 ps = planeStatus.TAXIING_TO_GATE;
-
+                setCurrentAirport(currentFlight.getDestination());
                 taxiingToGateDuration--;
 
             }
             else
             {
-
                 descentDuration--;
-
             }
 
         }
@@ -236,69 +234,87 @@ public class Plane
 
             if(taxiingToGateDuration == 0)
             {
-
                 ps = planeStatus.AT_GATE;
-
-
             }
             else
             {
-
                 taxiingToGateDuration--;
+            }
+
+        }
+        if(ps.equals(planeStatus.AT_GATE))
+        {
+
+            if (passengers.size() > 0)
+            {
+
+                int counter = 0;
+                while (counter < 3 && !passengers.isEmpty())
+                {
+
+                    // passenger get up from seat
+                    // passenger get off plane and into gate
+
+                }
 
             }
+
+            // things that need to occur while plane is at gate:
+            // passengers deboarded  (passengerCapacity / 3)
+            // baggage unloaded
+
+            if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport())
+            {
+                generateCommuteTimes();
+                flightQueue.poll();
+                setCurrentFlight(flightQueue.peek());
+            }
+            // plane refueled
+            // baggage loaded
+            // passengers boarded
 
         }
 
     }
 
-    public PlaneSeat[][] getSeatLayout() { return seatLayout; }
-    public void setSeatLayout(PlaneSeat[][] seatLayout) { this.seatLayout = seatLayout; }
-    public void generateSeatLayout(String layoutString, Map<String, PlaneSeat> seatTemplateMap)
+    public HashMap<String,PlaneSeat> getSeats() { return seats; }
+    public void setSeats(HashMap<String,PlaneSeat> seats) { this.seats = seats; }
+    public void generateSeats(String layoutString, Map<String, PlaneSeat> seatTemplateMap)
     {
         // Row 1: FF
         // Row 2-13: EEEE
 
         String[] layoutInstructions = layoutString.split(",");
 
-        String lastLayoutInstruction = layoutInstructions[layoutInstructions.length-1];
-
-        int seatLayoutRowLength;
-
-        if (lastLayoutInstruction.charAt(5) == '-')
-        {
-            seatLayoutRowLength = Integer.parseInt(lastLayoutInstruction.substring(6, 7));
-            seatLayout = new PlaneSeat[seatLayoutRowLength][];
-        }
-        else
-        {
-            seatLayoutRowLength = Integer.parseInt(lastLayoutInstruction.substring(4, 5));
-            seatLayout = new PlaneSeat[seatLayoutRowLength][];
-        }
+        int rowNum = 1;
+        char colLetter;
+        String seatCode;
 
         for(String layoutInstruction : layoutInstructions)
         {
 
-            int seatNum = 1;
-            int startingRow = Integer.parseInt(String.valueOf(layoutInstruction.charAt(4)))-1;
             int colonIndex = layoutInstruction.indexOf(':');
-            String seatCodeString = layoutInstruction.substring(colonIndex+1);
-            if (layoutInstruction.charAt(5) == '-')
+            String seatCodeString = layoutInstruction.substring(colonIndex+2);
+            if (layoutInstruction.contains("-"))
             {
 
-                int endingRow = Integer.parseInt(String.valueOf(layoutInstruction.charAt(6)))-1;
+                int startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')))-1;
+                int endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-')+1, layoutInstruction.indexOf(':')))-1;
                 int instructionNumOfRows = endingRow - startingRow + 1;
-                for (int i = startingRow; i < instructionNumOfRows; i++)
+                for (int i = startingRow; i <= instructionNumOfRows; i++)
                 {
-                    seatLayout[i] = new PlaneSeat[seatCodeString.length()-1];
                     for (int j = 0; j < seatCodeString.length(); j++)
                     {
 
                         String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
-                        seatLayout[i][j] = new PlaneSeat(seatTemplateMap.get(currentSeatCode), planeID+"_"+seatNum);
-                        seatNum++;
+                        colLetter = (char) ('A' + j);
+                        seatCode = rowNum + String.valueOf(colLetter);
+                        seats.put(seatCode, new PlaneSeat(seatTemplateMap.get(currentSeatCode),
+                                planeID+"_"+seatCode));
 
                     }
+
+                    rowNum++;
 
                 }
 
@@ -307,13 +323,15 @@ public class Plane
             {
 
                 int seatCodeLength = seatCodeString.length();
-                seatLayout[startingRow] = new PlaneSeat[seatCodeLength];
 
                 for (int j = 0; j < seatCodeLength; j++)
                 {
 
                     String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
-                    seatLayout[startingRow][j] = new PlaneSeat(seatTemplateMap.get(currentSeatCode));
+                    colLetter = (char) ('A' + j);
+                    seatCode = rowNum + String.valueOf(colLetter);
+                    seats.put(seatCode, new PlaneSeat(seatTemplateMap.get(currentSeatCode),
+                            planeID+"_"+seatCode));
 
                 }
 
