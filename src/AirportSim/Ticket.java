@@ -10,17 +10,20 @@ public class Ticket {
 
     private Flight flight;
 
-    private PlaneSeat seat;
+    private String seatCode;
 
-    public Ticket(Flight flight) {
+    private Airline airline;
+
+    public Ticket(Airline airline, Flight flight) {
         ticketNum = formatter();
+        this.airline = airline;
         this.flight = flight;
     }
 
     public Ticket(Ticket anotherTicket)
     {
 
-        this(anotherTicket.getFlight());
+        this(anotherTicket.airline, anotherTicket.getFlight());
 
     }
 
@@ -37,5 +40,7 @@ public class Ticket {
         return flight;
 
     }
+
+    public void setSeatCode(String seatCode){ this.seatCode = seatCode; }
 
 }
