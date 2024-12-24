@@ -1,6 +1,7 @@
 package AirportSim;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Airport
@@ -25,6 +26,8 @@ public class Airport
 
     private final String airportLocation;
 
+    private final String airportCode;
+
     private double latitude;
 
     public double getLatitude() {
@@ -32,6 +35,8 @@ public class Airport
     }
 
     private double longitude;
+
+    private int paxCounter = 0;
 
     public double getLongitude() {
         return longitude;
@@ -49,10 +54,13 @@ public class Airport
         return arrivals;
     }
 
-    public Airport(String location, double latitude, double longitude, int numOfGates)
+    private HashMap<Airline, ArrayList<Flight>> flightsWithVacantSeats;
+
+    public Airport(String location, String code, double latitude, double longitude, int numOfGates)
     {
 
         airportLocation = location;
+        airportCode = code;
         this.latitude = latitude;
         this.longitude = longitude;
         this.numOfGates = numOfGates;
@@ -70,6 +78,8 @@ public class Airport
 
         }
 
+        flightsWithVacantSeats = new HashMap<>();
+
     }
 
     // Airport copy constructor
@@ -77,7 +87,7 @@ public class Airport
     public Airport(Airport anotherAirport)
     {
 
-        this(anotherAirport.airportLocation, anotherAirport.getLatitude(),
+        this(anotherAirport.airportLocation, anotherAirport.airportCode, anotherAirport.getLatitude(),
                 anotherAirport.getLongitude(), anotherAirport.numOfGates);
 
     }
@@ -169,29 +179,33 @@ public class Airport
     public void paxArrival(ArrayList<Passenger> paxInAirport, int pax)
     {
 
-        ArrayList<Flight> flightsWithEmptySeats = new ArrayList<>(departures);
+//        ArrayList<Flight> flightsWithVacantSeats = new ArrayList<>(departures);
 
         for (int i = 0; i < pax; i++)
         {//begin for loop
 
+            Airline ranAirline;
+            ArrayList<Airline> airlines = new ArrayList<>(flightsWithVacantSeats.keySet());
+            ArrayList<Flight> flights;
             Flight ranFlight;
 
             do
             {
 
-                ranFlight = flightsWithEmptySeats.get(random.nextInt(flightsWithEmptySeats.size()));
+                ranAirline = airlines.get(random.nextInt(airlines.size()));
+                flights = flightsWithVacantSeats.get(ranAirline);
+                ranFlight = flightsWithVacantSeats.get(ranAirline).get(random.nextInt(flights.size()));
 
                 if (ranFlight.isSoldOut())
                 {
 
-                    flightsWithEmptySeats.remove(ranFlight);
+                    flightsWithVacantSeats.get(ranAirline).remove(ranFlight);
 
                 }
 
             }while(ranFlight.isSoldOut());
 
-            Passenger passenger = new Passenger(ranFlight, (ranFlight.getNumber() +
-                    "_" + (ranFlight.getPaxWithTickets().size() + 1)));
+            Passenger passenger = new Passenger(ranFlight, "pax_" + this.airportCode + "_" + (paxCounter++));
 
             paxInAirport.add(passenger);
 
@@ -209,5 +223,6 @@ public class Airport
         return !availableGates.get(minutes).isEmpty();
 
     }
+
 
 }//end Airport class
