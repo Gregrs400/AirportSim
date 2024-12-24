@@ -284,8 +284,16 @@ public class Plane
         // Row 1: FF
         // Row 2-13: EEEE
 
+        seats = new HashMap<>();
+
         String[] layoutInstructions = layoutString.split(",");
 
+        for (String instruction : layoutInstructions)
+        {
+
+            System.out.println(instruction);
+
+        }
         int rowNum = 1;
         char colLetter;
         String seatCode;
@@ -298,17 +306,19 @@ public class Plane
             if (layoutInstruction.contains("-"))
             {
 
-                int startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')))-1;
+                String startingRowString = layoutInstruction.substring(4, layoutInstruction.indexOf('-'));
+                int startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')));
                 int endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-')+1, layoutInstruction.indexOf(':')))-1;
                 int instructionNumOfRows = endingRow - startingRow + 1;
-                for (int i = startingRow; i <= instructionNumOfRows; i++)
+                for (int i = startingRow; i <= startingRow + instructionNumOfRows; i++)
                 {
+                    System.out.println(seatCodeString.length());
                     for (int j = 0; j < seatCodeString.length(); j++)
                     {
 
                         String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
                         colLetter = (char) ('A' + j);
-                        seatCode = rowNum + String.valueOf(colLetter);
+                        seatCode = i + String.valueOf(colLetter);
                         seats.put(seatCode, new PlaneSeat(seatTemplateMap.get(currentSeatCode),
                                 planeID+"_"+seatCode));
 
