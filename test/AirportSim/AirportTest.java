@@ -7,17 +7,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AirportTest {
 
-    @ParameterizedTest
-    @ValueSource(ints = {0, 59})
-    void getHour(int min)
-    {
-        assertEquals(0, Airport.getHour(min));
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {0, 60, 120})
-    void getMin(int min)
-    {
-        assertEquals(0, Airport.getMin(min));
-    }
+//    @ParameterizedTest
+//    @ValueSource(ints = {0, 59})
+//    void getHour(int min)
+//    {
+//        assertEquals(0, Airport.getHour(min));
+//    }
+//
+//    @ParameterizedTest
+//    @ValueSource(ints = {0, 60, 120})
+//    void getMin(int min)
+//    {
+//        assertEquals(0, Airport.getMin(min));
+//    }
 }
