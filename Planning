@@ -39,6 +39,10 @@ Need to reserve seats correctly for flights to operate:
     - want to use seat num, for instance 7A as reference to location in data structure: 7A would be row 6 col 0 of 2D ArrayList of seats
         - trying to figure out if I need HashMap at all
             - may not be worth space complexity, and size of each plane may not warrant the reduced time complexity
+    - I want the order to be maintained to allow for easier display in a GUI at a later point
+    - Also thinking about storing data multiple times and wanting to limit that
+    - 2 2D ArrayLists, 1 for reserved seats and 1 for unreserved seems like the best choice
+    - O(1) reservation, no need to search through list, when unreservedSeats is empty, all are reserved
 
 
 
