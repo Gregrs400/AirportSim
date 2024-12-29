@@ -32,3 +32,13 @@ Need to figure out how to generate flights
         - give passengers of first flight 4 hours to make it to their plane, based on 4 hour flight departure passenger generation
         - flights on first day will depart at 4 AM at the earliest
 
+Need to reserve seats correctly for flights to operate:
+    - user should be able to pick seat if desired
+    - passenger objects have seat chosen randomly
+    - want passengers to only be able to randomly select seats unreserved, instead of searching through every seat for an unreserved one
+    - want to use seat num, for instance 7A as reference to location in data structure: 7A would be row 6 col 0 of 2D ArrayList of seats
+        - trying to figure out if I need HashMap at all
+            - may not be worth space complexity, and size of each plane may not warrant the reduced time complexity
+
+
+
