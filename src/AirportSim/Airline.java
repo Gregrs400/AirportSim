@@ -164,7 +164,18 @@ public class Airline
 
             ArrayList<Ticket> flightTickets = flight.getTickets();
 
-            ArrayList<String> seatCodes = new ArrayList<>(plane.getSeats().keySet());
+            ArrayList<String> seatCodes = new ArrayList<>();
+
+            ArrayList<ArrayList<PlaneSeat>> planeSeats = flight.getPlane().getSeats();
+
+            for (ArrayList<PlaneSeat> planeSeat : planeSeats) {
+                for (PlaneSeat seat : planeSeat) {
+
+                    seatCodes.add(seat.getSeatCode());
+
+                }
+
+            }
 
             for (int i = 0; i < flight.getTickets().size(); i++)
             {

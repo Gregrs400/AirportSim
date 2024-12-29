@@ -333,7 +333,7 @@ public class Plane
                     String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
                     colLetter = (char) ('A' + j);
                     seatCode = rowNum + String.valueOf(colLetter);
-                    seats.getLast().add(new PlaneSeat(seatTemplateMap.get(currentSeatCode), planeID+"_"+seatCode));
+                    seats.getLast().add(new PlaneSeat(seatTemplateMap.get(currentSeatCode), planeID+"_"+seatCode, seatCode));
 
                 }
 

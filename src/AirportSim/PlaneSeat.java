@@ -9,6 +9,7 @@ public class PlaneSeat extends Seat
     private Plane plane;
     private PlaneSeatClass seatClass;
     private String planeSeatDescription;
+    private String seatCode;
 
 
     public Airline getAirline(){ return airline; }
@@ -25,6 +26,9 @@ public class PlaneSeat extends Seat
     {
         this.planeSeatDescription = planeSeatDescription;
     }
+
+    public String getSeatCode(){ return seatCode; }
+    public void setSeatCode(String seatCode){ this.seatCode = seatCode; }
 
     public PlaneSeat(String seatID, Airline airline, PlaneSeatClass seatClass)
     {
@@ -44,12 +48,13 @@ public class PlaneSeat extends Seat
 
     }
 
-    public PlaneSeat(PlaneSeat seatTemplate, String differentID)
+    public PlaneSeat(PlaneSeat seatTemplate, String differentID, String seatCode)
     {
 
         this(differentID, seatTemplate.getAirline(), seatTemplate.getSeatClass());
         this.setPlane(seatTemplate.getPlane());
         this.setPlaneSeatDescription(seatTemplate.getPlaneSeatDescription());
+        setSeatCode(seatCode);
 
     }
 
