@@ -303,16 +303,16 @@ public class Plane
 
             int colonIndex = layoutInstruction.indexOf(':');
             String seatCodeString = layoutInstruction.substring(colonIndex+2);
+
+            System.out.println(seatCodeString.length());
             if (layoutInstruction.contains("-"))
             {
 
-                String startingRowString = layoutInstruction.substring(4, layoutInstruction.indexOf('-'));
                 int startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')));
                 int endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-')+1, layoutInstruction.indexOf(':')))-1;
                 int instructionNumOfRows = endingRow - startingRow + 1;
                 for (int i = startingRow; i <= startingRow + instructionNumOfRows; i++)
                 {
-                    System.out.println(seatCodeString.length());
                     for (int j = 0; j < seatCodeString.length(); j++)
                     {
 
