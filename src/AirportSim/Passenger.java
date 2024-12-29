@@ -214,7 +214,7 @@ public class Passenger extends Person
         ArrayList<String> unreservedSeats = ticket.getFlight().getUnreservedSeats();
         String reservingSeatNum = unreservedSeats.get(seatIndex);
         unreservedSeats.remove(seatIndex);
-        // Airline flightAirline =
+        Airline flightAirline = ticket.getAirline();
 
     }
 
@@ -223,7 +223,6 @@ public class Passenger extends Person
 
         // passenger object is removed from gate and added to plane
         // passenger is assigned their PlaneSeat object (use ticket)
-        //
 
     }
 

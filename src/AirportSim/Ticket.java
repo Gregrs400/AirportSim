@@ -41,6 +41,13 @@ public class Ticket {
 
     }
 
+    public Airline getAirline()
+    {
+
+        return airline;
+
+    }
+
     public void setSeatCode(String seatCode){ this.seatCode = seatCode; }
 
 }
