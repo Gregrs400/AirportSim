@@ -39,7 +39,7 @@ public class Plane
 
     public void setCurrentAirport(Airport currentAirport) { this.currentAirport = currentAirport; }
 
-    private HashMap<String,PlaneSeat> seats;
+    private ArrayList<ArrayList<PlaneSeat>> seats;
 
     Queue<Flight> flightQueue = new LinkedList<>();
 
@@ -277,14 +277,14 @@ public class Plane
 
     }
 
-    public HashMap<String,PlaneSeat> getSeats() { return seats; }
-    public void setSeats(HashMap<String,PlaneSeat> seats) { this.seats = seats; }
+    public ArrayList<ArrayList<PlaneSeat>> getSeats() { return seats; }
+    public void setSeats(ArrayList<ArrayList<PlaneSeat>> seats) { this.seats = seats; }
     public void generateSeats(String layoutString, Map<String, PlaneSeat> seatTemplateMap)
     {
         // Row 1: FF
         // Row 2-13: EEEE
 
-        seats = new HashMap<>();
+        seats = new ArrayList<>();
 
         String[] layoutInstructions = layoutString.split(",");
 
@@ -305,49 +305,44 @@ public class Plane
             String seatCodeString = layoutInstruction.substring(colonIndex+2);
 
             System.out.println(seatCodeString.length());
+
+            int startingRow;
+            int endingRow;
+            int instructionNumOfRows;
             if (layoutInstruction.contains("-"))
             {
 
-                int startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')));
-                int endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-')+1, layoutInstruction.indexOf(':')))-1;
-                int instructionNumOfRows = endingRow - startingRow + 1;
-                for (int i = startingRow; i <= startingRow + instructionNumOfRows; i++)
-                {
-                    for (int j = 0; j < seatCodeString.length(); j++)
-                    {
-
-                        String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
-                        colLetter = (char) ('A' + j);
-                        seatCode = i + String.valueOf(colLetter);
-                        seats.put(seatCode, new PlaneSeat(seatTemplateMap.get(currentSeatCode),
-                                planeID+"_"+seatCode));
-
-                    }
-
-                    rowNum++;
-
-                }
-
+                startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')));
+                endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-') + 1, layoutInstruction.indexOf(':'))) - 1;
+                instructionNumOfRows = endingRow - startingRow + 1;
             }
             else
             {
 
-                int seatCodeLength = seatCodeString.length();
+                instructionNumOfRows = 1;
 
-                for (int j = 0; j < seatCodeLength; j++)
+            }
+            for (int i = 0; i <= instructionNumOfRows; i++)
+            {
+
+                seats.add(new ArrayList<>());
+
+                for (int j = 0; j < seatCodeString.length(); j++)
                 {
 
                     String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
                     colLetter = (char) ('A' + j);
                     seatCode = rowNum + String.valueOf(colLetter);
-                    seats.put(seatCode, new PlaneSeat(seatTemplateMap.get(currentSeatCode),
-                            planeID+"_"+seatCode));
+                    seats.getLast().add(new PlaneSeat(seatTemplateMap.get(currentSeatCode), planeID+"_"+seatCode));
 
                 }
+
+                rowNum++;
 
             }
 
         }
+
 
     }
 
