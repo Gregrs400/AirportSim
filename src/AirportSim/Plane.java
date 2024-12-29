@@ -313,7 +313,7 @@ public class Plane
             {
 
                 startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')));
-                endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-') + 1, layoutInstruction.indexOf(':'))) - 1;
+                endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-') + 1, layoutInstruction.indexOf(':')));
                 instructionNumOfRows = endingRow - startingRow + 1;
             }
             else
@@ -322,7 +322,7 @@ public class Plane
                 instructionNumOfRows = 1;
 
             }
-            for (int i = 0; i <= instructionNumOfRows; i++)
+            for (int i = 0; i < instructionNumOfRows; i++)
             {
 
                 seats.add(new ArrayList<>());

@@ -58,4 +58,11 @@ public class PlaneSeat extends Seat
 
     }
 
+    public String toString()
+    {
+
+        return seatCode;
+
+    }
+
 }
