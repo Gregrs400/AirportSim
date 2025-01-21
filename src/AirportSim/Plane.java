@@ -295,7 +295,7 @@ public class Plane
 
         }
         int rowNum = 1;
-        char colLetter;
+        String colString = "";
         String seatCode;
 
         for(String layoutInstruction : layoutInstructions)
@@ -315,6 +315,7 @@ public class Plane
                 startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')));
                 endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-') + 1, layoutInstruction.indexOf(':')));
                 instructionNumOfRows = endingRow - startingRow + 1;
+
             }
             else
             {
@@ -331,9 +332,20 @@ public class Plane
                 {
 
                     String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
-                    colLetter = (char) ('A' + j);
-                    seatCode = rowNum + String.valueOf(colLetter);
-                    seats.getLast().add(new PlaneSeat(seatTemplateMap.get(currentSeatCode), planeID+"_"+seatCode, seatCode));
+
+                    int currentColIndex = j;
+
+                    if (currentColIndex > 25)
+                    {
+                        do {
+                            colString += 'Z';
+                            currentColIndex = (int) (Math.log(currentColIndex) / Math.log(26));
+                        } while (currentColIndex > 25);
+                    }
+
+                    colString = String.valueOf(((char) ('A' + currentColIndex)));
+
+                    seats.getLast().add(new PlaneSeat(seatTemplateMap.get(currentSeatCode), planeID+"_"+rowNum+colString, rowNum, colString));
 
                 }
 
@@ -342,7 +354,6 @@ public class Plane
             }
 
         }
-
 
     }
 

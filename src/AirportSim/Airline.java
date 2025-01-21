@@ -344,37 +344,48 @@ public class Airline
 
     private double milesToNauticalMiles(double miles){ return miles * 0.86897624; }
 
-    public void assignPaxToSeat(String seatNum, Flight flight)
+    public void assignPaxToSeat(Passenger passenger, String seatCode, Flight flight)
     {
 
-        // 4A
+//        // 4A
+//
+//        StringBuilder rowNumStr = new StringBuilder();  // 4
+//        StringBuilder colNumStr = new StringBuilder();  // A
+//
+//        char[] seatNumAsArray = seatCode.toCharArray();
+//
+//        for (char seatNumChar : seatNumAsArray)
+//        {
+//
+//            if (seatNumChar > 47 && seatNumChar < 58)
+//            {
+//
+//                rowNumStr.append(seatNumChar);
+//
+//            }
+//            else
+//            {
+//
+//                colNumStr.append(seatNumChar);
+//
+//            }
+//
+//        }
+//
+//        Passenger[][] flightSeatingChart = flight.getSeatingChart();
+//
+//        int rowNum = Integer.parseInt(String.valueOf(rowNumStr));
+//        int colIndex = 0;
+//        int colNumStrLength = colNumStr.toString().length();
+//        for (int i = 0; i < colNumStrLength; i++)
+//        {
+//
+//            colIndex += Integer.parseInt(colNumStr.substring(i, i+1)) * (int) Math.pow(26, colNumStrLength-i);
+//
+//        }
 
-        StringBuilder rowNumStr = new StringBuilder();  // 4
-        StringBuilder colNumStr = new StringBuilder();  // A
-
-        char[] seatNumAsArray = seatNum.toCharArray();
-
-        for (char seatNumChar : seatNumAsArray)
-        {
-
-            if (seatNumChar > 47 && seatNumChar < 58)
-            {
-
-                rowNumStr.append(seatNumChar);
-
-            }
-            else
-            {
-
-                colNumStr.append(seatNumChar);
-
-            }
-
-        }
-
-        Passenger[][] flightSeatingChart = flight.getSeatingChart();
-
-        int rowNum = Integer.parseInt(String.valueOf(rowNumStr));
+        flight.getUnreservedSeats().get(seatCode).setPassenger(passenger);
+        flight.getUnreservedSeats().remove(seatCode);
 
     }
 

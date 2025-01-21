@@ -62,6 +62,12 @@ public class Flight
 
     public void setPlane(Plane plane) {this.plane = plane;}
 
+    private Airline airline;
+
+    public Airline getAirline() {return airline;}
+
+    public void setAirline(Airline airline) {this.airline = airline; }
+
     private Gate gate;
 
     public Gate getGate() {return gate;}
@@ -83,13 +89,13 @@ public class Flight
 
     private Passenger[][] seatingChart;
     public Passenger[][] getSeatingChart() { return seatingChart; }
-    private ArrayList<String> unreservedSeats;
+    private HashMap<String, PlaneSeat> unreservedSeats;
 
     private ArrayList<Ticket> tickets;
 
     public ArrayList<Ticket> getTickets() { return tickets; }
 
-    public ArrayList<String> getUnreservedSeats()
+    public HashMap<String, PlaneSeat> getUnreservedSeats()
     {
 
         return unreservedSeats;

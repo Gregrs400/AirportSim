@@ -2,6 +2,7 @@ package AirportSim;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 
 public class Passenger extends Person
 {//begin Passenger class
@@ -99,7 +100,7 @@ public class Passenger extends Person
         setId(id);
         bags = generatePassengerBags();
         commuteThroughAirport();
-//        ticket = flight.
+        ticket = new Ticket(flight.getAirline(), flight);
 
         curbToCheckIn = getCurbToCheckIn();
         checkInToSecurity = getCheckInToSecurity();
@@ -211,11 +212,12 @@ public class Passenger extends Person
     public void reservePlaneSeat(int seatIndex)
     {
 
-        ArrayList<String> unreservedSeats = ticket.getFlight().getUnreservedSeats();
-        String reservingSeatNum = unreservedSeats.get(seatIndex);
-        unreservedSeats.remove(seatIndex);
-        Airline flightAirline = ticket.getAirline();
-
+        Object[] unreservedSeatsArr = ticket.getFlight().getUnreservedSeats().keySet().toArray();
+        Object reservedSeatCode = unreservedSeatsArr[seatIndex];
+        System.out.println(reservedSeatCode.toString());
+//        ticket.setSeatCode(reservedSeatCode.toString());
+//        Airline flightAirline = ticket.getAirline();
+//        flightAirline.assignPaxToSeat(this, reservedSeatCode.toString(), ticket.getFlight());
     }
 
     public void boardPlane()
