@@ -111,6 +111,7 @@ public class Flight
         setOriginAirport(originAirport);
         setDestination(destination);
         setNumber(number);
+        generateUnreservedSeats();
         fs = flightStatus.ONTIME;
 
     }//end Flight parameterized constructor
@@ -126,6 +127,7 @@ public class Flight
         setDepartureTimeMin(departureTimeMin);
         setDepartureTime(departureTime);
         setGate(gate);
+        generateUnreservedSeats();
         gate.addPlane(plane);
         fs = flightStatus.ONTIME;
         tickets = new ArrayList<>(plane.getPassengerCapacity());
@@ -144,6 +146,7 @@ public class Flight
         this.landingTimeHour = anotherFlight.landingTimeHour;
         this.landingTimeMin = anotherFlight.landingTimeMin;
         this.gate = anotherFlight.gate;
+        generateUnreservedSeats();
 
     }
 
@@ -202,5 +205,24 @@ public class Flight
         return status + " time: " + hour + ":" + zero + min + suffix;
 
     }//end printTime
+
+    public void generateUnreservedSeats()
+    {
+
+        unreservedSeats = new HashMap<>();
+
+        for (ArrayList<PlaneSeat> planeRow : plane.getSeats())
+        {
+
+            for (PlaneSeat seat : planeRow)
+            {
+
+                unreservedSeats.put(seat.getSeatCode(), seat);
+
+            }
+
+        }
+
+    }
 
 }//end flight

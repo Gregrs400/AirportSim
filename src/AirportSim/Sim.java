@@ -115,6 +115,7 @@ public class Sim   // upper level class to enclose all objects
 
         passenger1.reservePlaneSeat(1);
         System.out.println(testPlane.getSeats());
+        System.out.println("passenger1 seat on ticket: " + passenger1.getTicket().getSeatCode());
 
 
     }

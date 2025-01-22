@@ -64,7 +64,7 @@ public class PlaneSeat extends Seat
         this.setPlaneSeatDescription(seatTemplate.getPlaneSeatDescription());
         setRow(row);
         setCol(col);
-        setSeatCode(seatCode);
+        setSeatCode(String.valueOf(row) + col);
 
     }
 

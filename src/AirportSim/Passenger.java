@@ -214,10 +214,10 @@ public class Passenger extends Person
 
         Object[] unreservedSeatsArr = ticket.getFlight().getUnreservedSeats().keySet().toArray();
         Object reservedSeatCode = unreservedSeatsArr[seatIndex];
-        System.out.println(reservedSeatCode.toString());
-//        ticket.setSeatCode(reservedSeatCode.toString());
-//        Airline flightAirline = ticket.getAirline();
-//        flightAirline.assignPaxToSeat(this, reservedSeatCode.toString(), ticket.getFlight());
+        System.out.println("reservedSeatCode: " + reservedSeatCode);
+        ticket.setSeatCode(reservedSeatCode.toString());
+        Airline flightAirline = ticket.getAirline();
+        flightAirline.assignPaxToSeat(this, reservedSeatCode.toString(), ticket.getFlight());
     }
 
     public void boardPlane()

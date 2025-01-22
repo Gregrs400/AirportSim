@@ -48,6 +48,8 @@ public class Ticket {
 
     }
 
+    public String getSeatCode() { return seatCode; }
+
     public void setSeatCode(String seatCode){ this.seatCode = seatCode; }
 
 }
