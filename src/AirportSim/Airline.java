@@ -136,6 +136,19 @@ public class Airline
 
     }
 
+    public Flight generateFlight(Plane plane, Airport origin, Airport destination)
+    {//begin generateFlight
+
+        Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
+
+        flight.setAirline(this);
+
+        flights.add(flight);
+
+        return flight;
+
+    }
+
     public void generateFlights(int day)
     {
 
