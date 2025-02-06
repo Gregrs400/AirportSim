@@ -41,7 +41,6 @@ Need to reserve seats correctly for flights to operate:
             - may not be worth space complexity, and size of each plane may not warrant the reduced time complexity
     - I want the order to be maintained to allow for easier display in a GUI at a later point
     - Also thinking about storing data multiple times and wanting to limit that
-    - 2 2D ArrayLists, 1 for reserved seats and 1 for unreserved seems like the best choice
     - O(1) reservation, no need to search through list, when unreservedSeats is empty, all are reserved
     - passengers are not assigned to PlaneSeat objects unless they are sitting in a seat, so reserving is adding the passenger to the seating chart
         - unreservedSeats -> 1D String ArrayList with seat codes
