@@ -388,7 +388,7 @@ public class Airline
 
         Passenger[][] flightSeatingChart = flight.getSeatingChart();
 
-        int rowNum = Integer.parseInt(String.valueOf(rowNumStr));
+        int rowNum = Integer.parseInt(String.valueOf(rowNumStr))-1;
         int colIndex = 0;
         int colNumStrLength = colNumStr.toString().length();
         for (int i = 0; i < colNumStrLength; i++)
