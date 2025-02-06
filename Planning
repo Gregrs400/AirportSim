@@ -43,6 +43,9 @@ Need to reserve seats correctly for flights to operate:
     - Also thinking about storing data multiple times and wanting to limit that
     - 2 2D ArrayLists, 1 for reserved seats and 1 for unreserved seems like the best choice
     - O(1) reservation, no need to search through list, when unreservedSeats is empty, all are reserved
+    - passengers are not assigned to PlaneSeat objects unless they are sitting in a seat, so reserving is adding the passenger to the seating chart
+        - unreservedSeats -> 1D String ArrayList with seat codes
+            - when element is chosen, the seat code is used to find the seat in the seating chart and assign the passenger to that
 
 
 
