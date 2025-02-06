@@ -357,48 +357,52 @@ public class Airline
 
     private double milesToNauticalMiles(double miles){ return miles * 0.86897624; }
 
-    public void assignPaxToSeat(Passenger passenger, String seatCode, Flight flight)
+    public void assignPaxToSeat(Passenger passenger, Flight flight, String seatCode)
     {
 
-//        // 4A
-//
-//        StringBuilder rowNumStr = new StringBuilder();  // 4
-//        StringBuilder colNumStr = new StringBuilder();  // A
-//
-//        char[] seatNumAsArray = seatCode.toCharArray();
-//
-//        for (char seatNumChar : seatNumAsArray)
-//        {
-//
-//            if (seatNumChar > 47 && seatNumChar < 58)
-//            {
-//
-//                rowNumStr.append(seatNumChar);
-//
-//            }
-//            else
-//            {
-//
-//                colNumStr.append(seatNumChar);
-//
-//            }
-//
-//        }
-//
-//        Passenger[][] flightSeatingChart = flight.getSeatingChart();
-//
-//        int rowNum = Integer.parseInt(String.valueOf(rowNumStr));
-//        int colIndex = 0;
-//        int colNumStrLength = colNumStr.toString().length();
-//        for (int i = 0; i < colNumStrLength; i++)
-//        {
-//
-//            colIndex += Integer.parseInt(colNumStr.substring(i, i+1)) * (int) Math.pow(26, colNumStrLength-i);
-//
-//        }
+        System.out.println("Seat code: " + seatCode);
+        // 4A
 
-        flight.getUnreservedSeats().get(seatCode).setPassenger(passenger);
-        flight.getUnreservedSeats().remove(seatCode);
+        StringBuilder rowNumStr = new StringBuilder();  // 4
+        StringBuilder colNumStr = new StringBuilder();  // A
+
+        char[] seatNumAsArray = seatCode.toCharArray();
+
+        for (char seatNumChar : seatNumAsArray)
+        {
+
+            if (seatNumChar > 47 && seatNumChar < 58)
+            {
+
+                rowNumStr.append(seatNumChar);
+
+            }
+            else
+            {
+
+                colNumStr.append(seatNumChar);
+
+            }
+
+        }
+
+        Passenger[][] flightSeatingChart = flight.getSeatingChart();
+
+        int rowNum = Integer.parseInt(String.valueOf(rowNumStr));
+        int colIndex = 0;
+        int colNumStrLength = colNumStr.toString().length();
+        for (int i = 0; i < colNumStrLength; i++)
+        {
+
+            System.out.println((int) colNumStr.charAt(i));
+
+            colIndex += (colNumStr.charAt(i)-65) * (int) Math.pow(26, colNumStrLength-(i+1));
+
+        }
+
+        flightSeatingChart[rowNum][colIndex] = passenger;  // setting passenger to seat on seating chart
+        flight.getUnreservedSeats().remove(seatCode);  // remove seat code so no other passengers can reserve
+        passenger.getTicket().setSeatCode(seatCode);  // add seat code to ticket
 
     }
 

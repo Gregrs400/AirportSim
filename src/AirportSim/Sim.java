@@ -112,10 +112,13 @@ public class Sim   // upper level class to enclose all objects
         Flight flight1 = airlineOne.generateFlight(testPlane, airports.get(2), airports.get(5));
 
         Passenger passenger1 = new Passenger(flight1, "pax1");
+        Passenger passenger2 = new Passenger(flight1, "pax2");
 
         passenger1.reservePlaneSeat(1);
+        passenger2.reservePlaneSeat(8);
         System.out.println(testPlane.getSeats());
         System.out.println("passenger1 seat on ticket: " + passenger1.getTicket().getSeatCode());
+        System.out.println("passenger2 seat on ticket: " + passenger2.getTicket().getSeatCode());
 
 
     }

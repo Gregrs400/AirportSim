@@ -89,13 +89,13 @@ public class Flight
 
     private Passenger[][] seatingChart;
     public Passenger[][] getSeatingChart() { return seatingChart; }
-    private HashMap<String, PlaneSeat> unreservedSeats;
+    private ArrayList<String> unreservedSeats;
 
     private ArrayList<Ticket> tickets;
 
     public ArrayList<Ticket> getTickets() { return tickets; }
 
-    public HashMap<String, PlaneSeat> getUnreservedSeats()
+    public ArrayList<String> getUnreservedSeats()
     {
 
         return unreservedSeats;
@@ -209,15 +209,26 @@ public class Flight
     public void generateUnreservedSeats()
     {
 
-        unreservedSeats = new HashMap<>();
+        seatingChart = new Passenger[plane.getSeats().size()][];
 
-        for (ArrayList<PlaneSeat> planeRow : plane.getSeats())
+        for (int rowNum = 0; rowNum < plane.getSeats().size(); rowNum++)
         {
 
-            for (PlaneSeat seat : planeRow)
+            seatingChart[rowNum] = new Passenger[plane.getSeats().get(rowNum).size()];
+
+            Arrays.fill(seatingChart[rowNum], null);
+
+        }
+
+        unreservedSeats = new ArrayList<>();
+
+        for (ArrayList<PlaneSeat> row : plane.getSeats())
+        {
+
+            for (PlaneSeat col : row)
             {
 
-                unreservedSeats.put(seat.getSeatCode(), seat);
+                unreservedSeats.add(col.getSeatCode());
 
             }
 

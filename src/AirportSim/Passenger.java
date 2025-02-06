@@ -1,5 +1,6 @@
 package AirportSim;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
@@ -209,15 +210,14 @@ public class Passenger extends Person
 
     }//end movePassenger
 
-    public void reservePlaneSeat(int seatIndex)
+    public void reservePlaneSeat(int seatIndex)  // adding passenger to flight's seating chart
     {
 
-        Object[] unreservedSeatsArr = ticket.getFlight().getUnreservedSeats().keySet().toArray();
-        Object reservedSeatCode = unreservedSeatsArr[seatIndex];
-        System.out.println("reservedSeatCode: " + reservedSeatCode);
-        ticket.setSeatCode(reservedSeatCode.toString());
-        Airline flightAirline = ticket.getAirline();
-        flightAirline.assignPaxToSeat(this, reservedSeatCode.toString(), ticket.getFlight());
+        Flight flight = ticket.getFlight();  // get the passenger's flight
+        Airline flightAirline = ticket.getAirline();  // get airline from ticket
+        String reservedSeatCode = flight.getUnreservedSeats().get(seatIndex);  // passenger choosing seat
+        flightAirline.assignPaxToSeat(this, flight, reservedSeatCode);  // airline adding passenger to seating chart for flight
+
     }
 
     public void boardPlane()
