@@ -360,7 +360,6 @@ public class Airline
     public void assignPaxToSeat(Passenger passenger, Flight flight, String seatCode)
     {
 
-        System.out.println("Seat code: " + seatCode);
         // 4A
 
         StringBuilder rowNumStr = new StringBuilder();  // 4
@@ -393,8 +392,6 @@ public class Airline
         int colNumStrLength = colNumStr.toString().length();
         for (int i = 0; i < colNumStrLength; i++)
         {
-
-            System.out.println((int) colNumStr.charAt(i));
 
             colIndex += (colNumStr.charAt(i)-65) * (int) Math.pow(26, colNumStrLength-(i+1));
 
