@@ -470,4 +470,12 @@ public class Airline
 
     }
 
+    public void startNextFlight(Plane plane)
+    {
+
+        plane.setCurrentFlight(plane.getFlightQueue().poll());
+        generateFlight(plane);
+
+    }
+
 }//end Airline class
