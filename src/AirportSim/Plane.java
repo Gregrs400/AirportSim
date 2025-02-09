@@ -63,6 +63,8 @@ public class Plane
 
     }
 
+    public Flight getLatestFlight() { return flightQueue.peek(); }
+
     enum planeStatus
     {
 
