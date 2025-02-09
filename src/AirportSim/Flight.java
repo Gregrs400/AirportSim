@@ -113,6 +113,7 @@ public class Flight
         setNumber(number);
         generateUnreservedSeats();
         fs = flightStatus.ONTIME;
+        tickets = new ArrayList<>(plane.getPassengerCapacity());
 
     }//end Flight parameterized constructor
 
