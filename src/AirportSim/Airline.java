@@ -1,9 +1,9 @@
 package AirportSim;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import AirportSim.Time;
 
 public class Airline
 {//begin Airline class
@@ -12,11 +12,17 @@ public class Airline
 
     private final Time time = new Time();
 
-    //String ArrayList of destinations offered by an airline from this airport
+    private HashMap<Airport, ArrayList<Airport>> destinations = new HashMap<>();
 
-    private ArrayList<Airport> destinations = new ArrayList<>();
+    public HashMap<Airport, ArrayList<Airport>> getDestinations() { return destinations; }
 
-    public void setDestinations(ArrayList<Airport> destinations) {this.destinations = destinations;}
+    public void setDestinations(HashMap<Airport, ArrayList<Airport>> destinations) { this.destinations = destinations; }
+
+    //Airport ArrayList of all destinations of an airline
+
+    private ArrayList<Airport> allDestinations = new ArrayList<>();
+
+    public void setAllDestinations(ArrayList<Airport> allDestinations) {this.allDestinations = allDestinations;}
 
     //Integer ArrayList of Flight Numbers of flights created by the airline
 
@@ -44,17 +50,43 @@ public class Airline
 
     //Airline parameterized constructor
 
-    public Airline(ArrayList<Airport> destinations)
+    public Airline(ArrayList<Airport> destinationList) // all destinations available from all airports
     {//begin Airline parameterized constructor
 
-        setDestinations(destinations);
+        for (Airport origin : destinationList)
+        {
+
+            ArrayList<Airport> originAirportDestinations = new ArrayList<>();
+
+            for (Airport destination : destinationList)
+            {
+
+                if (destination != origin)
+                {
+
+                    originAirportDestinations.add(destination);
+
+                }
+
+            }
+
+            destinations.put(origin, originAirportDestinations);
+
+        }
 
     }//end Airline parameterized constructor
+
+    public Airline(HashMap<Airport, ArrayList<Airport>> destinationMap)
+    {
+
+        setDestinations(destinationMap);
+
+    }
 
     public Airline(Airline anotherAirline)
     {
 
-        this(anotherAirline.destinations);
+        this(anotherAirline.allDestinations);
         this.flightNumbers = anotherAirline.flightNumbers;
 
     }
@@ -93,20 +125,20 @@ public class Airline
         Plane plane = availablePlanes.get(0);
         availablePlanes.remove(0);
 
-        int originIndex = random.nextInt(destinations.size());
+        int originIndex = random.nextInt(allDestinations.size());
 
-        int destinationIndex = random.nextInt(destinations.size());
+        int destinationIndex = random.nextInt(allDestinations.size());
 
-        origin = destinations.get(originIndex);
+        origin = allDestinations.get(originIndex);
 
         if (destinationIndex == originIndex)
         {
             while (destinationIndex == originIndex) {
-                destinationIndex = random.nextInt(destinations.size());
+                destinationIndex = random.nextInt(allDestinations.size());
             }
         }
 
-        destination = destinations.get(destinationIndex);
+        destination = allDestinations.get(destinationIndex);
 
         Flight flight = new Flight(plane, destination, origin, flightNumber);
 
@@ -125,7 +157,7 @@ public class Airline
 
         //do-while loop to ensure each flight number is unique
 
-        destination = destinations.get(random.nextInt(destinations.size()));
+        destination = allDestinations.get(random.nextInt(allDestinations.size()));
 
         Flight flight = new Flight(plane, origin, destination, generateFlightNumber(),
                                    departHour, departMin, departTime, gate);
@@ -149,14 +181,29 @@ public class Airline
 
     }
 
+    public Flight generateFlight(Plane plane)
+    {
+
+        Airport latestDestination = plane.getLatestFlight().getDestination();
+
+        Airport destination = getRandomDestination(latestDestination);
+
+        Flight flight = new Flight(plane, latestDestination, destination, generateFlightNumber());
+
+        flights.add(flight);
+
+        return flight;
+
+    }
+
     public void generateFlights(int day)
     {
 
         for (Plane plane : airlineFleet)
         {
 
-            int originIndex = random.nextInt(airlineFleet.size()-1);
-            int destIndex = random.nextInt(airlineFleet.size()-1);
+            int originIndex = random.nextInt(allDestinations.size()-1);
+            int destIndex = random.nextInt(allDestinations.size()-1);
 
             if (destIndex == originIndex)
             {
@@ -164,14 +211,14 @@ public class Airline
                 while (destIndex == originIndex)
                 {
 
-                    destIndex = random.nextInt(airlineFleet.size()-1);
+                    destIndex = random.nextInt(allDestinations.size()-1);
 
                 }
 
             }
 
-            Airport origin = destinations.get(originIndex);
-            Airport destination = destinations.get(destIndex);
+            Airport origin = allDestinations.get(originIndex);
+            Airport destination = allDestinations.get(destIndex);
 
             Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
 
@@ -219,6 +266,15 @@ public class Airline
 
     }
 
+    public Airport getRandomDestination(Airport origin)
+    {
+
+        int randomIndex = random.nextInt(destinations.get(origin).size());
+
+        return destinations.get(origin).get(randomIndex);
+
+    }
+
     public int getPassengerTotal()
     {
 
@@ -241,7 +297,7 @@ public class Airline
     public void removeFromDestinations(Airport destination)
     {//begin removeFromDestinations
 
-        destinations.remove(destination);
+        allDestinations.remove(destination);
 
     }//end removeFromDestinations
 
