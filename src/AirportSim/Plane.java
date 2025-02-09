@@ -43,9 +43,15 @@ public class Plane
 
     Queue<Flight> flightQueue = new LinkedList<>();
 
+    public Queue<Flight> getFlightQueue() {return flightQueue; }
+
+    private Airline airline;
+
+    public void setAirline(Airline airline) { this.airline = airline; }
+
     private Flight currentFlight;
 
-    public Flight getCurrentFlight(){return currentFlight;}
+    public Flight getCurrentFlight() {return currentFlight;}
 
     public void setCurrentFlight(Flight currentFlight)
     {
@@ -268,8 +274,8 @@ public class Plane
             if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport())
             {
                 generateCommuteTimes();
-                flightQueue.poll();
-                setCurrentFlight(flightQueue.peek());
+                airline.startNextFlight(this);
+
             }
             // plane refueled
             // baggage loaded
