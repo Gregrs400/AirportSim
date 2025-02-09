@@ -76,18 +76,18 @@ public class Sim   // upper level class to enclose all objects
 
         //simulation loop
 
-//        for (int day = 0; day < 5; day++)
-//        {
-//
-//            //flight generation loop
-//
-//            for(Airline airline : airlines)
-//            {
-//
-//                airline.generateFlights(day);
-//
-//            }
-//
+        for (int day = 0; day < 5; day++)
+        {
+
+            //flight generation loop
+
+            for(Airline airline : airlines)
+            {
+
+                airline.generateFlights(day);
+
+            }
+
 //            for (int min = 0; min < 1440; min++) {
 //
 //                if (!(movingPlanes.get(min).isEmpty())) {//begin if statement checking for moving planes
@@ -105,8 +105,8 @@ public class Sim   // upper level class to enclose all objects
 //                }//end if statement to move planes
 //
 //            }
-//
-//        }
+
+        }
 
         Plane testPlane = airlineOne.getAirlineFleet().get(1);
         Flight flight1 = airlineOne.generateFlight(testPlane, airports.get(2), airports.get(5));
