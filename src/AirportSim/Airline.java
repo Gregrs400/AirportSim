@@ -150,6 +150,7 @@ public class Airline
         return flight;
 
     }
+
     public Flight generateFlight(Plane plane, Airport origin, int departHour, int departMin, int departTime, Gate gate)
     {//begin generateFlight
 
