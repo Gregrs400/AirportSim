@@ -46,5 +46,5 @@ Need to reserve seats correctly for flights to operate:
         - unreservedSeats -> 1D String ArrayList with seat codes
             - when element is chosen, the seat code is used to find the seat in the seating chart and assign the passenger to that
 
-
+Having a parent object name for everything may help with storing different objects throughout the airport in the Graph structure
 
