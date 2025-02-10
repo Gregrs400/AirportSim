@@ -24,6 +24,10 @@ public class Gate
 
     }
 
+    private final ArrayList<Passenger> planeConnection;
+
+    public ArrayList<Passenger> getPlaneConnection() { return planeConnection; }
+
     public Plane getLastPlane(){return planeQueue.peekLast();}
 
     private String name;
@@ -37,6 +41,7 @@ public class Gate
 
         setSeats(numOfSeats);
         setName(name);
+        planeConnection = new ArrayList<>();
         gs = gateStatus.EMPTY;
 
     }//end Gate parameterized constructor
