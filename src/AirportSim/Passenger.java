@@ -77,7 +77,7 @@ public class Passenger extends Person
         THROUGH_SECURITY,
         // WALKING_TO_GATE,
         AT_GATE,
-        // BOARDING_PLANE
+        BOARDING_PLANE
 
     }//end airportTravel enum
 
@@ -166,6 +166,8 @@ public class Passenger extends Person
     public void movePassenger()
     {//begin movePassenger
 
+        Plane paxPlane = ticket.getFlight().getPlane();
+
         if(at.equals(airportTravel.DROPPED_OFF))
         {//begin if passenger has been dropped off but not checked in
 
@@ -207,6 +209,31 @@ public class Passenger extends Person
             }
 
         }//end if passenger is through security but not gotten to gate
+        if (at.equals(airportTravel.AT_GATE))
+        {//begin if passenger gets to the gate
+
+            ticket.getFlight().getGate().addPaxToGate(this);
+
+        }//end if passenger gets to the gate
+        if(at.equals(airportTravel.BOARDING_PLANE))
+        {//begin if passenger is boarding
+
+            gateToPlane--;
+
+            if (gateToPlane == 0)
+            {
+
+                enterPlane();
+
+            }
+
+        }//end if passenger is boarding
+        if (paxPlane.getPlaneStatus().equals(Plane.planeStatus.AT_ARRIVAL_GATE))
+        {
+
+            deboardPlane();
+
+        }
 
     }//end movePassenger
 
@@ -240,15 +267,47 @@ public class Passenger extends Person
     public void boardPlane()
     {
 
-        // passenger object is removed from gate and added to plane
-        // passenger is assigned their PlaneSeat object (use ticket)
+        // passenger is removed from gate and added to planeConnection
+
+        Gate paxGate = ticket.getFlight().getGate();
+        paxGate.getPaxAtGate().remove(this);
+        paxGate.getPlaneConnection().add(this);
+        at = airportTravel.BOARDING_PLANE;
+
+    }
+
+    public void enterPlane()
+    {
+
+        // passenger is removed from planeConnection and added to plane
+
+        ticket.getFlight().getGate().getPlaneConnection().remove(this);
+
+        // passenger sits in their seat
+
+        int[] paxSeatCoords = ticket.getAirline().fromSeatCodeToCoords(ticket.getSeatCode());
+
+        int rowIndex = paxSeatCoords[0];
+        int colIndex = paxSeatCoords[1];
+
+        reservedSeat = ticket.getFlight().getPlane().getSeats().get(rowIndex).get(colIndex);
+
+        reservedSeat.setPassenger(this);
+
 
     }
 
     public void deboardPlane()
     {
 
+        // passenger is removed from plane and added to planeConnection
 
+        reservedSeat.setPassenger(null);
+        reservedSeat = null;
+        Plane paxPlane = ticket.getFlight().getPlane();
+        Gate paxGate = ticket.getFlight().getGate();
+        paxPlane.getPassengers().remove(this);
+        paxGate.getPlaneConnection().add(this);
 
     }
 
