@@ -82,7 +82,7 @@ public class Plane
         DESCENDING,
         // LANDED,
         TAXIING_TO_GATE,
-        AT_GATE
+        AT_ARRIVAL_GATE
 
     }
 
@@ -242,7 +242,7 @@ public class Plane
 
             if(taxiingToGateDuration == 0)
             {
-                ps = planeStatus.AT_GATE;
+                ps = planeStatus.AT_ARRIVAL_GATE;
             }
             else
             {
@@ -250,7 +250,7 @@ public class Plane
             }
 
         }
-        if(ps.equals(planeStatus.AT_GATE))
+        if(ps.equals(planeStatus.AT_ARRIVAL_GATE))
         {
 
             if (passengers.size() > 0)
