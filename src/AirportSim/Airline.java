@@ -417,6 +417,40 @@ public class Airline
     public void assignPaxToSeat(Passenger passenger, Flight flight, String seatCode)
     {
 
+        int[] seatCoords = fromSeatCodeToCoords(seatCode);
+
+        int rowNum = seatCoords[0];
+        int colIndex = seatCoords[1];
+
+        Passenger[][] flightSeatingChart = flight.getSeatingChart();
+
+        flightSeatingChart[rowNum][colIndex] = passenger;  // setting passenger to seat on seating chart
+        flight.getUnreservedSeats().remove(seatCode);  // remove seat code so no other passengers can reserve
+        passenger.getTicket().setSeatCode(seatCode);  // add seat code to ticket
+
+    }
+
+    public void assignTicketToPassenger(Flight flight, Passenger passenger)
+    {
+
+        ArrayList<Ticket> tickets = flight.getTickets();
+        Ticket ranTicket = tickets.get(random.nextInt(tickets.size()));
+        passenger.setTicket(ranTicket);
+        tickets.remove(ranTicket);
+
+    }
+
+    public void startNextFlight(Plane plane)
+    {
+
+        plane.setCurrentFlight(plane.getFlightQueue().poll());
+        generateFlight(plane);
+
+    }
+
+    public int[] fromSeatCodeToCoords(String seatCode)
+    {
+
         // 4A
 
         StringBuilder rowNumStr = new StringBuilder();  // 4
@@ -442,8 +476,6 @@ public class Airline
 
         }
 
-        Passenger[][] flightSeatingChart = flight.getSeatingChart();
-
         int rowNum = Integer.parseInt(String.valueOf(rowNumStr))-1;
         int colIndex = 0;
         int colNumStrLength = colNumStr.toString().length();
@@ -454,27 +486,12 @@ public class Airline
 
         }
 
-        flightSeatingChart[rowNum][colIndex] = passenger;  // setting passenger to seat on seating chart
-        flight.getUnreservedSeats().remove(seatCode);  // remove seat code so no other passengers can reserve
-        passenger.getTicket().setSeatCode(seatCode);  // add seat code to ticket
+        int[] seatCoords = new int[2];
 
-    }
+        seatCoords[0] = rowNum;
+        seatCoords[1] = colIndex;
 
-    public void assignTicketToPassenger(Flight flight, Passenger passenger)
-    {
-
-        ArrayList<Ticket> tickets = flight.getTickets();
-        Ticket ranTicket = tickets.get(random.nextInt(tickets.size()));
-        passenger.setTicket(ranTicket);
-        tickets.remove(ranTicket);
-
-    }
-
-    public void startNextFlight(Plane plane)
-    {
-
-        plane.setCurrentFlight(plane.getFlightQueue().poll());
-        generateFlight(plane);
+        return seatCoords;
 
     }
 
