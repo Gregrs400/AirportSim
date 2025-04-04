@@ -98,7 +98,7 @@ public class Sim   // upper level class to enclose all objects
 //
 //                        Plane flightPlane = flight.getPlane();
 //
-//                        flightPlane.movePlane();
+//                        flightPlane.move();
 //
 //                    }//end for loop that moves planes in movingPlanes
 //

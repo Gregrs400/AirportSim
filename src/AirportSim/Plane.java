@@ -2,7 +2,7 @@ package AirportSim;
 
 import java.util.*;
 
-public class Plane
+public class Plane implements MovingObject
 {//begin Plane class
 
     private String planeID;
@@ -71,97 +71,8 @@ public class Plane
 
     public Flight getLatestFlight() { return flightQueue.peek(); }
 
-    enum planeStatus
-    {
-
-        AT_DEPART_GATE,
-        READY_TO_TAXI,
-        TAXIING,
-        TAKING_OFF,
-        EN_ROUTE,
-        DESCENDING,
-        // LANDED,
-        TAXIING_TO_GATE,
-        AT_ARRIVAL_GATE
-
-    }
-
-    planeStatus ps;
-
-    public planeStatus getPlaneStatus(){ return ps; }
-
-    public Plane(int capacity)
-    {//begin Plane parameterized constructor
-
-        this.passengerCapacity = capacity;
-        setPassengers(new ArrayList<>());
-
-    }//end Plane parameterized constructor
-
-
-    public Plane(Plane planeTemplate, String seatLayoutStr, Map<String, PlaneSeat> seatTemplateMap)
-    {//begin Plane parameterized constructor
-
-        this(planeTemplate.getPlaneID(), planeTemplate.getPassengerCapacity());
-        setPassengers(new ArrayList<>());
-        ps = planeStatus.AT_DEPART_GATE;
-        generateSeats(seatLayoutStr, seatTemplateMap);
-
-    }//end Plane parameterized constructor
-
-    //Plane parameterized constructor for use by airlines
-    public Plane(String id, int capacity)
-    {//begin Plane parameterized constructor
-
-        setPlaneID(id);
-        this.passengerCapacity = capacity;
-        setPassengers(new ArrayList<>());
-        ps = planeStatus.AT_DEPART_GATE;
-
-    }//end Plane parameterized constructor
-
-    // Plane copy constructor
-
-    public Plane(Plane anotherPlane)
-    {
-
-        this(anotherPlane.getPlaneID(), anotherPlane.getPassengerCapacity());
-        setPassengers(anotherPlane.getPassengers());
-        ps = anotherPlane.getPlaneStatus();
-
-    }
-
-    public Plane(Plane planeTemplate, String planeID)
-    {
-
-        this(planeID, planeTemplate.getPassengerCapacity());
-        setPassengers(planeTemplate.getPassengers());
-        ps = planeStatus.AT_DEPART_GATE;
-        setSeats(planeTemplate.getSeats());
-
-    }
-
-    public void generateCommuteTimes()
-    {
-
-
-
-    }
-    public void addPaxToPlane(Passenger passenger)
-    {//begin addPaxToPlane
-
-        passengers.add(passenger);
-
-    }//end addPaxToPlane
-
-    public void addFlightToQueue(Flight flight)
-    {
-
-        flightQueue.add(flight);
-
-    }
-
-    public void movePlane()
+    @Override
+    public void move()
     {
 
         if(ps.equals(planeStatus.READY_TO_TAXI))
@@ -284,6 +195,96 @@ public class Plane
             // passengers boarded
 
         }
+
+    }
+
+    enum planeStatus
+    {
+
+        AT_DEPART_GATE,
+        READY_TO_TAXI,
+        TAXIING,
+        TAKING_OFF,
+        EN_ROUTE,
+        DESCENDING,
+        // LANDED,
+        TAXIING_TO_GATE,
+        AT_ARRIVAL_GATE
+
+    }
+
+    planeStatus ps;
+
+    public planeStatus getPlaneStatus(){ return ps; }
+
+    public Plane(int capacity)
+    {//begin Plane parameterized constructor
+
+        this.passengerCapacity = capacity;
+        setPassengers(new ArrayList<>());
+
+    }//end Plane parameterized constructor
+
+
+    public Plane(Plane planeTemplate, String seatLayoutStr, Map<String, PlaneSeat> seatTemplateMap)
+    {//begin Plane parameterized constructor
+
+        this(planeTemplate.getPlaneID(), planeTemplate.getPassengerCapacity());
+        setPassengers(new ArrayList<>());
+        ps = planeStatus.AT_DEPART_GATE;
+        generateSeats(seatLayoutStr, seatTemplateMap);
+
+    }//end Plane parameterized constructor
+
+    //Plane parameterized constructor for use by airlines
+    public Plane(String id, int capacity)
+    {//begin Plane parameterized constructor
+
+        setPlaneID(id);
+        this.passengerCapacity = capacity;
+        setPassengers(new ArrayList<>());
+        ps = planeStatus.AT_DEPART_GATE;
+
+    }//end Plane parameterized constructor
+
+    // Plane copy constructor
+
+    public Plane(Plane anotherPlane)
+    {
+
+        this(anotherPlane.getPlaneID(), anotherPlane.getPassengerCapacity());
+        setPassengers(anotherPlane.getPassengers());
+        ps = anotherPlane.getPlaneStatus();
+
+    }
+
+    public Plane(Plane planeTemplate, String planeID)
+    {
+
+        this(planeID, planeTemplate.getPassengerCapacity());
+        setPassengers(planeTemplate.getPassengers());
+        ps = planeStatus.AT_DEPART_GATE;
+        setSeats(planeTemplate.getSeats());
+
+    }
+
+    public void generateCommuteTimes()
+    {
+
+
+
+    }
+    public void addPaxToPlane(Passenger passenger)
+    {//begin addPaxToPlane
+
+        passengers.add(passenger);
+
+    }//end addPaxToPlane
+
+    public void addFlightToQueue(Flight flight)
+    {
+
+        flightQueue.add(flight);
 
     }
 

@@ -1,11 +1,9 @@
 package AirportSim;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Set;
 
-public class Passenger extends Person
+public class Passenger extends Person implements MovingObject
 {//begin Passenger class
 
     private final Random random = new Random();
@@ -47,13 +45,9 @@ public class Passenger extends Person
 
     private final int flightNumber;
 
-    public int getFlightNumber() {return flightNumber;}
-
     private final Airport destination;
 
     private int curbToCheckIn, checkInToSecurity, securityToGate, gateToPlane;
-
-    private final int airportArrivalTime;
 
     private PlaneSeat reservedSeat;
 
@@ -71,11 +65,8 @@ public class Passenger extends Person
     {//begin airportTravel enum
 
         DROPPED_OFF,
-        // CHECKING_IN,
         CHECKED_IN,
-        // AT_SECURITY,
         THROUGH_SECURITY,
-        // WALKING_TO_GATE,
         AT_GATE,
         BOARDING_PLANE
 
@@ -110,10 +101,8 @@ public class Passenger extends Person
 
         at = airportTravel.DROPPED_OFF;
 
-        int arrivalTime = flight.getDepartureTime()-(curbToCheckIn + checkInToSecurity + securityToGate + gateToPlane);
+        int arrivalTime = flight.getDepartureTime() - (curbToCheckIn + checkInToSecurity + securityToGate + gateToPlane);
         if (arrivalTime < 0){ arrivalTime = 0; }
-
-        this.airportArrivalTime = arrivalTime;
 
 
     }//end Passenger parameterized constructor
@@ -163,7 +152,8 @@ public class Passenger extends Person
     the above variables and switching enums when each field equals 0. The method
     is called for a passenger while they have not made it to their gate. */
 
-    public void movePassenger()
+    @Override
+    public void move()
     {//begin movePassenger
 
         Plane paxPlane = ticket.getFlight().getPlane();
