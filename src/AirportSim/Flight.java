@@ -60,7 +60,13 @@ public class Flight
 
     public Plane getPlane() {return plane;}
 
-    public void setPlane(Plane plane) {this.plane = plane;}
+    public void setPlane(Plane plane)
+    {
+
+        this.plane = plane;
+        plane.addFlightToQueue(this);
+
+    }
 
     private Airline airline;
 
