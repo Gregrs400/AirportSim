@@ -271,12 +271,14 @@ public class Plane
             // passengers deboarded  (passengerCapacity / 3)
             // baggage unloaded
 
-            if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport())
+            if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport() && flightQueue.peek() != null)
             {
+
                 generateCommuteTimes();
-                airline.startNextFlight(this);
+                setCurrentFlight(flightQueue.poll());
 
             }
+
             // plane refueled
             // baggage loaded
             // passengers boarded
