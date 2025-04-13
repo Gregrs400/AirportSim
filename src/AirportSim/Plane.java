@@ -179,7 +179,7 @@ public class Plane implements MovingObject
             }
 
             // things that need to occur while plane is at gate:
-            // passengers deboarded  (passengerCapacity / 3)
+            // passengers deboarded in (passengerCapacity / 3) min
             // baggage unloaded
 
             if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport() && flightQueue.peek() != null)
@@ -194,6 +194,13 @@ public class Plane implements MovingObject
             // baggage loaded
             // passengers boarded
 
+            if (passengers.size() == getCurrentFlight().getPaxWithTickets().size())
+            {
+
+                ps = planeStatus.READY_TO_TAXI;
+
+            }
+
         }
 
     }
@@ -207,7 +214,6 @@ public class Plane implements MovingObject
         TAKING_OFF,
         EN_ROUTE,
         DESCENDING,
-        // LANDED,
         TAXIING_TO_GATE,
         AT_ARRIVAL_GATE
 
@@ -224,7 +230,6 @@ public class Plane implements MovingObject
         setPassengers(new ArrayList<>());
 
     }//end Plane parameterized constructor
-
 
     public Plane(Plane planeTemplate, String seatLayoutStr, Map<String, PlaneSeat> seatTemplateMap)
     {//begin Plane parameterized constructor
@@ -271,9 +276,13 @@ public class Plane implements MovingObject
     public void generateCommuteTimes()
     {
 
+        Random random = new Random();
 
+        taxiingToRunwayDuration = random.nextInt(15)+1;
+        taxiingToGateDuration = random.nextInt(15)+1;
 
     }
+
     public void addPaxToPlane(Passenger passenger)
     {//begin addPaxToPlane
 
