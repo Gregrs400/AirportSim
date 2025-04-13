@@ -151,7 +151,7 @@ public class Airport
                     if (!(passengerUtility.isAtGate()))
                     {//begin if passenger needs to move
 
-                        passengerUtility.movePassenger();
+                        passengerUtility.move();
 
                     }//end if passenger needs to move
                     else if(paxGate.getPaxAtGate().size() < paxGate.getSeats())
