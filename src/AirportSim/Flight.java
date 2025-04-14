@@ -12,27 +12,10 @@ public class Flight
     public int getDepartureTime() {return departureTime;}
 
     public void setDepartureTime(int departureTime) {this.departureTime = departureTime;}
-    private int departureTimeHour;
-
-    public void setDepartureTimeHour(int departureTimeHour) {
-        this.departureTimeHour = departureTimeHour;
-    }
-
-    private int departureTimeMin;
-
-    public void setDepartureTimeMin(int departureTimeMin) {this.departureTimeMin = departureTimeMin;}
 
     private int landingTime;
 
     public void setLandingTime(int landingTime) {this.landingTime = landingTime;}
-
-    private int landingTimeHour;
-
-    public void setLandingTimeHour(int landingTimeHour) {this.landingTimeHour = landingTimeHour;}
-
-    private int landingTimeMin;
-
-    public void setLandingTimeMin(int landingTimeMin) {this.landingTimeMin = landingTimeMin;}
 
     //int variable number representing the flight number
 
@@ -123,15 +106,13 @@ public class Flight
 
     }//end Flight parameterized constructor
 
-    public Flight(Plane plane, Airport originAirport, Airport destination, int number, int departureTimeHour, int departureTimeMin, int departureTime, Gate gate)
+    public Flight(Plane plane, Airport originAirport, Airport destination, int number, int departureTime, Gate gate)
     {//begin Flight parameterized constructor
 
         setPlane(plane);
         setOriginAirport(originAirport);
         setDestination(destination);
         setNumber(number);
-        setDepartureTimeHour(departureTimeHour);
-        setDepartureTimeMin(departureTimeMin);
         setDepartureTime(departureTime);
         setGate(gate);
         generateUnreservedSeats();
@@ -147,11 +128,8 @@ public class Flight
     {
 
         this(anotherFlight.plane, anotherFlight.destination, anotherFlight.originAirport,
-                anotherFlight.number, anotherFlight.departureTimeHour, anotherFlight.departureTimeMin,
-                anotherFlight.departureTime, anotherFlight.gate);
+                anotherFlight.number, anotherFlight.departureTime, anotherFlight.gate);
         this.landingTime = anotherFlight.landingTime;
-        this.landingTimeHour = anotherFlight.landingTimeHour;
-        this.landingTimeMin = anotherFlight.landingTimeMin;
         this.gate = anotherFlight.gate;
         generateUnreservedSeats();
 
@@ -181,17 +159,20 @@ public class Flight
     {
 
         return ("\nFlight Number: " + number + "\nOrigin: " + originAirport + "\nDestination: " + destination +
-                "\n" + formatTime("Departure", departureTimeHour, departureTimeMin, departureTime) +
-                "\n" + formatTime("Landing", landingTimeHour, landingTimeMin, landingTime) +
+                "\n" + formatTime("Departure", departureTime) +
+                "\n" + formatTime("Landing", landingTime) +
                 "\nGate: " + gate.getName() +
                 "\nFlight Status: " + fs);
 
     }
     
-    public String formatTime(String status, int hour, int min, int time)
+    public String formatTime(String status, int time)
     {//begin printTime
 
         String suffix, zero;
+
+        int hour = time / 60;
+        int min = time % 60;
 
         if (time > 719 && time < 1440)
             suffix = " PM";
