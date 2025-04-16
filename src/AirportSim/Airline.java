@@ -1,6 +1,5 @@
 package AirportSim;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -161,7 +160,7 @@ public class Airline
         destination = allDestinations.get(random.nextInt(allDestinations.size()));
 
         Flight flight = new Flight(plane, origin, destination, generateFlightNumber(),
-                                   departHour, departMin, departTime, gate);
+                                   departTime, gate);
 
         flights.add(flight);
 
@@ -247,19 +246,21 @@ public class Airline
 
             }
 
-            int[] flightTimes = generateFlightTime(380, origin, destination);
+            flight.setFlightTimes(generateFlightTimes(380, origin, destination));
 
-            plane.setFlightTimes(flightTimes[0], flightTimes[1], flightTimes[2]);
+            int boardingDuration = Math.ceilDiv(plane.getPassengerCapacity(), 3);
+            flight.setBoardingDuration(boardingDuration);
+            flight.setDeboardingDuration(boardingDuration);
 
-            int gateToTakeoffTime = random.nextInt(10) + 15;
-
-            if (day == 0)
+            if (day == 0 && plane.getFlightQueue().isEmpty())
             {
                 flight.setDepartureTime(240);
             }
-
-            // else
-            // flight.setDepartureTime();
+            else
+            {
+                int previousFlightEndTime = plane.getLatestFlight().getEndTime();
+                flight.setDepartureTime(previousFlightEndTime + flight.getBoardingDuration());
+            }
 
             flights.add(flight);
 
@@ -341,7 +342,7 @@ public class Airline
 
     }
 
-    public int[] generateFlightTime(int filedSpeed, Airport origin, Airport destination)
+    public int[] generateFlightTimes(int filedSpeed, Airport origin, Airport destination)
     {
 
         double earthRadiusMiles;
@@ -361,7 +362,7 @@ public class Airline
         int descentTime;
         double takeoffSpeed = 150;
 
-        int[] flightTimes = new int[3];
+        int[] flightTimes = new int[5];
 
         earthRadiusMiles = 3959;
         earthRadiusNM = milesToNauticalMiles(earthRadiusMiles);
@@ -404,9 +405,11 @@ public class Airline
 
         cruiseTime = (int) cruiseDistance / filedSpeed;
 
-        flightTimes[0] = ascentTime;
-        flightTimes[1] = cruiseTime;
-        flightTimes[2] = descentTime;
+        flightTimes[0] = random.nextInt(15)+1;
+        flightTimes[1] = ascentTime;
+        flightTimes[2] = cruiseTime;
+        flightTimes[3] = descentTime;
+        flightTimes[4] = random.nextInt(15)+1;
 
         return flightTimes;
 
