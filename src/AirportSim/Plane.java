@@ -60,15 +60,6 @@ public class Plane implements MovingObject
 
     }
 
-    public void setFlightTimes(int ascentTime, int cruiseTime, int descentTime)
-    {
-
-        ascentDuration = ascentTime;
-        cruiseDuration = cruiseTime;
-        descentDuration = descentTime;
-
-    }
-
     public Flight getLatestFlight() { return flightQueue.peek(); }
 
     @Override
@@ -164,7 +155,7 @@ public class Plane implements MovingObject
         if(ps.equals(planeStatus.AT_ARRIVAL_GATE))
         {
 
-            if (passengers.size() > 0)
+            if (!passengers.isEmpty())
             {
 
                 int counter = 0;
@@ -185,8 +176,12 @@ public class Plane implements MovingObject
             if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport() && flightQueue.peek() != null)
             {
 
-                generateCommuteTimes();
                 setCurrentFlight(flightQueue.poll());
+                taxiingToRunwayDuration = currentFlight.getTaxiingToRunwayDuration();
+                ascentDuration = currentFlight.getAscentDuration();
+                cruiseDuration = currentFlight.getCruiseDuration();
+                descentDuration = currentFlight.getDescentDuration();
+                taxiingToGateDuration = currentFlight.getTaxiingToGateDuration();
 
             }
 
@@ -270,16 +265,6 @@ public class Plane implements MovingObject
         setPassengers(planeTemplate.getPassengers());
         ps = planeStatus.AT_DEPART_GATE;
         setSeats(planeTemplate.getSeats());
-
-    }
-
-    public void generateCommuteTimes()
-    {
-
-        Random random = new Random();
-
-        taxiingToRunwayDuration = random.nextInt(15)+1;
-        taxiingToGateDuration = random.nextInt(15)+1;
 
     }
 
