@@ -7,15 +7,14 @@ public class Flight
 
     //integer variables which store different times
 
-    private int departureTime;
+    private int startTime, boardingDuration, departureTime, taxiingToRunwayDuration, ascentDuration, cruiseDuration,
+            descentDuration, taxiingToGateDuration, arrivalTime, deboardingDuration, endTime;
 
     public int getDepartureTime() {return departureTime;}
 
     public void setDepartureTime(int departureTime) {this.departureTime = departureTime;}
 
-    private int landingTime;
-
-    public void setLandingTime(int landingTime) {this.landingTime = landingTime;}
+    public void setArrivalTime(int arrivalTime) {this.arrivalTime = arrivalTime;}
 
     //int variable number representing the flight number
 
@@ -65,7 +64,6 @@ public class Flight
     {
 
         this.gate = gate;
-
         gate.gs = Gate.gateStatus.OCCUPIED;
 
     }
@@ -89,6 +87,50 @@ public class Flight
 
         return unreservedSeats;
 
+    }
+
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getBoardingDuration() {
+        return boardingDuration;
+    }
+
+    public void setBoardingDuration(int boardingDuration) {
+        this.boardingDuration = boardingDuration;
+    }
+
+    public int getTaxiingToRunwayDuration() {
+        return taxiingToRunwayDuration;
+    }
+
+    public int getAscentDuration() {
+        return ascentDuration;
+    }
+
+    public int getCruiseDuration() {
+        return cruiseDuration;
+    }
+
+    public int getDescentDuration() {
+        return descentDuration;
+    }
+
+    public int getTaxiingToGateDuration() {
+        return taxiingToGateDuration;
+    }
+
+    public void setDeboardingDuration(int deboardingDuration) {
+        this.deboardingDuration = deboardingDuration;
+    }
+
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getEndTime() {
+        return endTime;
     }
 
     //Flight parameterized constructor, assigning a plane, a destination, a number, and the departure time of each flight
@@ -129,7 +171,7 @@ public class Flight
 
         this(anotherFlight.plane, anotherFlight.destination, anotherFlight.originAirport,
                 anotherFlight.number, anotherFlight.departureTime, anotherFlight.gate);
-        this.landingTime = anotherFlight.landingTime;
+        this.arrivalTime = anotherFlight.arrivalTime;
         this.gate = anotherFlight.gate;
         generateUnreservedSeats();
 
@@ -160,7 +202,7 @@ public class Flight
 
         return ("\nFlight Number: " + number + "\nOrigin: " + originAirport + "\nDestination: " + destination +
                 "\n" + formatTime("Departure", departureTime) +
-                "\n" + formatTime("Landing", landingTime) +
+                "\n" + formatTime("Landing", arrivalTime) +
                 "\nGate: " + gate.getName() +
                 "\nFlight Status: " + fs);
 
@@ -221,6 +263,17 @@ public class Flight
             }
 
         }
+
+    }
+
+    public void setFlightTimes(int[] flightTimes)
+    {
+
+        taxiingToRunwayDuration = flightTimes[0];
+        ascentDuration = flightTimes[1];
+        cruiseDuration = flightTimes[2];
+        descentDuration = flightTimes[3];
+        taxiingToGateDuration = flightTimes[4];
 
     }
 
