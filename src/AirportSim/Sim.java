@@ -7,7 +7,7 @@ import java.util.*;
 public class Sim   // upper level class to enclose all objects
 {
 
-    static ArrayList<ArrayList<Flight>> movingPlanes = new ArrayList<>();
+    static ArrayList<ArrayList<MovingObject>> movingObjects = new ArrayList<>();
 
     static ArrayList<Airline> airlines = new ArrayList<>();
 
@@ -28,10 +28,10 @@ public class Sim   // upper level class to enclose all objects
     public static void main(String[] args)
     {
 
-        for(int i = 0; i < 1440; i++)
+        for (int i = 0; i < 1440; i++)
         {
 
-            movingPlanes.add(new ArrayList<>());
+            movingObjects.add(new ArrayList<>());
 
         }
 
@@ -50,6 +50,8 @@ public class Sim   // upper level class to enclose all objects
         airlines.add(airlineOne);
 
         Plane plane1 = new Plane(50);
+
+        Plane plane2 = new Plane(100);
 
         String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
 
@@ -70,7 +72,7 @@ public class Sim   // upper level class to enclose all objects
         for (int i = 0; i < 50; i++)
         {
 
-            airlineOne.addPlane(new Plane(airlineOnePlane1Template, "a1p1_"+i));
+            airlineOne.addPlane(new Plane(airlineOnePlane1Template, "a1p1_" + i));
 
         }
 
@@ -81,30 +83,27 @@ public class Sim   // upper level class to enclose all objects
 
             //flight generation loop
 
-            for(Airline airline : airlines)
+            for (Airline airline : airlines)
             {
 
                 airline.generateFlights(day);
 
             }
 
-//            for (int min = 0; min < 1440; min++) {
-//
-//                if (!(movingPlanes.get(min).isEmpty())) {//begin if statement checking for moving planes
-//
-//                    for (int j = 0; j < movingPlanes.get(min).size(); j++) {//begin for loop that moves planes in movingPlanes
-//
-//                        Flight flight = movingPlanes.get(min).get(j);
-//
-//                        Plane flightPlane = flight.getPlane();
-//
-//                        flightPlane.move();
-//
-//                    }//end for loop that moves planes in movingPlanes
-//
-//                }//end if statement to move planes
-//
-//            }
+            for (int min = 0; min < 1440; min++)
+            {
+
+                if (!(movingObjects.get(min).isEmpty())) {//begin if statement checking for moving planes
+
+                    for (int j = 0; j < movingObjects.get(min).size(); j++) {//begin for loop that moves planes in movingPlanes
+
+                        movingObjects.get(min).get(j).move();
+
+                    }//end for loop that moves planes in movingPlanes
+
+                }//end if statement to move planes
+
+            }
 
         }
 
@@ -119,6 +118,18 @@ public class Sim   // upper level class to enclose all objects
         System.out.println(testPlane.getSeats());
         System.out.println("passenger1 seat on ticket: " + passenger1.getTicket().getSeatCode());
         System.out.println("passenger2 seat on ticket: " + passenger2.getTicket().getSeatCode());
+
+    }
+
+    public static void addToMovingObjects(int startTime, int duration, MovingObject object)
+    {
+
+        for (int i = startTime; i < startTime + duration; i++)
+        {
+
+            movingObjects.get(i).add(object);
+
+        }
 
     }
 
