@@ -82,14 +82,6 @@ public class Airline
 
     }
 
-    public Airline(Airline anotherAirline)
-    {
-
-        this(anotherAirline.allDestinations);
-        this.flightNumbers = anotherAirline.flightNumbers;
-
-    }
-
     //addPlane to add a plane to an airline's fleet
 
     public void addPlane(Plane plane)
@@ -121,8 +113,8 @@ public class Airline
 
         flightNumbers.add(flightNumber);
 
-        Plane plane = availablePlanes.get(0);
-        availablePlanes.remove(0);
+        Plane plane = availablePlanes.getFirst();
+        availablePlanes.removeFirst();
 
         int originIndex = random.nextInt(allDestinations.size());
 
