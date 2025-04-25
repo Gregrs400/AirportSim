@@ -93,15 +93,17 @@ public class Sim   // upper level class to enclose all objects
             for (int min = 0; min < 1440; min++)
             {
 
-                if (!(movingObjects.get(min).isEmpty())) {//begin if statement checking for moving planes
+                if (!(movingObjects.get(min).isEmpty()))
+                {//begin if statement checking for moving objects
 
-                    for (int j = 0; j < movingObjects.get(min).size(); j++) {//begin for loop that moves planes in movingPlanes
+                    for (int j = 0; j < movingObjects.get(min).size(); j++)
+                    {//begin for loop that moves objects in movingObjects
 
                         movingObjects.get(min).get(j).move();
 
-                    }//end for loop that moves planes in movingPlanes
+                    }//end for loop that moves planes in movingObjects
 
-                }//end if statement to move planes
+                }//end if statement to move moving objects
 
             }
 
