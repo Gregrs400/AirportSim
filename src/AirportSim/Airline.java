@@ -184,11 +184,71 @@ public class Airline
     public Flight generateFlight(Plane plane)
     {
 
-        Airport latestDestination = plane.getLatestFlight().getDestination();
+        int originIndex = random.nextInt(allDestinations.size()-1);
+        int destIndex = random.nextInt(allDestinations.size()-1);
 
-        Airport destination = getRandomDestination(latestDestination);
+        if (destIndex == originIndex)
+        {
 
-        Flight flight = new Flight(plane, latestDestination, destination, generateFlightNumber());
+            while (destIndex == originIndex)
+            {
+
+                destIndex = random.nextInt(allDestinations.size()-1);
+
+            }
+
+        }
+
+        Airport origin = allDestinations.get(originIndex);
+        Airport destination = allDestinations.get(destIndex);
+
+        Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
+
+        ArrayList<Ticket> flightTickets = flight.getTickets();
+
+        ArrayList<String> seatCodes = new ArrayList<>();
+
+        ArrayList<ArrayList<PlaneSeat>> planeSeats = flight.getPlane().getSeats();
+
+        for (ArrayList<PlaneSeat> planeSeat : planeSeats) {
+            for (PlaneSeat seat : planeSeat) {
+
+                seatCodes.add(seat.getSeatCode());
+
+            }
+
+        }
+
+        for (int i = 0; i < flightTickets.size(); i++)
+        {
+
+            Ticket ticket = new Ticket(this, flight);
+            ticket.setSeatCode(seatCodes.get(i));
+            flightTickets.set(i, ticket);
+
+        }
+
+        flight.setFlightTimes(generateFlightTimes(380, origin, destination));
+
+        int boardingDuration = Math.ceilDiv(plane.getPassengerCapacity(), 3);
+        flight.setBoardingDuration(boardingDuration);
+        flight.setDeboardingDuration(boardingDuration);
+
+
+        int flightStartTime;
+
+        if (plane.getLatestFlight() != null)
+        {
+
+            flightStartTime = plane.getLatestFlight().getEndTime();
+
+        }
+        else
+        {
+            flightStartTime = 240;
+        }
+
+        flight.setDepartureTime(flightStartTime + flight.getBoardingDuration());
 
         flights.add(flight);
 
