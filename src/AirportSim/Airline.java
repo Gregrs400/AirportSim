@@ -254,68 +254,12 @@ public class Airline
         for (Plane plane : airlineFleet)
         {
 
-            int originIndex = random.nextInt(allDestinations.size()-1);
-            int destIndex = random.nextInt(allDestinations.size()-1);
-
-            if (destIndex == originIndex)
+            do
             {
 
-                while (destIndex == originIndex)
-                {
+                generateFlight(plane);
 
-                    destIndex = random.nextInt(allDestinations.size()-1);
-
-                }
-
-            }
-
-            Airport origin = allDestinations.get(originIndex);
-            Airport destination = allDestinations.get(destIndex);
-
-            Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
-
-            ArrayList<Ticket> flightTickets = flight.getTickets();
-
-            ArrayList<String> seatCodes = new ArrayList<>();
-
-            ArrayList<ArrayList<PlaneSeat>> planeSeats = flight.getPlane().getSeats();
-
-            for (ArrayList<PlaneSeat> planeSeat : planeSeats) {
-                for (PlaneSeat seat : planeSeat) {
-
-                    seatCodes.add(seat.getSeatCode());
-
-                }
-
-            }
-
-            for (int i = 0; i < flight.getTickets().size(); i++)
-            {
-
-                Ticket ticket = new Ticket(this, flight);
-                ticket.setSeatCode(seatCodes.get(i));
-                flightTickets.set(i, ticket);
-
-            }
-
-            flight.setFlightTimes(generateFlightTimes(380, origin, destination));
-
-            int boardingDuration = Math.ceilDiv(plane.getPassengerCapacity(), 3);
-            flight.setBoardingDuration(boardingDuration);
-            flight.setDeboardingDuration(boardingDuration);
-
-            if (day == 0 && plane.getFlightQueue().isEmpty())
-            {
-                flight.setDepartureTime(240);
-            }
-            else
-            {
-                int previousFlightEndTime = plane.getLatestFlight().getEndTime();
-                flight.setDepartureTime(previousFlightEndTime + flight.getBoardingDuration());
-            }
-
-            flights.add(flight);
-
+            }while(plane.getLatestFlight().getEndTime() < ((day+1) * 1440));
         }
 
     }
