@@ -173,7 +173,7 @@ public class Airline
 
     }
 
-    public Flight generateFlight(Plane plane)
+    public void generateFlight(Plane plane)
     {
 
         int originIndex = random.nextInt(allDestinations.size()-1);
@@ -243,8 +243,6 @@ public class Airline
         flight.setDepartureTime(flightStartTime + flight.getBoardingDuration());
 
         flights.add(flight);
-
-        return flight;
 
     }
 
