@@ -399,8 +399,11 @@ public class Airline
 
         int taxiingToRunwayDuration = random.nextInt(15)+1;
         int taxiingToGateDuration = random.nextInt(15)+1;
+        int boardingDuration = random.nextInt(30)+15;
+        int deboardingDuration = random.nextInt(45)+15;
 
-        return new int[]{taxiingToRunwayDuration, ascentTime, cruiseTime, descentTime, taxiingToGateDuration};
+        return new int[]{taxiingToRunwayDuration, ascentTime, cruiseTime, descentTime, taxiingToGateDuration,
+                        boardingDuration, deboardingDuration};
 
     }
 
