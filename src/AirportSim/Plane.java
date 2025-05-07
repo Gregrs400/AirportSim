@@ -158,14 +158,26 @@ public class Plane implements MovingObject
             if (!passengers.isEmpty())
             {
 
-                int counter = 0;
-                while (counter < 3 && !passengers.isEmpty())
-                {
+                int passengerDeboardRate = Math.ceilDiv(passengers.size(), passengerDeboardingDuration);
 
-                    // passenger get up from seat
-                    // passenger get off plane and into gate
+                    for (int i = 0; i < passengerDeboardRate; i++)
+                    {
 
-                }
+                        if(passengers.isEmpty())
+                        {
+
+                            break;
+
+                        }
+                        else
+                        {
+
+                            Passenger currentPassenger = passengers.getFirst();
+                            currentPassenger.deboardPlane();
+
+                        }
+
+                    }
 
             }
 
@@ -176,12 +188,7 @@ public class Plane implements MovingObject
             if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport() && flightQueue.peek() != null)
             {
 
-                setCurrentFlight(flightQueue.poll());
-                taxiingToRunwayDuration = currentFlight.getTaxiingToRunwayDuration();
-                ascentDuration = currentFlight.getAscentDuration();
-                cruiseDuration = currentFlight.getCruiseDuration();
-                descentDuration = currentFlight.getDescentDuration();
-                taxiingToGateDuration = currentFlight.getTaxiingToGateDuration();
+                loadNextFlight();
 
             }
 
@@ -359,6 +366,18 @@ public class Plane implements MovingObject
             }
 
         }
+
+    }
+
+    public void loadNextFlight()
+    {
+
+        setCurrentFlight(flightQueue.poll());
+        taxiingToRunwayDuration = currentFlight.getTaxiingToRunwayDuration();
+        ascentDuration = currentFlight.getAscentDuration();
+        cruiseDuration = currentFlight.getCruiseDuration();
+        descentDuration = currentFlight.getDescentDuration();
+        taxiingToGateDuration = currentFlight.getTaxiingToGateDuration();
 
     }
 
