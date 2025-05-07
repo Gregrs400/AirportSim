@@ -378,7 +378,8 @@ public class Plane implements MovingObject
         cruiseDuration = currentFlight.getCruiseDuration();
         descentDuration = currentFlight.getDescentDuration();
         taxiingToGateDuration = currentFlight.getTaxiingToGateDuration();
-
+        passengerBoardingDuration = currentFlight.getBoardingDuration();
+        passengerDeboardingDuration = currentFlight.getDeboardingDuration();
     }
 
 }//end Plane class

@@ -97,6 +97,10 @@ public class Flight
         return boardingDuration;
     }
 
+    public int getDeboardingDuration() {
+        return deboardingDuration;
+    }
+
     public void setBoardingDuration(int boardingDuration) {
         this.boardingDuration = boardingDuration;
     }
@@ -274,6 +278,8 @@ public class Flight
         cruiseDuration = flightTimes[2];
         descentDuration = flightTimes[3];
         taxiingToGateDuration = flightTimes[4];
+        boardingDuration = flightTimes[5];
+        deboardingDuration = flightTimes[6];
 
     }
 
