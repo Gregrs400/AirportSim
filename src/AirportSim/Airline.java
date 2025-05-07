@@ -226,7 +226,6 @@ public class Airline
         flight.setBoardingDuration(boardingDuration);
         flight.setDeboardingDuration(boardingDuration);
 
-
         int flightStartTime;
 
         if (plane.getLatestFlight() != null)
@@ -240,6 +239,7 @@ public class Airline
             flightStartTime = 240;
         }
 
+        flight.setStartTime(flightStartTime);
         flight.setDepartureTime(flightStartTime + flight.getBoardingDuration());
 
         flights.add(flight);
@@ -356,8 +356,6 @@ public class Airline
         int descentTime;
         double takeoffSpeed = 150;
 
-        int[] flightTimes = new int[5];
-
         earthRadiusMiles = 3959;
         earthRadiusNM = milesToNauticalMiles(earthRadiusMiles);
 
@@ -399,13 +397,10 @@ public class Airline
 
         cruiseTime = (int) cruiseDistance / filedSpeed;
 
-        flightTimes[0] = random.nextInt(15)+1;
-        flightTimes[1] = ascentTime;
-        flightTimes[2] = cruiseTime;
-        flightTimes[3] = descentTime;
-        flightTimes[4] = random.nextInt(15)+1;
+        int taxiingToRunwayDuration = random.nextInt(15)+1;
+        int taxiingToGateDuration = random.nextInt(15)+1;
 
-        return flightTimes;
+        return new int[]{taxiingToRunwayDuration, ascentTime, cruiseTime, descentTime, taxiingToGateDuration};
 
     }
 
