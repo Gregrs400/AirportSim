@@ -230,7 +230,6 @@ public class Plane implements MovingObject
 
             // plane refueled
             // baggage loaded
-            // passengers boarded
 
             if (passengers.size() == getCurrentFlight().getPaxWithTickets().size())
             {
@@ -289,17 +288,6 @@ public class Plane implements MovingObject
         ps = planeStatus.AT_DEPART_GATE;
 
     }//end Plane parameterized constructor
-
-    // Plane copy constructor
-
-    public Plane(Plane anotherPlane)
-    {
-
-        this(anotherPlane.getPlaneID(), anotherPlane.getPassengerCapacity());
-        setPassengers(anotherPlane.getPassengers());
-        ps = anotherPlane.getPlaneStatus();
-
-    }
 
     public Plane(Plane planeTemplate, String planeID)
     {
