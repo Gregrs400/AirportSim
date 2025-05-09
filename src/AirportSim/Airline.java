@@ -11,8 +11,6 @@ public class Airline
 
     private HashMap<Airport, ArrayList<Airport>> destinations = new HashMap<>();
 
-    public HashMap<Airport, ArrayList<Airport>> getDestinations() { return destinations; }
-
     public void setDestinations(HashMap<Airport, ArrayList<Airport>> destinations) { this.destinations = destinations; }
 
     //Airport ArrayList of all destinations of an airline
