@@ -178,19 +178,53 @@ public class Plane implements MovingObject
                         }
 
                     }
+
                 }
 
                 passengerDeboardingDuration--;
+                return;
 
             }
 
             // things that need to occur while plane is at gate:
             // baggage unloaded
 
-            if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport() && flightQueue.peek() != null)
+            if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport() &&
+                    flightQueue.peek() != null)
             {
 
                 loadNextFlight();
+                return;
+
+            }
+
+            int passengerBoardRate = Math.ceilDiv(passengers.size(), passengerBoardingDuration);
+
+            if (passengerBoardingDuration > 0)  // boarding
+            {
+
+                if (passengers.size() < getCurrentFlight().getPaxWithTickets().size())
+                {
+
+                    for (int i = 0; i < passengerBoardRate; i++)
+                    {
+
+                        if (getCurrentFlight().getGate().getPaxAtGate().isEmpty()) {
+
+                            break;
+
+                        } else {
+
+                            Passenger currentPassenger = getCurrentFlight().getGate().getPaxAtGate().getFirst();
+                            currentPassenger.boardPlane();
+
+                        }
+
+                    }
+
+                }
+
+                passengerBoardingDuration--;
 
             }
 
