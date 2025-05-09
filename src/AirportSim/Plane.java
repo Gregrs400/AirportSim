@@ -66,21 +66,21 @@ public class Plane implements MovingObject
     public void move()
     {
 
-        if(ps.equals(planeStatus.READY_TO_TAXI))
+        if(ps.equals(PlaneStatus.READY_TO_TAXI))
         {
 
-            ps = planeStatus.TAXIING;
+            ps = PlaneStatus.TAXIING;
             taxiingToRunwayDuration--;
 
         }
 
-        if(ps.equals(planeStatus.TAXIING))
+        if(ps.equals(PlaneStatus.TAXIING))
         {
 
             if(taxiingToRunwayDuration == 0)
             {
 
-                ps = planeStatus.TAKING_OFF;
+                ps = PlaneStatus.TAKING_OFF;
                 ascentDuration--;
 
             }
@@ -90,13 +90,13 @@ public class Plane implements MovingObject
             }
 
         }
-        if(ps.equals(planeStatus.TAKING_OFF))
+        if(ps.equals(PlaneStatus.TAKING_OFF))
         {
 
             if(ascentDuration == 0)
             {
 
-                ps = planeStatus.EN_ROUTE;
+                ps = PlaneStatus.EN_ROUTE;
                 cruiseDuration--;
 
             }
@@ -106,13 +106,13 @@ public class Plane implements MovingObject
             }
 
         }
-        if(ps.equals(planeStatus.EN_ROUTE))
+        if(ps.equals(PlaneStatus.EN_ROUTE))
         {
 
             if(cruiseDuration == 0)
             {
 
-                ps = planeStatus.DESCENDING;
+                ps = PlaneStatus.DESCENDING;
                 descentDuration--;
 
             }
@@ -122,13 +122,13 @@ public class Plane implements MovingObject
             }
 
         }
-        if (ps.equals(planeStatus.DESCENDING))
+        if (ps.equals(PlaneStatus.DESCENDING))
         {
 
             if(descentDuration == 0)
             {
 
-                ps = planeStatus.TAXIING_TO_GATE;
+                ps = PlaneStatus.TAXIING_TO_GATE;
                 setCurrentAirport(currentFlight.getDestination());
                 taxiingToGateDuration--;
 
@@ -139,12 +139,12 @@ public class Plane implements MovingObject
             }
 
         }
-        if(ps.equals(planeStatus.TAXIING_TO_GATE))
+        if(ps.equals(PlaneStatus.TAXIING_TO_GATE))
         {
 
             if(taxiingToGateDuration == 0)
             {
-                ps = planeStatus.AT_ARRIVAL_GATE;
+                ps = PlaneStatus.AT_ARRIVAL_GATE;
             }
             else
             {
@@ -152,7 +152,7 @@ public class Plane implements MovingObject
             }
 
         }
-        if(ps.equals(planeStatus.AT_ARRIVAL_GATE))
+        if(ps.equals(PlaneStatus.AT_ARRIVAL_GATE))
         {
 
             if (passengerDeboardingDuration > 0)
@@ -234,7 +234,7 @@ public class Plane implements MovingObject
             if (passengers.size() == getCurrentFlight().getPaxWithTickets().size())
             {
 
-                ps = planeStatus.READY_TO_TAXI;
+                ps = PlaneStatus.READY_TO_TAXI;
 
             }
 
@@ -242,23 +242,9 @@ public class Plane implements MovingObject
 
     }
 
-    enum planeStatus
-    {
+    PlaneStatus ps;
 
-        AT_DEPART_GATE,
-        READY_TO_TAXI,
-        TAXIING,
-        TAKING_OFF,
-        EN_ROUTE,
-        DESCENDING,
-        TAXIING_TO_GATE,
-        AT_ARRIVAL_GATE
-
-    }
-
-    planeStatus ps;
-
-    public planeStatus getPlaneStatus(){ return ps; }
+    public PlaneStatus getPlaneStatus(){ return ps; }
 
     public Plane(int capacity)
     {//begin Plane parameterized constructor
@@ -273,7 +259,7 @@ public class Plane implements MovingObject
 
         this(planeTemplate.getPlaneID(), planeTemplate.getPassengerCapacity());
         setPassengers(new ArrayList<>());
-        ps = planeStatus.AT_DEPART_GATE;
+        ps = PlaneStatus.AT_DEPART_GATE;
         generateSeats(seatLayoutStr, seatTemplateMap);
 
     }//end Plane parameterized constructor
@@ -285,7 +271,7 @@ public class Plane implements MovingObject
         setPlaneID(id);
         this.passengerCapacity = capacity;
         setPassengers(new ArrayList<>());
-        ps = planeStatus.AT_DEPART_GATE;
+        ps = PlaneStatus.AT_DEPART_GATE;
 
     }//end Plane parameterized constructor
 
@@ -294,7 +280,7 @@ public class Plane implements MovingObject
 
         this(planeID, planeTemplate.getPassengerCapacity());
         setPassengers(planeTemplate.getPassengers());
-        ps = planeStatus.AT_DEPART_GATE;
+        ps = PlaneStatus.AT_DEPART_GATE;
         setSeats(planeTemplate.getSeats());
 
     }
