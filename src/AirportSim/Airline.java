@@ -17,8 +17,6 @@ public class Airline
 
     private ArrayList<Airport> allDestinations = new ArrayList<>();
 
-    public void setAllDestinations(ArrayList<Airport> allDestinations) {this.allDestinations = allDestinations;}
-
     //Integer ArrayList of Flight Numbers of flights created by the airline
 
     private ArrayList<Integer> flightNumbers = new ArrayList<>();
