@@ -9,8 +9,6 @@ public class Airline
 
     private final Random random = new Random();
 
-    private final Time time = new Time();
-
     private HashMap<Airport, ArrayList<Airport>> destinations = new HashMap<>();
 
     public HashMap<Airport, ArrayList<Airport>> getDestinations() { return destinations; }
