@@ -44,10 +44,6 @@ public class Plane implements MovingObject
 
     public Queue<Flight> getFlightQueue() {return flightQueue; }
 
-    private Airline airline;
-
-    public void setAirline(Airline airline) { this.airline = airline; }
-
     private Flight currentFlight;
 
     public Flight getCurrentFlight() {return currentFlight;}
