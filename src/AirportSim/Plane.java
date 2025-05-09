@@ -313,7 +313,6 @@ public class Plane implements MovingObject
         }
         int rowNum = 1;
         String colString = "";
-        String seatCode;
 
         for(String layoutInstruction : layoutInstructions)
         {
