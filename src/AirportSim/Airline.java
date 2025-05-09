@@ -19,7 +19,7 @@ public class Airline
 
     //Integer ArrayList of Flight Numbers of flights created by the airline
 
-    private ArrayList<Integer> flightNumbers = new ArrayList<>();
+    private final ArrayList<Integer> flightNumbers = new ArrayList<>();
 
     //Flight object ArrayList storing the flights created by the airline
 
