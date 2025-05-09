@@ -30,8 +30,7 @@ public class Plane implements MovingObject
     }
 
     private int taxiingToRunwayDuration, ascentDuration, cruiseDuration, descentDuration, taxiingToGateDuration,
-            passengerDeboardingDuration, baggageUnloadingDuration, planeRefuelingDuration, baggageLoadingDuration,
-            passengerBoardingDuration, atGateDuration;
+            passengerDeboardingDuration, passengerBoardingDuration;
 
     private Airport currentAirport;
 
