@@ -21,8 +21,6 @@ public class Airline
 
     private ArrayList<Integer> flightNumbers = new ArrayList<>();
 
-    public void setFlightNumbers(ArrayList<Integer> flightNumbers) {this.flightNumbers = flightNumbers;}
-
     //Flight object ArrayList storing the flights created by the airline
 
     private final ArrayList<Flight> flights = new ArrayList<>();
