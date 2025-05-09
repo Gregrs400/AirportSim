@@ -37,7 +37,7 @@ public class Airline
 
     private final ArrayList<Plane> availablePlanes = new ArrayList<>();
 
-    private ArrayList<PlaneSeat> planeSeats;
+    private HashMap<String, PlaneSeat> planeSeats;
 
     //Airline parameterized constructor
 
@@ -291,10 +291,10 @@ public class Airline
 
     }//end removeFromDestinations
 
-    public void addPlaneSeat(PlaneSeat planeSeat)
+    public void addPlaneSeat(String name, PlaneSeat planeSeat)
     {
 
-        planeSeats.add(planeSeat);
+        planeSeats.put(name, planeSeat);
 
     }
 
