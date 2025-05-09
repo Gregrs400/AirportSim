@@ -88,6 +88,7 @@ public class Airline
     {//begin addPlane
 
         airlineFleet.add(plane);
+        plane.setAirline(this);
         availablePlanes.add(plane);
 
     }//end addPlane
