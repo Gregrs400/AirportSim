@@ -15,7 +15,7 @@ public class Airline
 
     //Airport ArrayList of all destinations of an airline
 
-    private ArrayList<Airport> allDestinations = new ArrayList<>();
+    private final ArrayList<Airport> allDestinations = new ArrayList<>();
 
     //Integer ArrayList of Flight Numbers of flights created by the airline
 
