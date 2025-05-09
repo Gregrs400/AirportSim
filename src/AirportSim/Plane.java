@@ -155,22 +155,22 @@ public class Plane implements MovingObject
         if(ps.equals(planeStatus.AT_ARRIVAL_GATE))
         {
 
-            if (!passengers.isEmpty())
+            if (passengerDeboardingDuration > 0)
             {
 
-                int passengerDeboardRate = Math.ceilDiv(passengers.size(), passengerDeboardingDuration);
+                if (!passengers.isEmpty())
+                {
+
+                    int passengerDeboardRate = Math.ceilDiv(passengers.size(), passengerDeboardingDuration);
 
                     for (int i = 0; i < passengerDeboardRate; i++)
                     {
 
-                        if(passengers.isEmpty())
-                        {
+                        if (passengers.isEmpty()) {
 
                             break;
 
-                        }
-                        else
-                        {
+                        } else {
 
                             Passenger currentPassenger = passengers.getFirst();
                             currentPassenger.deboardPlane();
@@ -178,11 +178,13 @@ public class Plane implements MovingObject
                         }
 
                     }
+                }
+
+                passengerDeboardingDuration--;
 
             }
 
             // things that need to occur while plane is at gate:
-            // passengers deboarded in (passengerCapacity / 3) min
             // baggage unloaded
 
             if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport() && flightQueue.peek() != null)
