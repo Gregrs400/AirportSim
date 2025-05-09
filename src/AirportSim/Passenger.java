@@ -101,16 +101,13 @@ public class Passenger extends Person implements MovingObject
 
         at = airportTravel.DROPPED_OFF;
 
-        int arrivalTime = flight.getDepartureTime() - (curbToCheckIn + checkInToSecurity + securityToGate + gateToPlane);
-        if (arrivalTime < 0){ arrivalTime = 0; }
-
-
     }//end Passenger parameterized constructor
 
     public Passenger(Passenger originalPassenger)
     {
 
         this(originalPassenger.ticket.getFlight(), originalPassenger.getId());
+        this.reservedSeat = originalPassenger.reservedSeat;
 
     }
 
