@@ -67,6 +67,8 @@ public class Airline
 
         }
 
+        allDestinations.addAll(destinationList);
+
     }//end Airline parameterized constructor
 
     public Airline(HashMap<Airport, ArrayList<Airport>> destinationMap)
