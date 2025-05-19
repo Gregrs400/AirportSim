@@ -61,14 +61,6 @@ public class Plane implements MovingObject
     public void move()
     {
 
-        if(ps.equals(PlaneStatus.READY_TO_TAXI))
-        {
-
-            ps = PlaneStatus.TAXIING;
-            taxiingToRunwayDuration--;
-
-        }
-
         if(ps.equals(PlaneStatus.TAXIING))
         {
 
@@ -229,7 +221,7 @@ public class Plane implements MovingObject
             if (passengers.size() == getCurrentFlight().getPaxWithTickets().size())
             {
 
-                ps = PlaneStatus.READY_TO_TAXI;
+                ps = PlaneStatus.TAXIING;
 
             }
 
