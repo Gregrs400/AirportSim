@@ -4,7 +4,7 @@ public enum PlaneStatus
 {
 
     AT_DEPART_GATE,
-    TAXIING,
+    TAXIING_TO_RUNWAY,
     TAKING_OFF,
     EN_ROUTE,
     DESCENDING,
