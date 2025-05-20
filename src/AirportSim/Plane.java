@@ -67,7 +67,7 @@ public class Plane implements MovingObject
             if(taxiingToRunwayDuration == 0)
             {
 
-                ps = PlaneStatus.TAKING_OFF;
+                ps = PlaneStatus.ASCENDING;
                 ascentDuration--;
 
             }
@@ -77,7 +77,7 @@ public class Plane implements MovingObject
             }
 
         }
-        if(ps.equals(PlaneStatus.TAKING_OFF))
+        if(ps.equals(PlaneStatus.ASCENDING))
         {
 
             if(ascentDuration == 0)
