@@ -6,7 +6,7 @@ public enum PlaneStatus
     AT_DEPART_GATE,
     TAXIING_TO_RUNWAY,
     ASCENDING,
-    EN_ROUTE,
+    CRUISING,
     DESCENDING,
     TAXIING_TO_GATE,
     AT_ARRIVAL_GATE

@@ -83,7 +83,7 @@ public class Plane implements MovingObject
             if(ascentDuration == 0)
             {
 
-                ps = PlaneStatus.EN_ROUTE;
+                ps = PlaneStatus.CRUISING;
                 cruiseDuration--;
 
             }
@@ -93,7 +93,7 @@ public class Plane implements MovingObject
             }
 
         }
-        if(ps.equals(PlaneStatus.EN_ROUTE))
+        if(ps.equals(PlaneStatus.CRUISING))
         {
 
             if(cruiseDuration == 0)
