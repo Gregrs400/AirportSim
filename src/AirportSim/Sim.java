@@ -103,6 +103,13 @@ public class Sim   // upper level class to enclose all objects
             for (int min = 0; min < 1440; min++)
             {
 
+                for (Airport airport : airports)
+                {
+
+                    airport.updateAirport();
+
+                }
+
                 ArrayList<MovingObject> objectsReadyToMove = objectMovementSchedule.get(min);
 
                 if (!(objectsReadyToMove.isEmpty()))
