@@ -132,10 +132,20 @@ public class Sim   // upper level class to enclose all objects
     public static void addToMovingObjects(int startTime, int duration, MovingObject object)
     {
 
-        for (int i = startTime; i < startTime + duration; i++)
+        int i = startTime;
+
+        while (duration > 0)
         {
 
+            if (i == 1441)
+            {
+               i = 0;
+            }
+
             movingObjects.get(i).add(object);
+
+            i++;
+            duration--;
 
         }
 
