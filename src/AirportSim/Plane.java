@@ -377,7 +377,7 @@ public class Plane implements MovingObject
         passengerBoardingDuration = currentFlight.getBoardingDuration();
         passengerDeboardingDuration = currentFlight.getDeboardingDuration();
         int startTime = currentFlight.getStartTime();
-        Sim.addToMovingObjects(startTime, passengerDeboardingDuration - startTime, this);
+        Sim.addToObjectMovementSchedule(startTime, this);
 
     }
 

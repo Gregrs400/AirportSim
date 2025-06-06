@@ -7,7 +7,9 @@ import java.util.*;
 public class Sim   // upper level class to enclose all objects
 {
 
-    static ArrayList<ArrayList<MovingObject>> movingObjects = new ArrayList<>();
+    static ArrayList<MovingObject> movingObjects = new ArrayList<>();
+
+    static ArrayList<ArrayList<MovingObject>> objectMovementSchedule = new ArrayList<>();
 
     static ArrayList<Airline> airlines = new ArrayList<>();
 
@@ -31,7 +33,7 @@ public class Sim   // upper level class to enclose all objects
         for (int i = 0; i < 1440; i++)
         {
 
-            movingObjects.add(new ArrayList<>());
+            objectMovementSchedule.add(new ArrayList<>());
 
         }
 
@@ -99,13 +101,22 @@ public class Sim   // upper level class to enclose all objects
             for (int min = 0; min < 1440; min++)
             {
 
-                if (!(movingObjects.get(min).isEmpty()))
+                ArrayList<MovingObject> objectsReadyToMove = objectMovementSchedule.get(min);
+
+                if (!(objectsReadyToMove.isEmpty()))
+                {
+
+                    movingObjects.addAll(objectsReadyToMove);
+
+                }
+
+                if (!(movingObjects.isEmpty()))
                 {//begin if statement checking for moving objects
 
-                    for (int j = 0; j < movingObjects.get(min).size(); j++)
+                    for (MovingObject movingObject : movingObjects)
                     {//begin for loop that moves objects in movingObjects
 
-                        movingObjects.get(min).get(j).move();
+                        movingObject.move();
 
                     }//end for loop that moves planes in movingObjects
 
@@ -117,25 +128,10 @@ public class Sim   // upper level class to enclose all objects
 
     }
 
-    public static void addToMovingObjects(int startTime, int duration, MovingObject object)
+    public static void addToObjectMovementSchedule(int startTime, MovingObject object)
     {
 
-        int i = startTime;
-
-        while (duration > 0)
-        {
-
-            if (i == 1441)
-            {
-               i = 0;
-            }
-
-            movingObjects.get(i).add(object);
-
-            i++;
-            duration--;
-
-        }
+        objectMovementSchedule.get(startTime).add(object);
 
     }
 
