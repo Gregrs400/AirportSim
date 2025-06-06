@@ -253,7 +253,7 @@ public class Airline
 
                 generateFlight(plane);
 
-            }while(plane.getLatestFlight().getEndTime() < ((day+1) * 1440));
+            }while(plane.getLastGeneratedFlight().getEndTime() < ((day+1) * 1440));
         }
 
     }
@@ -374,8 +374,18 @@ public class Airline
         else
             cruiseAltitude = 32000;
 
-        ascentVerticalSpeed = cruiseAltitude / 10;
-        descentVerticalSpeed = cruiseAltitude / -20;
+        if (cruiseAltitude == 10000)
+        {
+            ascentVerticalSpeed = cruiseAltitude / 3;
+            descentVerticalSpeed = cruiseAltitude / -10;
+        }
+        else
+        {
+
+            ascentVerticalSpeed = cruiseAltitude / 10;
+            descentVerticalSpeed = cruiseAltitude / -20;
+
+        }
 
         ascentTime =  (double) cruiseAltitude / ascentVerticalSpeed / 60;
         descentTime =  (double) -cruiseAltitude / descentVerticalSpeed / 60;
