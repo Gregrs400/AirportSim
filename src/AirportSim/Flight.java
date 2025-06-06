@@ -89,6 +89,8 @@ public class Flight
 
     }
 
+    public int getStartTime() { return startTime; }
+
     public void setStartTime(int startTime) {
         this.startTime = startTime;
     }
