@@ -80,9 +80,6 @@ public class Sim   // upper level class to enclose all objects
 
         }
 
-        Passenger user = new Passenger(airlineOne.getFlights().get(1), "user");
-
-        user.reservePlaneSeat("1A");
 
         //simulation loop
 
