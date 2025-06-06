@@ -284,7 +284,7 @@ public class Plane implements MovingObject
     public void addFlightToQueue(Flight flight)
     {
 
-        flightQueue.add(flight);
+        flightQueue.addLast(flight);
 
     }
 

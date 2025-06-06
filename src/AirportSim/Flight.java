@@ -8,7 +8,7 @@ public class Flight
     //integer variables which store different times
 
     private int startTime, boardingDuration, departureTime, taxiingToRunwayDuration, ascentDuration, cruiseDuration,
-            descentDuration, taxiingToGateDuration, arrivalTime, deboardingDuration, endTime;
+            descentDuration, taxiingToGateDuration, arrivalTime, deboardingDuration, endTime, totalDuration;
 
     public int getDepartureTime() {return departureTime;}
 
@@ -46,7 +46,6 @@ public class Flight
     {
 
         this.plane = plane;
-        plane.addFlightToQueue(this);
 
     }
 
@@ -138,6 +137,8 @@ public class Flight
     public int getEndTime() {
         return endTime;
     }
+
+    public int getTotalDuration() { return totalDuration; }
 
     //Flight parameterized constructor, assigning a plane, a destination, a number, and the departure time of each flight
 
@@ -282,6 +283,7 @@ public class Flight
         taxiingToGateDuration = flightTimes[4];
         boardingDuration = flightTimes[5];
         deboardingDuration = flightTimes[6];
+        totalDuration = Arrays.stream(flightTimes).reduce(0, Integer::sum);
 
     }
 

@@ -222,7 +222,7 @@ public class Airline
 
         int flightStartTime;
 
-        if (plane.flightQueue.getFirst() != plane.flightQueue.getLast())
+        if (!plane.getFlightQueue().isEmpty())
         {
 
             flightStartTime = plane.getLastGeneratedFlight().getEndTime();
@@ -234,9 +234,11 @@ public class Airline
         }
 
         flight.setStartTime(flightStartTime);
+        flight.setEndTime(flightStartTime+flight.getTotalDuration());
         flight.setDepartureTime(flightStartTime + flight.getBoardingDuration());
 
         flights.add(flight);
+        plane.addFlightToQueue(flight);
 
     }
 
