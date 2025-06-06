@@ -222,10 +222,10 @@ public class Airline
 
         int flightStartTime;
 
-        if (plane.getLatestFlight() != null)
+        if (plane.flightQueue.getFirst() != plane.flightQueue.getLast())
         {
 
-            flightStartTime = plane.getLatestFlight().getEndTime();
+            flightStartTime = plane.getLastGeneratedFlight().getEndTime();
 
         }
         else
@@ -345,9 +345,9 @@ public class Airline
         double ascentDistance;
         double cruiseDistance;
         double descentDistance;
-        int ascentTime;
+        double ascentTime;
         int cruiseTime;
-        int descentTime;
+        double descentTime;
         double takeoffSpeed = 150;
 
         earthRadiusMiles = 3959;
@@ -375,13 +375,16 @@ public class Airline
         ascentVerticalSpeed = cruiseAltitude / 10;
         descentVerticalSpeed = cruiseAltitude / -20;
 
-        ascentTime =  cruiseAltitude / ascentVerticalSpeed;
-        descentTime =  -cruiseAltitude / descentVerticalSpeed;
+        ascentTime =  (double) cruiseAltitude / ascentVerticalSpeed / 60;
+        descentTime =  (double) -cruiseAltitude / descentVerticalSpeed / 60;
+
+        double takeoffSpeedY = ascentVerticalSpeed * 0.00987473;
+        double takeoffSpeedX = takeoffSpeed - takeoffSpeedY;
 
         ascentAcceleration = (filedSpeed - takeoffSpeed) / ascentTime / 60;
         descentAcceleration = (filedSpeed - takeoffSpeed) / descentTime / 60;
 
-        ascentDistance = (takeoffSpeed * ascentTime) +
+        ascentDistance = (takeoffSpeedX * ascentTime) +
                          (((double) 1 / 2) * ascentAcceleration * Math.pow(ascentTime, 2));
 
         descentDistance = (filedSpeed * descentTime) +
@@ -389,14 +392,17 @@ public class Airline
 
         cruiseDistance = earthGreatCircleDistance - (ascentDistance + descentDistance);
 
-        cruiseTime = (int) cruiseDistance / filedSpeed;
+        cruiseTime = (int) ((cruiseDistance / filedSpeed) * 60);
+
+        int ascentTimeMin = (int) (ascentTime*60);
+        int descentTimeMin = (int) (descentTime*60);
 
         int taxiingToRunwayDuration = random.nextInt(15)+1;
         int taxiingToGateDuration = random.nextInt(15)+1;
         int boardingDuration = random.nextInt(30)+15;
         int deboardingDuration = random.nextInt(45)+15;
 
-        return new int[]{taxiingToRunwayDuration, ascentTime, cruiseTime, descentTime, taxiingToGateDuration,
+        return new int[]{taxiingToRunwayDuration, ascentTimeMin, cruiseTime, descentTimeMin, taxiingToGateDuration,
                         boardingDuration, deboardingDuration};
 
     }

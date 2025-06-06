@@ -40,9 +40,9 @@ public class Plane implements MovingObject
 
     private ArrayList<ArrayList<PlaneSeat>> seats;
 
-    Queue<Flight> flightQueue = new LinkedList<>();
+    Deque<Flight> flightQueue = new LinkedList<>();
 
-    public Queue<Flight> getFlightQueue() {return flightQueue; }
+    public Deque<Flight> getFlightQueue() {return flightQueue; }
 
     private Flight currentFlight;
 
@@ -56,6 +56,8 @@ public class Plane implements MovingObject
     }
 
     public Flight getLatestFlight() { return flightQueue.peek(); }
+
+    public Flight getLastGeneratedFlight() { return flightQueue.getLast(); }
 
     @Override
     public void move()
