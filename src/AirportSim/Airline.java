@@ -37,7 +37,7 @@ public class Airline
 
     private final ArrayList<Plane> availablePlanes = new ArrayList<>();
 
-    private HashMap<String, PlaneSeat> planeSeats;
+    private final HashMap<String, PlaneSeat> planeSeats = new HashMap<>();
 
     //Airline parameterized constructor
 
