@@ -98,6 +98,8 @@ public class Sim   // upper level class to enclose all objects
 
             }
 
+            // Object movement loop
+
             for (int min = 0; min < 1440; min++)
             {
 
