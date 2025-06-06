@@ -71,7 +71,7 @@ public class Sim   // upper level class to enclose all objects
 
         Plane airlineOnePlane1Template = new Plane(plane1, airlineOnePlane1SeatLayoutStr, airlineOneSeatTemplateMap);
 
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 1; i++)
         {
 
             airlineOne.addPlane(new Plane(airlineOnePlane1Template, "a1p1_" + i));
