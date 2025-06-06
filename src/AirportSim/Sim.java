@@ -80,20 +80,21 @@ public class Sim   // upper level class to enclose all objects
 
         }
 
+        airlineOne.generateFlight(airlineOne.getAirlineFleet().getFirst());
 
         //simulation loop
 
-        for (int day = 0; day < 5; day++)
+        for (int day = 0; day < 1; day++)
         {
 
             //flight generation loop
 
-            for (Airline airline : airlines)
-            {
-
-                airline.generateFlights(day);
-
-            }
+//            for (Airline airline : airlines)
+//            {
+//
+//                airline.generateFlights(day);
+//
+//            }
 
             // sim update loop
 
