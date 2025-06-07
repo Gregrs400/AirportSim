@@ -84,15 +84,17 @@ public class Passenger extends Person implements MovingObject
 
     //Passenger parameterized constructor, assigning each passenger a flight number, an id, and 1-3 bags inclusive
 
-    public Passenger(Flight flight, String id)
+    public Passenger(Ticket ticket, String id)
     {//begin Passenger parameterized constructor
 
+        setTicket(ticket);
+        Flight flight = ticket.getFlight();
         this.flightNumber = flight.getNumber();
         this.destination = flight.getDestination();
         setId(id);
         bags = generatePassengerBags();
         commuteThroughAirport();
-        ticket = new Ticket(flight.getAirline(), flight);
+        reservePlaneSeat(ticket.getSeatCode());
 
         curbToCheckIn = getCurbToCheckIn();
         checkInToSecurity = getCheckInToSecurity();
@@ -106,7 +108,7 @@ public class Passenger extends Person implements MovingObject
     public Passenger(Passenger originalPassenger)
     {
 
-        this(originalPassenger.ticket.getFlight(), originalPassenger.getId());
+        this(originalPassenger.ticket, originalPassenger.getId());
         this.reservedSeat = originalPassenger.reservedSeat;
 
     }

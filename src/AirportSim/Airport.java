@@ -199,7 +199,11 @@ public class Airport
 
             }while(ranFlight.isSoldOut());
 
-            Passenger passenger = new Passenger(ranFlight, "pax_" + this.airportCode + "_" + (paxCounter++));
+            Airline airline = ranFlight.getAirline();
+            Ticket ranTicket = airline.generateRandomTicket(ranFlight);
+
+            Passenger passenger = new Passenger(ranTicket, "pax_" + this.airportCode + "_" + (paxCounter++));
+
 
             paxInAirport.add(passenger);
 

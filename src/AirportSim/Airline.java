@@ -206,12 +206,12 @@ public class Airline
 
         }
 
-        for (int i = 0; i < flightTickets.size(); i++)
+        for (int i = 0; i < plane.getPassengerCapacity(); i++)
         {
 
             Ticket ticket = new Ticket(this, flight);
             ticket.setSeatCode(seatCodes.get(i));
-            flightTickets.set(i, ticket);
+            flightTickets.add(i, ticket);
 
         }
 
@@ -443,13 +443,13 @@ public class Airline
 
     }
 
-    public void assignTicketToPassenger(Flight flight, Passenger passenger)
+    public Ticket generateRandomTicket(Flight flight)
     {
 
         ArrayList<Ticket> tickets = flight.getTickets();
         Ticket ranTicket = tickets.get(random.nextInt(tickets.size()));
-        passenger.setTicket(ranTicket);
         tickets.remove(ranTicket);
+        return ranTicket;
 
     }
 
