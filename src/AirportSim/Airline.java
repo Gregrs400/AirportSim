@@ -254,6 +254,8 @@ public class Airline
                 generateFlight(plane);
 
             }while(plane.getLastGeneratedFlight().getEndTime() < ((day+1) * 1440));
+
+            plane.loadNextFlight();
         }
 
     }

@@ -147,19 +147,16 @@ public class Plane implements MovingObject
             if (passengerDeboardingDuration > 0)
             {
 
-                if (!passengers.isEmpty())
-                {
+                if (!passengers.isEmpty()) {
 
                     int passengerDeboardRate = Math.ceilDiv(passengers.size(), passengerDeboardingDuration);
 
-                    for (int i = 0; i < passengerDeboardRate; i++)
-                    {
+                    for (int i = 0; i < passengerDeboardRate; i++) {
 
-                        if (passengers.isEmpty()) {
-
+                        if (passengers.isEmpty())
                             break;
-
-                        } else {
+                        else
+                        {
 
                             Passenger currentPassenger = passengers.getFirst();
                             currentPassenger.deboardPlane();
@@ -179,24 +176,25 @@ public class Plane implements MovingObject
             // baggage unloaded
 
             if (passengers.isEmpty() && currentFlight.getDestination() == this.getCurrentAirport() &&
-                    flightQueue.peek() != null)
-            {
+                    flightQueue.peek() != null) {
 
                 loadNextFlight();
+                ps = PlaneStatus.AT_DEPART_GATE;
                 return;
 
             }
+        }
+        if (ps.equals(PlaneStatus.AT_DEPART_GATE))
+        {
 
             int passengerBoardRate = Math.ceilDiv(passengers.size(), passengerBoardingDuration);
 
             if (passengerBoardingDuration > 0)  // boarding
             {
 
-                if (passengers.size() < getCurrentFlight().getPaxWithTickets().size())
-                {
+                if (passengers.size() < getCurrentFlight().getPaxWithTickets().size()) {
 
-                    for (int i = 0; i < passengerBoardRate; i++)
-                    {
+                    for (int i = 0; i < passengerBoardRate; i++) {
 
                         if (getCurrentFlight().getGate().getPaxAtGate().isEmpty()) {
 
@@ -226,7 +224,6 @@ public class Plane implements MovingObject
                 ps = PlaneStatus.TAXIING_TO_RUNWAY;
 
             }
-
         }
 
     }
