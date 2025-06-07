@@ -112,21 +112,17 @@ public class Airport
 
         }
 
-        for (Flight flight : arrivals)
-        {
-
-            totalPaxCapacity += flight.getPlane().getPassengerCapacity();
-
-        }
-
         for (int min = 0; min < 1440; min++)
         {//begin outer for loop
 
             if((paxGenerated < totalPaxCapacity) && min < 1000)
             {//begin passenger arrival iterator
 
-                if(totalPaxCapacity - paxGenerated < paxBeingGenerated)
-                    paxBeingGenerated = totalPaxCapacity - paxGenerated;
+                if (totalPaxCapacity < paxBeingGenerated)
+                    paxBeingGenerated = totalPaxCapacity;
+                else
+                    if(totalPaxCapacity - paxGenerated < paxBeingGenerated)
+                        paxBeingGenerated = totalPaxCapacity - paxGenerated;
 
                 paxArrival(paxInAirport, paxBeingGenerated);
 
@@ -179,8 +175,6 @@ public class Airport
     public void paxArrival(ArrayList<Passenger> paxInAirport, int pax)
     {
 
-//        ArrayList<Flight> flightsWithVacantSeats = new ArrayList<>(departures);
-
         for (int i = 0; i < pax; i++)
         {//begin for loop
 
@@ -223,6 +217,18 @@ public class Airport
         return !availableGates.get(minutes).isEmpty();
 
     }
+
+    public void addToDepartures(Flight flight)
+    {
+
+        departures.add(flight);
+
+        flightsWithVacantSeats.computeIfAbsent(flight.getAirline(), _ -> new ArrayList<>());
+        flightsWithVacantSeats.get(flight.getAirline()).add(flight);
+
+    }
+
+    public void addToArrivals(Flight flight) { arrivals.add(flight); }
 
 
 }//end Airport class

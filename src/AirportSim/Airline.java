@@ -189,6 +189,7 @@ public class Airline
         Airport destination = allDestinations.get(destIndex);
 
         Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
+        flight.setAirline(this);
 
         ArrayList<Ticket> flightTickets = flight.getTickets();
 
@@ -239,6 +240,8 @@ public class Airline
 
         flights.add(flight);
         plane.addFlightToQueue(flight);
+        origin.addToDepartures(flight);
+        destination.addToArrivals(flight);
 
     }
 
