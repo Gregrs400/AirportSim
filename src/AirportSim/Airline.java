@@ -237,6 +237,7 @@ public class Airline
         flight.setStartTime(flightStartTime);
         flight.setEndTime(flightStartTime+flight.getTotalDuration());
         flight.setDepartureTime(flightStartTime + flight.getBoardingDuration());
+        flight.setArrivalTime(flight.getEndTime() - flight.getDeboardingDuration());
 
         flights.add(flight);
         plane.addFlightToQueue(flight);
