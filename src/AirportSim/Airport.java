@@ -92,7 +92,7 @@ public class Airport
 
     }
 
-    public void updateAirport()
+    public void updateAirport(int min)
     {
 
         //actual airport operations loop
@@ -112,63 +112,56 @@ public class Airport
 
         }
 
-        for (int min = 0; min < 1440; min++)
-        {//begin outer for loop
 
-            if((paxGenerated < totalPaxCapacity) && min < 1000)
-            {//begin passenger arrival iterator
+        if(paxGenerated < totalPaxCapacity)
+        {//begin passenger arrival iterator
 
-                if (totalPaxCapacity < paxBeingGenerated)
-                    paxBeingGenerated = totalPaxCapacity;
-                else
-                    if(totalPaxCapacity - paxGenerated < paxBeingGenerated)
-                        paxBeingGenerated = totalPaxCapacity - paxGenerated;
+            int remainingCapacity = totalPaxCapacity - paxGenerated;
+            paxBeingGenerated = Math.min(paxBeingGenerated, remainingCapacity);
 
-                paxArrival(paxInAirport, paxBeingGenerated);
+            paxArrival(paxInAirport, paxBeingGenerated);
 
-                paxGenerated += paxBeingGenerated;
+            paxGenerated += paxBeingGenerated;
 
-            }//end passenger arrival iterator
+        }//end passenger arrival iterator
 
-            if(!paxInAirport.isEmpty())
-            {//begin if passengers are in airport
+        if(!paxInAirport.isEmpty())
+        {//begin if passengers are in airport
 
-                for (int paxElement = 0; paxElement < paxInAirport.size(); paxElement++)
-                {//begin passenger status updater
+            for (int paxElement = 0; paxElement < paxInAirport.size(); paxElement++)
+            {//begin passenger status updater
 
-                    passengerUtility = paxInAirport.get(paxElement);
+                passengerUtility = paxInAirport.get(paxElement);
 
-                    Flight paxFlight = passengerUtility.getTicket().getFlight();
+                Flight paxFlight = passengerUtility.getTicket().getFlight();
 
-                    Plane paxPlane = paxFlight.getPlane();
+                Plane paxPlane = paxFlight.getPlane();
 
-                    Gate paxGate = paxFlight.getGate();
+                Gate paxGate = paxFlight.getGate();
 
-                    if (!(passengerUtility.isAtGate()))
-                    {//begin if passenger needs to move
+                if (!(passengerUtility.isAtGate()))
+                {//begin if passenger needs to move
 
-                        passengerUtility.move();
+                    passengerUtility.move();
 
-                    }//end if passenger needs to move
-                    else if(paxGate.getPaxAtGate().size() < paxGate.getSeats())
-                        paxGate.addPaxToGate(passengerUtility);
+                }//end if passenger needs to move
+                else if(paxGate.getPaxAtGate().size() < paxGate.getSeats())
+                    paxGate.addPaxToGate(passengerUtility);
 
-                    if (passengerUtility.isAtGate() && ((min > (paxFlight.getDepartureTime() - 15)) && min < paxFlight.getDepartureTime()))
-                    {//begin if passenger can board plane
+                if (passengerUtility.isAtGate() && ((min > (paxFlight.getDepartureTime() - 15)) && min < paxFlight.getDepartureTime()))
+                {//begin if passenger can board plane
 
-                        paxPlane.addPaxToPlane(passengerUtility);
+                    paxPlane.addPaxToPlane(passengerUtility);
 
-                        paxGate.getPaxAtGate().remove(passengerUtility);
+                    paxGate.getPaxAtGate().remove(passengerUtility);
 
-                        paxInAirport.remove(passengerUtility);
+                    paxInAirport.remove(passengerUtility);
 
-                    }//end if passenger can board plane
+                }//end if passenger can board plane
 
-                }//end passenger status updater
+            }//end passenger status updater
 
-            }//end if passengers are in airport
-
-        }//end outer for loop
+        }//end if passengers are in airport
 
     }
 
