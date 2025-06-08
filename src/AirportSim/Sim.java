@@ -103,7 +103,7 @@ public class Sim   // upper level class to enclose all objects
                 {
 
                     if(!airport.getDepartures().isEmpty())
-                        airport.updateAirport();
+                        airport.updateAirport(min);
 
                 }
 
