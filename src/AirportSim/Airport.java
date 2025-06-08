@@ -38,6 +38,10 @@ public class Airport
 
     private int paxCounter = 0;
 
+    private int paxGenerated = 0;
+    private int paxBeingGenerated = 300;
+    private int totalPaxCapacity = 0;
+
     public double getLongitude() {
         return longitude;
     }
@@ -55,6 +59,10 @@ public class Airport
     }
 
     private HashMap<Airline, ArrayList<Flight>> flightsWithVacantSeats;
+
+    public int getTotalPaxCapacity() { return totalPaxCapacity; }
+
+    public void setTotalPaxCapacity(int totalPaxCapacity) { this.totalPaxCapacity = totalPaxCapacity; }
 
     public Airport(String location, String code, double latitude, double longitude, int numOfGates)
     {
@@ -100,18 +108,6 @@ public class Airport
         //Passenger class object for accessing and updating passengers
 
         Passenger passengerUtility;
-
-        int paxGenerated = 0;
-        int paxBeingGenerated = 300;
-        int totalPaxCapacity = 0;
-
-        for (Flight flight : departures)
-        {
-
-            totalPaxCapacity += flight.getPlane().getPassengerCapacity();
-
-        }
-
 
         if(paxGenerated < totalPaxCapacity)
         {//begin passenger arrival iterator
@@ -179,7 +175,8 @@ public class Airport
             do
             {
 
-                ranAirline = airlines.get(random.nextInt(airlines.size()));
+                Airline[] vacantSeatAirlineArr = flightsWithVacantSeats.keySet().toArray(new Airline[0]);
+                ranAirline = vacantSeatAirlineArr[random.nextInt(vacantSeatAirlineArr.length)];
                 flights = flightsWithVacantSeats.get(ranAirline);
                 ranFlight = flightsWithVacantSeats.get(ranAirline).get(random.nextInt(flights.size()));
 
@@ -187,6 +184,12 @@ public class Airport
                 {
 
                     flightsWithVacantSeats.get(ranAirline).remove(ranFlight);
+
+                }
+                if (flights.isEmpty())
+                {
+
+                    flightsWithVacantSeats.remove(ranAirline);
 
                 }
 

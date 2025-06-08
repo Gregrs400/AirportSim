@@ -242,6 +242,7 @@ public class Airline
         flights.add(flight);
         plane.addFlightToQueue(flight);
         origin.addToDepartures(flight);
+        origin.setTotalPaxCapacity(origin.getTotalPaxCapacity() + flight.getTickets().size());
         destination.addToArrivals(flight);
 
     }
