@@ -88,105 +88,33 @@ public class Airline
 
     //generateFlight to create a flight for an airline, assigning each flight a plane, a destination, a flight number, and a departure time
 
-
-    public Flight generateFlight()
-    {
-
-        Airport origin, destination;
-
-        int flightNumber;
-
-        //do-while loop to ensure each flight number is unique
-
-        do
-        {//begin do-while loop
-
-            flightNumber = random.nextInt(9999)+1;
-
-        }while(flightNumbers.contains(flightNumber)); //end do-while loop
-
-        flightNumbers.add(flightNumber);
-
-        Plane plane = availablePlanes.getFirst();
-        availablePlanes.removeFirst();
-
-        int originIndex = random.nextInt(allDestinations.size());
-
-        int destinationIndex = random.nextInt(allDestinations.size());
-
-        origin = allDestinations.get(originIndex);
-
-        if (destinationIndex == originIndex)
-        {
-            while (destinationIndex == originIndex) {
-                destinationIndex = random.nextInt(allDestinations.size());
-            }
-        }
-
-        destination = allDestinations.get(destinationIndex);
-
-        Flight flight = new Flight(plane, destination, origin, flightNumber);
-
-        flights.add(flight);
-
-        addFlightToDepartures(origin, flight);
-        addFlightToArrivals(destination, flight);
-
-        return flight;
-
-    }
-
-    public Flight generateFlight(Plane plane, Airport origin, int departHour, int departMin, int departTime, Gate gate)
-    {//begin generateFlight
-
-        Airport destination;
-
-        //do-while loop to ensure each flight number is unique
-
-        destination = allDestinations.get(random.nextInt(allDestinations.size()));
-
-        Flight flight = new Flight(plane, origin, destination, generateFlightNumber(),
-                                   departTime, gate);
-
-        flights.add(flight);
-
-        return flight;
-
-    }
-
-    public Flight generateFlight(Plane plane, Airport origin, Airport destination)
-    {//begin generateFlight
-
-        Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
-
-        flight.setAirline(this);
-
-        flights.add(flight);
-
-        return flight;
-
-    }
-
     public void generateFlight(Plane plane)
     {
 
-        int originIndex = random.nextInt(allDestinations.size()-1);
-        int destIndex = random.nextInt(allDestinations.size()-1);
+        Airport origin, destination;
+        int originIndex;
 
-        if (destIndex == originIndex)
+        if (!plane.getFlightQueue().isEmpty()) { origin = plane.getLastGeneratedFlight().getDestination(); }
+        else
+        {
+            originIndex = random.nextInt(allDestinations.size());
+            origin = allDestinations.get(originIndex);
+        }
+        int destIndex = random.nextInt(destinations.get(origin).size());
+        destination = destinations.get(origin).get(destIndex);
+
+        if (destination == origin)
         {
 
-            while (destIndex == originIndex)
+            while (destination == origin)
             {
 
-                destIndex = random.nextInt(allDestinations.size()-1);
+                destIndex = random.nextInt(destinations.get(origin).size()-1);
+                destination = destinations.get(origin).get(destIndex);
 
             }
 
         }
-
-        Airport origin = allDestinations.get(originIndex);
-        Airport destination = allDestinations.get(destIndex);
 
         Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
         flight.setAirline(this);
