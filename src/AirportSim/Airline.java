@@ -485,4 +485,35 @@ public class Airline
 
     }
 
+    public boolean reserveGate(Airport airport, Plane plane, int startTime, int endTime)
+    {
+
+        Gate openGate = findOpenGate(airport, startTime, endTime);
+        ArrayList<GateReservation> openGateReservations = airport.getGateReservations().get(openGate);
+
+        if (openGate != null)
+        {
+
+            for (int i = 0; i < openGateReservations.size(); i++)
+            {
+
+                GateReservation currentReservation = openGateReservations.get(i);
+
+                if (currentReservation.getStartTime() > startTime)
+                {
+
+                    GateReservation newReservation = new GateReservation(plane, startTime, endTime);
+                    openGateReservations.add(i, newReservation);
+                    return true;
+
+                }
+
+            }
+
+        }
+
+        return false;
+
+    }
+
 }//end Airline class
