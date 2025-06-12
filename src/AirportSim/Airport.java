@@ -16,8 +16,6 @@ public class Airport
 
     private final ArrayList<Gate> gates = new ArrayList<>();
 
-    private final ArrayList<ArrayList<Gate>> availableGates = new ArrayList<>();
-
     private final ArrayList<Passenger> paxInAirport = new ArrayList<>();
 
     private final ArrayList<Passenger> activePax = new ArrayList<>();
@@ -81,7 +79,6 @@ public class Airport
         for(int i = 0; i < 1440; i++)
         {
 
-            availableGates.add(new ArrayList<>(gates));
             activePax.add(null);
 
         }
@@ -210,13 +207,6 @@ public class Airport
     }//end paxArrival
 
     public String getLocation(){ return airportLocation; }
-
-    public boolean hasOpenGates(int minutes)
-    {
-
-        return !availableGates.get(minutes).isEmpty();
-
-    }
 
     public void addToDepartures(Flight flight)
     {
