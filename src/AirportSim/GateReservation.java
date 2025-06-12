@@ -7,6 +7,10 @@ public class GateReservation
     private int startTime;
     private int endTime;
 
+    public int getStartTime() { return startTime; }
+
+    public int getEndTime() { return endTime; }
+
     public void setPlane(Plane plane) { this.plane = plane; }
 
     public void setStartTime(int startTime) { this.startTime = startTime; }

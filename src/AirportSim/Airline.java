@@ -441,4 +441,48 @@ public class Airline
 
     }
 
+    public Gate findOpenGate(Airport airport, int startTime, int endTime)
+    {
+
+        HashMap<Gate, ArrayList<GateReservation>> gateReservations = airport.getGateReservations();
+        ArrayList<Gate> airportGates = airport.getGates();
+
+        for (int i = 0; i < airport.getGateReservations().size(); i++)
+        {
+
+            Gate currentGate = airportGates.get(i);
+            ArrayList<GateReservation> currentGateReservations = gateReservations.get(currentGate);
+
+            if (gateReservations.get(currentGate).size() > 1) {
+
+                for (int j = 0; j < gateReservations.get(currentGate).size(); j++) {
+
+                    GateReservation currentReservation = currentGateReservations.get(j);
+                    GateReservation previousReservation = currentGateReservations.get(j - 1);
+
+                    if (currentReservation.getStartTime() > endTime)
+                        if (previousReservation.getEndTime() < startTime)
+                            return currentGate;
+
+                }
+
+            }
+            else
+            {
+
+                GateReservation onlyReservation = currentGateReservations.getFirst();
+
+                if (onlyReservation.getStartTime() > endTime)
+                    return currentGate;
+                else if (onlyReservation.getEndTime() < startTime)
+                    return currentGate;
+
+            }
+
+        }
+
+        return null;
+
+    }
+
 }//end Airline class

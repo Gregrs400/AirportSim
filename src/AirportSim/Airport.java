@@ -16,6 +16,8 @@ public class Airport
 
     private final ArrayList<Gate> gates = new ArrayList<>();
 
+    public ArrayList<Gate> getGates() { return gates; }
+
     private final HashMap<Gate,ArrayList<GateReservation>> gateReservations = new HashMap<>();
 
     public HashMap<Gate, ArrayList<GateReservation>> getGateReservations() { return gateReservations; }
