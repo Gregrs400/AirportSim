@@ -14,6 +14,8 @@ public class Flight
 
     public void setDepartureTime(int departureTime) {this.departureTime = departureTime;}
 
+    public int getArrivalTime() { return arrivalTime; }
+
     public void setArrivalTime(int arrivalTime) {this.arrivalTime = arrivalTime;}
 
     //int variable number representing the flight number
@@ -55,15 +57,25 @@ public class Flight
 
     public void setAirline(Airline airline) {this.airline = airline; }
 
-    private Gate gate;
+    private Gate departureGate;
 
-    public Gate getGate() {return gate;}
+    public Gate getDepartureGate() {return departureGate;}
 
-    public void setGate(Gate gate)
+    public void setDepartureGate(Gate departureGate)
     {
 
-        this.gate = gate;
-        gate.gs = Gate.gateStatus.OCCUPIED;
+        this.departureGate = departureGate;
+
+    }
+
+    private Gate arrivalGate;
+
+    public Gate getArrivalGate() {return arrivalGate;}
+
+    public void setArrivalGate(Gate arrivalGate)
+    {
+
+        this.arrivalGate = arrivalGate;
 
     }
 
@@ -155,7 +167,8 @@ public class Flight
 
     }//end Flight parameterized constructor
 
-    public Flight(Plane plane, Airport originAirport, Airport destination, int number, int departureTime, Gate gate)
+    public Flight(Plane plane, Airport originAirport, Airport destination, int number, int departureTime,
+                  Gate departureGate, Gate arrivalGate)
     {//begin Flight parameterized constructor
 
         setPlane(plane);
@@ -163,9 +176,8 @@ public class Flight
         setDestination(destination);
         setNumber(number);
         setDepartureTime(departureTime);
-        setGate(gate);
+        setDepartureGate(departureGate);
         generateUnreservedSeats();
-        gate.addPlane(plane);
         fs = flightStatus.ONTIME;
         tickets = new ArrayList<>(plane.getPassengerCapacity());
 
@@ -177,9 +189,9 @@ public class Flight
     {
 
         this(anotherFlight.plane, anotherFlight.destination, anotherFlight.originAirport,
-                anotherFlight.number, anotherFlight.departureTime, anotherFlight.gate);
+                anotherFlight.number, anotherFlight.departureTime, anotherFlight.departureGate,
+                anotherFlight.arrivalGate);
         this.arrivalTime = anotherFlight.arrivalTime;
-        this.gate = anotherFlight.gate;
         generateUnreservedSeats();
 
     }
@@ -210,7 +222,7 @@ public class Flight
         return ("\nFlight Number: " + number + "\nOrigin: " + originAirport + "\nDestination: " + destination +
                 "\n" + formatTime("Departure", departureTime) +
                 "\n" + formatTime("Landing", arrivalTime) +
-                "\nGate: " + gate.getName() +
+                "\nGate: " + departureGate.getName() +
                 "\nFlight Status: " + fs);
 
     }

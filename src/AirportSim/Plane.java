@@ -196,13 +196,13 @@ public class Plane implements MovingObject
 
                     for (int i = 0; i < passengerBoardRate; i++) {
 
-                        if (getCurrentFlight().getGate().getPaxAtGate().isEmpty()) {
+                        if (getCurrentFlight().getDepartureGate().getPaxAtGate().isEmpty()) {
 
                             break;
 
                         } else {
 
-                            Passenger currentPassenger = getCurrentFlight().getGate().getPaxAtGate().getFirst();
+                            Passenger currentPassenger = getCurrentFlight().getDepartureGate().getPaxAtGate().getFirst();
                             currentPassenger.boardPlane();
 
                         }

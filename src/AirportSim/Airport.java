@@ -79,7 +79,9 @@ public class Airport
         for(int i = 0; i < numOfGates; i++)
         {//begin gate declaration loop
 
-            gates.add(new Gate(50, i+1 + ""));
+            Gate gate = new Gate(50, i+1 + "");
+            gates.add(gate);
+            gateReservations.put(gate, new ArrayList<>());
 
         }//end gate declaration loop
         for(int i = 0; i < 1440; i++)
@@ -136,7 +138,7 @@ public class Airport
 
                 Plane paxPlane = paxFlight.getPlane();
 
-                Gate paxGate = paxFlight.getGate();
+                Gate paxGate = paxFlight.getDepartureGate();
 
                 if (!(passengerUtility.isAtGate()))
                 {//begin if passenger needs to move

@@ -1,8 +1,6 @@
 package AirportSim;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class Airline
 {//begin Airline class
@@ -149,7 +147,7 @@ public class Airline
         flight.setBoardingDuration(boardingDuration);
         flight.setDeboardingDuration(boardingDuration);
 
-        int flightStartTime;
+        int flightStartTime, flightEndTime;
 
         if (!plane.getFlightQueue().isEmpty())
         {
@@ -163,9 +161,13 @@ public class Airline
         }
 
         flight.setStartTime(flightStartTime);
-        flight.setEndTime(flightStartTime+flight.getTotalDuration());
+        flightEndTime = flightStartTime + flight.getTotalDuration();
+        flight.setEndTime(flightEndTime);
         flight.setDepartureTime(flightStartTime + flight.getBoardingDuration());
         flight.setArrivalTime(flight.getEndTime() - flight.getDeboardingDuration());
+        int flightArrivalTime = flight.getArrivalTime();
+
+        reserveGatesForFlight(origin, destination, flight, plane, flightStartTime, flightArrivalTime);
 
         flights.add(flight);
         plane.addFlightToQueue(flight);
@@ -189,6 +191,7 @@ public class Airline
             }while(plane.getLastGeneratedFlight().getEndTime() < ((day+1) * 1440));
 
             plane.loadNextFlight();
+
         }
 
     }
@@ -470,12 +473,17 @@ public class Airline
             else
             {
 
-                GateReservation onlyReservation = currentGateReservations.getFirst();
+                if (gateReservations.get(currentGate).isEmpty())
+                    return currentGate;
+                else
+                {
+                    GateReservation onlyReservation = currentGateReservations.getFirst();
 
-                if (onlyReservation.getStartTime() > endTime)
-                    return currentGate;
-                else if (onlyReservation.getEndTime() < startTime)
-                    return currentGate;
+                    if (onlyReservation.getStartTime() > endTime)
+                        return currentGate;
+                    else if (onlyReservation.getEndTime() < startTime)
+                        return currentGate;
+                }
 
             }
 
@@ -485,7 +493,7 @@ public class Airline
 
     }
 
-    public boolean reserveGate(Airport airport, Plane plane, int startTime, int endTime)
+    public Gate reserveGate(Airport airport, Plane plane, int startTime, int endTime)
     {
 
         Gate openGate = findOpenGate(airport, startTime, endTime);
@@ -494,25 +502,71 @@ public class Airline
         if (openGate != null)
         {
 
-            for (int i = 0; i < openGateReservations.size(); i++)
+            if (openGateReservations.isEmpty())
             {
+                GateReservation newReservation = new GateReservation(plane, startTime, endTime);
+                openGateReservations.add(newReservation);
+                return openGate;
+            }
+            else
+            {
+                for (int i = 0; i < openGateReservations.size(); i++) {
 
-                GateReservation currentReservation = openGateReservations.get(i);
+                    GateReservation currentReservation = openGateReservations.get(i);
 
-                if (currentReservation.getStartTime() > startTime)
-                {
+                    if (currentReservation.getStartTime() > startTime) {
 
-                    GateReservation newReservation = new GateReservation(plane, startTime, endTime);
-                    openGateReservations.add(i, newReservation);
-                    return true;
+                        GateReservation newReservation = new GateReservation(plane, startTime, endTime);
+                        openGateReservations.add(i, newReservation);
+                        return openGate;
+
+                    }
 
                 }
-
             }
 
         }
 
-        return false;
+        return null;
+
+    }
+
+    public void reserveGatesForFlight(Airport origin, Airport destination, Flight flight, Plane plane, int startTime,
+                                      int arrivalTime)
+    {
+
+        Gate departGate;
+        Deque<Flight> planeFlightQueue = plane.getFlightQueue();
+        boolean flightQueueIsEmpty = planeFlightQueue.isEmpty();
+        int flightStartTime = flight.getStartTime();
+
+        if (flightQueueIsEmpty)
+            departGate = reserveGate(origin, plane, flightStartTime, flightStartTime+60);
+        else
+            departGate = plane.getLastGeneratedFlight().getDepartureGate(); // need times to be start time and end of boarding time
+        //previous flight -> depart gate is already reserved. just need to reserve arrival gate for full turnaround time
+        //no previous flight -> reserve depart gate for depart turnaround time, reserve arrival gate for full turnaround time
+
+        Gate arrivalGate = reserveGate(destination, plane, arrivalTime, arrivalTime+120); // // need times to be start of deboarding time and end time
+
+        while (departGate == null || arrivalGate == null)
+        {
+
+            startTime += 15;
+            arrivalTime += 15;
+            int flightEndTime = flight.getEndTime();
+            flight.setEndTime(flightEndTime+15);
+
+            if (flightQueueIsEmpty)
+                departGate = reserveGate(origin, plane, startTime, startTime+60);
+            arrivalGate = reserveGate(destination, plane, arrivalTime, startTime+120);
+
+        }
+
+        flight.setDepartureGate(departGate);
+        flight.setArrivalGate(arrivalGate);
+        flight.setStartTime(startTime);
+        flight.setArrivalTime(arrivalTime);
 
     }
 

@@ -201,7 +201,7 @@ public class Passenger extends Person implements MovingObject
         if (at.equals(airportTravel.AT_GATE))
         {//begin if passenger gets to the gate
 
-            ticket.getFlight().getGate().addPaxToGate(this);
+            ticket.getFlight().getDepartureGate().addPaxToGate(this);
 
         }//end if passenger gets to the gate
         if(at.equals(airportTravel.BOARDING_PLANE))
@@ -258,7 +258,7 @@ public class Passenger extends Person implements MovingObject
 
         // passenger is removed from gate and added to planeConnection
 
-        Gate paxGate = ticket.getFlight().getGate();
+        Gate paxGate = ticket.getFlight().getDepartureGate();
         paxGate.getPaxAtGate().remove(this);
         paxGate.getPlaneConnection().add(this);
         at = airportTravel.BOARDING_PLANE;
@@ -270,7 +270,7 @@ public class Passenger extends Person implements MovingObject
 
         // passenger is removed from planeConnection and added to plane
 
-        ticket.getFlight().getGate().getPlaneConnection().remove(this);
+        ticket.getFlight().getDepartureGate().getPlaneConnection().remove(this);
 
         // passenger sits in their seat
 
@@ -294,7 +294,7 @@ public class Passenger extends Person implements MovingObject
         reservedSeat.setPassenger(null);
         reservedSeat = null;
         Plane paxPlane = ticket.getFlight().getPlane();
-        Gate paxGate = ticket.getFlight().getGate();
+        Gate paxGate = ticket.getFlight().getDepartureGate();
         paxPlane.getPassengers().remove(this);
         paxGate.getPlaneConnection().add(this);
 
