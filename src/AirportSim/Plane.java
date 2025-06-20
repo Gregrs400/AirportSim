@@ -32,6 +32,8 @@ public class Plane implements MovingObject
     private int taxiingToRunwayDuration, ascentDuration, cruiseDuration, descentDuration, taxiingToGateDuration,
             passengerDeboardingDuration, passengerBoardingDuration;
 
+    private int passengerBoardRate;
+
     private Airport currentAirport;
 
     public Airport getCurrentAirport() { return currentAirport; }
@@ -180,14 +182,13 @@ public class Plane implements MovingObject
 
                 loadNextFlight();
                 ps = PlaneStatus.AT_DEPART_GATE;
+                passengerBoardRate = Math.ceilDiv(currentFlight.getPaxWithTickets().size(), passengerBoardingDuration);
                 return;
 
             }
         }
         if (ps.equals(PlaneStatus.AT_DEPART_GATE))
         {
-
-            int passengerBoardRate = Math.ceilDiv(passengers.size(), passengerBoardingDuration);
 
             if (passengerBoardingDuration > 0)  // boarding
             {

@@ -1,5 +1,6 @@
 package AirportSim;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Airline
@@ -373,6 +374,7 @@ public class Airline
         flight.getUnreservedSeats().remove(seatCode);  // remove seat code so no other passengers can reserve
         passenger.getTicket().setSeatCode(seatCode);  // add seat code to ticket
 
+
     }
 
     public Ticket generateRandomTicket(Flight flight)
@@ -449,46 +451,76 @@ public class Airline
 
         HashMap<Gate, ArrayList<GateReservation>> gateReservations = airport.getGateReservations();
         ArrayList<Gate> airportGates = airport.getGates();
+        int minGateReservations = 1000;
+        int maxGateReservations = 0;
 
-        for (int i = 0; i < airport.getGateReservations().size(); i++)
+        for (int i = 0; i < gateReservations.size(); i++)
         {
 
             Gate currentGate = airportGates.get(i);
             ArrayList<GateReservation> currentGateReservations = gateReservations.get(currentGate);
+            int currentGateReservationsSize = currentGateReservations.size();
 
-            if (gateReservations.get(currentGate).size() > 1) {
+            minGateReservations = Math.min(currentGateReservationsSize, minGateReservations);
+            maxGateReservations = Math.max(currentGateReservationsSize, maxGateReservations);
 
-                for (int j = 0; j < gateReservations.get(currentGate).size(); j++) {
+        }
 
-                    GateReservation currentReservation = currentGateReservations.get(j);
-                    GateReservation previousReservation = currentGateReservations.get(j - 1);
+        for (int i = 0; i < maxGateReservations+1; i++)
+        {
 
-                    if (currentReservation.getStartTime() > endTime)
-                        if (previousReservation.getEndTime() < startTime)
-                            return currentGate;
+            if (i < minGateReservations)
+                continue;
 
-                }
-
-            }
-            else
+            for (int j = 0; j < gateReservations.size(); j++)
             {
 
-                if (gateReservations.get(currentGate).isEmpty())
-                    return currentGate;
+                Gate currentGate = airportGates.get(j);
+                ArrayList<GateReservation> currentGateReservations = gateReservations.get(currentGate);
+                int currentGateReservationsSize = currentGateReservations.size();
+
+                if (currentGateReservationsSize > i)
+                    continue;
+
+                if (currentGateReservationsSize > 1)
+                {
+
+                    for (int k = 1; k < currentGateReservationsSize; k++)
+                    {
+                        
+                        GateReservation currentReservation = currentGateReservations.get(k);
+                        GateReservation previousReservation = currentGateReservations.get(k - 1);
+
+                        if (previousReservation.getStartTime() > endTime)
+                            return currentGate;
+                        else if (previousReservation.getEndTime() < startTime)
+                            if (currentReservation.getStartTime() > endTime)
+                                return currentGate;
+                    }
+
+                }
                 else
                 {
-                    GateReservation onlyReservation = currentGateReservations.getFirst();
 
-                    if (onlyReservation.getStartTime() > endTime)
+                    if (currentGateReservations.isEmpty())
                         return currentGate;
-                    else if (onlyReservation.getEndTime() < startTime)
-                        return currentGate;
+                    else
+                    {
+
+                        GateReservation onlyReservation = currentGateReservations.getFirst();
+
+                        if (onlyReservation.getStartTime() > endTime)
+                            return currentGate;
+                        else if (onlyReservation.getEndTime() < startTime)
+                            return currentGate;
+
+                    }
+
                 }
 
             }
 
         }
-
         return null;
 
     }

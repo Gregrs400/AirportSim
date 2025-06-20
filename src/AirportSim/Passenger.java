@@ -279,10 +279,13 @@ public class Passenger extends Person implements MovingObject
         int rowIndex = paxSeatCoords[0];
         int colIndex = paxSeatCoords[1];
 
-        reservedSeat = ticket.getFlight().getPlane().getSeats().get(rowIndex).get(colIndex);
+        Plane currentPlane = ticket.getFlight().getPlane();
+
+        reservedSeat = currentPlane.getSeats().get(rowIndex).get(colIndex);
 
         reservedSeat.setPassenger(this);
 
+        currentPlane.getPassengers().add(this);
 
     }
 

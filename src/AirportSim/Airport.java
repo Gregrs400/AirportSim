@@ -152,8 +152,6 @@ public class Airport
                 if (passengerUtility.isAtGate() && ((min > (paxFlight.getDepartureTime() - 15)) && min < paxFlight.getDepartureTime()))
                 {//begin if passenger can board plane
 
-                    paxPlane.addPaxToPlane(passengerUtility);
-
                     paxGate.getPaxAtGate().remove(passengerUtility);
 
                     paxInAirport.remove(passengerUtility);
