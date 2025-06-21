@@ -155,8 +155,6 @@ public class Passenger extends Person implements MovingObject
     public void move()
     {//begin movePassenger
 
-        Plane paxPlane = ticket.getFlight().getPlane();
-
         if(at.equals(airportTravel.DROPPED_OFF))
         {//begin if passenger has been dropped off but not checked in
 
