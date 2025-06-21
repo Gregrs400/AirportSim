@@ -571,7 +571,7 @@ public class Airline
         if (flightQueueIsEmpty)
             departGate = reserveGate(origin, plane, flightStartTime, flightStartTime+60);
         else
-            departGate = plane.getLatestFlight().getArrivalGate(); // need times to be start time and end of boarding time
+            departGate = plane.getLastGeneratedFlight().getArrivalGate(); // need times to be start time and end of boarding time
         //previous flight -> depart gate is already reserved. just need to reserve arrival gate for full turnaround time
         //no previous flight -> reserve depart gate for depart turnaround time, reserve arrival gate for full turnaround time
 
