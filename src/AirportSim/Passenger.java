@@ -221,12 +221,6 @@ public class Passenger extends Person implements MovingObject
             }
 
         }//end if passenger is boarding
-        if (paxPlane.getPlaneStatus().equals(PlaneStatus.AT_ARRIVAL_GATE) & reservedSeat != null)
-        {
-
-            deboardPlane();
-
-        }
 
     }//end movePassenger
 
