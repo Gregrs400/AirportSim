@@ -194,8 +194,6 @@ public class Passenger extends Person implements MovingObject
             {
 
                 at = airportTravel.AT_GATE;
-                System.out.println("Adding " + this.getId() + " to " + ticket.getFlight().getOriginAirport().toString()
-                        + " Gate " + ticket.getFlight().getDepartureGate().toString());
                 ticket.getFlight().getDepartureGate().addPaxToGate(this);
 
             }
