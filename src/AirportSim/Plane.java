@@ -136,6 +136,7 @@ public class Plane implements MovingObject
             if(taxiingToGateDuration == 0)
             {
                 ps = PlaneStatus.AT_ARRIVAL_GATE;
+                currentFlight.getArrivalGate().setPlane(this);
             }
             else
             {
@@ -182,13 +183,20 @@ public class Plane implements MovingObject
 
                 loadNextFlight();
                 ps = PlaneStatus.AT_DEPART_GATE;
-                passengerBoardRate = Math.ceilDiv(currentFlight.getPaxWithTickets().size(), passengerBoardingDuration);
                 return;
 
             }
         }
         if (ps.equals(PlaneStatus.AT_DEPART_GATE))
         {
+
+            if (passengerBoardRate == 0)
+            {
+
+                passengerBoardRate = 3;
+                currentFlight.getDepartureGate().setPlane(this);
+
+            }
 
             if (passengerBoardingDuration > 0)  // boarding
             {

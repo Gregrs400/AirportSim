@@ -143,7 +143,7 @@ public class Passenger extends Person implements MovingObject
         curbToCheckIn = random.nextInt(11)+5;
         checkInToSecurity = random.nextInt(6)+5;
         securityToGate = random.nextInt(31)+15;
-        gateToPlane = random.nextInt(11)+5;
+        gateToPlane = random.nextInt(5)+5;
 
     }//end commuteThroughAirport
 
@@ -194,14 +194,18 @@ public class Passenger extends Person implements MovingObject
             {
 
                 at = airportTravel.AT_GATE;
+                System.out.println("Adding " + this.getId() + " to " + ticket.getFlight().getOriginAirport().toString()
+                        + " Gate " + ticket.getFlight().getDepartureGate().toString());
+                ticket.getFlight().getDepartureGate().addPaxToGate(this);
 
             }
 
         }//end if passenger is through security but not gotten to gate
-        if (at.equals(airportTravel.AT_GATE))
+        if (at.equals(airportTravel.AT_GATE) &&
+                ticket.getFlight().getDepartureGate().getPlane() == ticket.getFlight().getPlane())
         {//begin if passenger gets to the gate
 
-            ticket.getFlight().getDepartureGate().addPaxToGate(this);
+            at = airportTravel.BOARDING_PLANE;
 
         }//end if passenger gets to the gate
         if(at.equals(airportTravel.BOARDING_PLANE))

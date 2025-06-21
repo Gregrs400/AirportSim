@@ -146,8 +146,6 @@ public class Airport
                     passengerUtility.move();
 
                 }//end if passenger needs to move
-                else if(paxGate.getPaxAtGate().size() < paxGate.getSeats())
-                    paxGate.addPaxToGate(passengerUtility);
 
                 if (passengerUtility.isAtGate() && ((min > (paxFlight.getDepartureTime() - 15)) && min < paxFlight.getDepartureTime()))
                 {//begin if passenger can board plane
@@ -225,6 +223,13 @@ public class Airport
     }
 
     public void addToArrivals(Flight flight) { arrivals.add(flight); }
+
+    public String toString()
+    {
+
+        return airportLocation + " Airport";
+
+    }
 
 
 }//end Airport class

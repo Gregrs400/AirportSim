@@ -144,10 +144,6 @@ public class Airline
 
         flight.setFlightTimes(generateFlightTimes(380, origin, destination));
 
-        int boardingDuration = Math.ceilDiv(plane.getPassengerCapacity(), 3);
-        flight.setBoardingDuration(boardingDuration);
-        flight.setDeboardingDuration(boardingDuration);
-
         int flightStartTime, flightEndTime;
 
         if (!plane.getFlightQueue().isEmpty())
@@ -350,8 +346,8 @@ public class Airline
 
         int taxiingToRunwayDuration = random.nextInt(15)+1;
         int taxiingToGateDuration = random.nextInt(15)+1;
-        int boardingDuration = random.nextInt(30)+15;
-        int deboardingDuration = random.nextInt(45)+15;
+        int boardingDuration = random.nextInt(30)+30;
+        int deboardingDuration = random.nextInt(45)+30;
 
         return new int[]{taxiingToRunwayDuration, ascentTimeMin, cruiseTime, descentTimeMin, taxiingToGateDuration,
                         boardingDuration, deboardingDuration};
@@ -575,7 +571,7 @@ public class Airline
         if (flightQueueIsEmpty)
             departGate = reserveGate(origin, plane, flightStartTime, flightStartTime+60);
         else
-            departGate = plane.getLastGeneratedFlight().getDepartureGate(); // need times to be start time and end of boarding time
+            departGate = plane.getLatestFlight().getArrivalGate(); // need times to be start time and end of boarding time
         //previous flight -> depart gate is already reserved. just need to reserve arrival gate for full turnaround time
         //no previous flight -> reserve depart gate for depart turnaround time, reserve arrival gate for full turnaround time
 

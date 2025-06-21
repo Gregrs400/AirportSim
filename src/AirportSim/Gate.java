@@ -17,6 +17,8 @@ public class Gate
 
     Deque<Plane> planeQueue = new LinkedList<>();
 
+    Plane plane;
+
     public void addPlane(Plane plane)
     {
 
@@ -36,6 +38,9 @@ public class Gate
 
     public void setName(String name){this.name = name;}
 
+    public Plane getPlane(){ return plane; }
+
+    public void setPlane(Plane plane){ this.plane = plane; }
     public Gate(int numOfSeats, String name)
     {//begin Gate parameterized constructor
 
@@ -66,5 +71,12 @@ public class Gate
     }
 
     gateStatus gs;
+
+    public String toString()
+    {
+
+        return name;
+
+    }
 
 }
