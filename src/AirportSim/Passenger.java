@@ -239,24 +239,6 @@ public class Passenger extends Person implements MovingObject
 
     }
 
-    public void reserveRandomSeat()  // adding passenger to flight's seating chart
-    {
-
-        Flight flight = ticket.getFlight();  // get the passenger's flight
-        Airline flightAirline = ticket.getAirline();  // get airline from ticket
-        if (flight.getUnreservedSeats().isEmpty())
-        {
-            System.out.println("Flight " + flight.getNumber() + ": all seats reserved.");
-        }
-        else
-        {
-            int seatIndex = random.nextInt(flight.getUnreservedSeats().size());
-            String reservedSeatCode = flight.getUnreservedSeats().get(seatIndex);  // passenger choosing seat
-            flightAirline.assignPaxToSeat(this, flight, reservedSeatCode);  // airline adding passenger to seating chart for flight
-        }
-
-    }
-
     public void boardPlane()
     {
 
