@@ -29,10 +29,6 @@ public class Airline
 
     private final ArrayList<Plane> airlineFleet = new ArrayList<>();
 
-    //Hashmap allowing retrieval of Flight objects when given flight numbers
-
-    private final ArrayList<Plane> availablePlanes = new ArrayList<>();
-
     private final HashMap<String, PlaneSeat> planeSeats = new HashMap<>();
 
     //Airline parameterized constructor
@@ -78,7 +74,6 @@ public class Airline
     {//begin addPlane
 
         airlineFleet.add(plane);
-        availablePlanes.add(plane);
 
     }//end addPlane
 
