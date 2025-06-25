@@ -53,8 +53,6 @@ public class Sim   // upper level class to enclose all objects
 
         Plane plane1 = new Plane(50);
 
-        Plane plane2 = new Plane(100);
-
         String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
 
         PlaneSeatClass airlineOneEconomyClass = new PlaneSeatClass("airlineOneEconomy",
@@ -73,7 +71,7 @@ public class Sim   // upper level class to enclose all objects
 
         Plane airlineOnePlane1Template = new Plane(plane1, airlineOnePlane1SeatLayoutStr, airlineOneSeatTemplateMap);
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 100; i++)
         {
 
             airlineOne.addPlane(new Plane(airlineOnePlane1Template, "a1p1_" + i));
@@ -93,6 +91,8 @@ public class Sim   // upper level class to enclose all objects
                 airline.generateFlights(day);
 
             }
+
+            System.out.println("Flights generated: " + airlineOne.getFlights().size());
 
             // sim update loop
 
