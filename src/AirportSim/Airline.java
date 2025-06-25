@@ -29,8 +29,6 @@ public class Airline
 
     private final ArrayList<Plane> airlineFleet = new ArrayList<>();
 
-    public ArrayList<Plane> getAirlineFleet() {return airlineFleet;}
-
     //Hashmap allowing retrieval of Flight objects when given flight numbers
 
     private final ArrayList<Plane> availablePlanes = new ArrayList<>();
