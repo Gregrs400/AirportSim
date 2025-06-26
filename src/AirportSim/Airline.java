@@ -174,25 +174,6 @@ public class Airline
 
     }
 
-    public int getPassengerTotal()
-    {
-
-        int passengerTotal = 0;
-
-        for(Flight flight : flights)
-        {
-
-            Plane flightPlane = flight.getPlane();
-
-            passengerTotal += flightPlane.getPassengers().size();
-
-
-        }
-
-        return passengerTotal;
-
-    }
-
     public void removeFromDestinations(Airport destination)
     {//begin removeFromDestinations
 
