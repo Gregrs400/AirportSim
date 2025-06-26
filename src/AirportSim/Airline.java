@@ -308,18 +308,6 @@ public class Airline
 
     }
 
-    public void startNextFlight(Plane plane)
-    {
-
-        if (!plane.getFlightQueue().isEmpty())
-        {
-
-            plane.setCurrentFlight(plane.getFlightQueue().poll());
-
-        }
-
-    }
-
     public int[] fromSeatCodeToCoords(String seatCode)
     {
 
