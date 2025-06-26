@@ -61,9 +61,7 @@ public class Sim   // upper level class to enclose all objects
                 new ArrayList<>(List.of("Lie-flat Seat", "Pillows", "Blanket")), "F");
 
         PlaneSeat airlineOneEconomySeat = new PlaneSeat("a1sampleEconomy", airlineOne, airlineOneEconomyClass);
-        airlineOne.addPlaneSeat("Economy", airlineOneEconomySeat);
         PlaneSeat airlineOneFirstSeat = new PlaneSeat("a1sampleFirst", airlineOne, airlineOneFirstClass);
-        airlineOne.addPlaneSeat("First", airlineOneFirstSeat);
 
         Map<String, PlaneSeat> airlineOneSeatTemplateMap = new HashMap<>();
         airlineOneSeatTemplateMap.put(airlineOneEconomySeat.getSeatClass().getClassCode(), airlineOneEconomySeat);

@@ -29,8 +29,6 @@ public class Airline
 
     private final ArrayList<Plane> airlineFleet = new ArrayList<>();
 
-    private final HashMap<String, PlaneSeat> planeSeats = new HashMap<>();
-
     //Airline parameterized constructor
 
     public Airline(ArrayList<Airport> destinationList) // all destinations available from all airports
@@ -219,13 +217,6 @@ public class Airline
         allDestinations.remove(destination);
 
     }//end removeFromDestinations
-
-    public void addPlaneSeat(String name, PlaneSeat planeSeat)
-    {
-
-        planeSeats.put(name, planeSeat);
-
-    }
 
     public void addFlightToDepartures(Airport origin, Flight flight)
     {
