@@ -22,8 +22,6 @@ public class Airport
 
     private final ArrayList<Passenger> paxInAirport = new ArrayList<>();
 
-    private final ArrayList<Passenger> activePax = new ArrayList<>();
-
     private final int numOfGates;
 
     private final String airportLocation;
@@ -82,12 +80,6 @@ public class Airport
             gateReservations.put(gate, new ArrayList<>());
 
         }//end gate declaration loop
-        for(int i = 0; i < 1440; i++)
-        {
-
-            activePax.add(null);
-
-        }
 
         flightsWithVacantSeats = new HashMap<>();
 
