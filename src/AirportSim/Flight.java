@@ -114,10 +114,6 @@ public class Flight
         return deboardingDuration;
     }
 
-    public void setBoardingDuration(int boardingDuration) {
-        this.boardingDuration = boardingDuration;
-    }
-
     public int getTaxiingToRunwayDuration() {
         return taxiingToRunwayDuration;
     }
