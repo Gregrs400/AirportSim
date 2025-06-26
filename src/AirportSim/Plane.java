@@ -57,8 +57,6 @@ public class Plane implements MovingObject
 
     }
 
-    public Flight getLatestFlight() { return flightQueue.peek(); }
-
     public Flight getLastGeneratedFlight() { return flightQueue.getLast(); }
 
     @Override
