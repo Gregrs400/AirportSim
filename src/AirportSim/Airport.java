@@ -22,8 +22,6 @@ public class Airport
 
     private final ArrayList<Passenger> paxInAirport = new ArrayList<>();
 
-    private final int numOfGates;
-
     private final String airportLocation;
 
     private final String airportCode;
@@ -67,7 +65,6 @@ public class Airport
         airportCode = code;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.numOfGates = numOfGates;
         for(int i = 0; i < numOfGates; i++)
         {//begin gate declaration loop
 
