@@ -174,13 +174,6 @@ public class Airline
 
     }
 
-    public void removeFromDestinations(Airport destination)
-    {//begin removeFromDestinations
-
-        allDestinations.remove(destination);
-
-    }//end removeFromDestinations
-
     public void addFlightToDepartures(Airport origin, Flight flight)
     {
 
