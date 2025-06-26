@@ -183,8 +183,6 @@ public class Airport
 
     }//end paxArrival
 
-    public String getLocation(){ return airportLocation; }
-
     public void addToDepartures(Flight flight)
     {
 
