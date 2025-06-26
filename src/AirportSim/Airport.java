@@ -83,14 +83,6 @@ public class Airport
 
     // Airport copy constructor
 
-    public Airport(Airport anotherAirport)
-    {
-
-        this(anotherAirport.airportLocation, anotherAirport.airportCode, anotherAirport.getLatitude(),
-                anotherAirport.getLongitude(), anotherAirport.numOfGates);
-
-    }
-
     public void updateAirport(int min)
     {
 
