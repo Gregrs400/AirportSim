@@ -174,15 +174,6 @@ public class Airline
 
     }
 
-    public Airport getRandomDestination(Airport origin)
-    {
-
-        int randomIndex = random.nextInt(destinations.get(origin).size());
-
-        return destinations.get(origin).get(randomIndex);
-
-    }
-
     public int getPassengerTotal()
     {
 
