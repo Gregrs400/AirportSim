@@ -237,8 +237,6 @@ public class Plane implements MovingObject
 
     PlaneStatus ps;
 
-    public PlaneStatus getPlaneStatus(){ return ps; }
-
     public Plane(int capacity)
     {//begin Plane parameterized constructor
 
