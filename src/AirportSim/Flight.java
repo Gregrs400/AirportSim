@@ -89,7 +89,7 @@ public class Flight
     public Passenger[][] getSeatingChart() { return seatingChart; }
     private ArrayList<String> unreservedSeats;
 
-    private ArrayList<Ticket> tickets;
+    private final ArrayList<Ticket> tickets;
 
     public ArrayList<Ticket> getTickets() { return tickets; }
 
