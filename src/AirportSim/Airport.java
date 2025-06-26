@@ -34,7 +34,7 @@ public class Airport
         return latitude;
     }
 
-    private double longitude;
+    private final double longitude;
 
     private int paxCounter = 0;
 
