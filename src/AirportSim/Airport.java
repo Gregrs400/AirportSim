@@ -12,8 +12,6 @@ public class Airport
 
     private final Random random = new Random();
 
-    private final Time time = new Time();
-
     private final ArrayList<Gate> gates = new ArrayList<>();
 
     public ArrayList<Gate> getGates() { return gates; }
