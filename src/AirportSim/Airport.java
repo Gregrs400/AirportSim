@@ -54,7 +54,7 @@ public class Airport
 
     private final ArrayList<Flight> arrivals = new ArrayList<>();
 
-    private HashMap<Airline, ArrayList<Flight>> flightsWithVacantSeats;
+    private final HashMap<Airline, ArrayList<Flight>> flightsWithVacantSeats;
 
     public int getTotalPaxCapacity() { return totalPaxCapacity; }
 
