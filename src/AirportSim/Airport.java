@@ -111,8 +111,6 @@ public class Airport
 
                 Flight paxFlight = passengerUtility.getTicket().getFlight();
 
-                Plane paxPlane = paxFlight.getPlane();
-
                 Gate paxGate = paxFlight.getDepartureGate();
 
                 if (!(passengerUtility.isAtGate()))
