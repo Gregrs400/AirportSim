@@ -59,13 +59,6 @@ public class Airline
 
     }//end Airline parameterized constructor
 
-    public Airline(HashMap<Airport, ArrayList<Airport>> destinationMap)
-    {
-
-        setDestinations(destinationMap);
-
-    }
-
     //addPlane to add a plane to an airline's fleet
 
     public void addPlane(Plane plane)
