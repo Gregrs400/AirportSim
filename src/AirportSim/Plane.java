@@ -276,13 +276,6 @@ public class Plane implements MovingObject
 
     }
 
-    public void addPaxToPlane(Passenger passenger)
-    {//begin addPaxToPlane
-
-        passengers.add(passenger);
-
-    }//end addPaxToPlane
-
     public void addFlightToQueue(Flight flight)
     {
 
