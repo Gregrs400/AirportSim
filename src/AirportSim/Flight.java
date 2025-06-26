@@ -36,8 +36,6 @@ public class Flight
 
     private Airport originAirport;
 
-    public Airport getOriginAirport() {return originAirport;}
-
     public void setOriginAirport(Airport originAirport) {this.originAirport = originAirport;}
 
     //Plane object being used for Flight parameterized constructor
