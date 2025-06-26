@@ -174,13 +174,6 @@ public class Airline
 
     }
 
-    public void addFlightToDepartures(Airport origin, Flight flight)
-    {
-
-        origin.getDepartures().add(flight);
-
-    }
-
     public void addFlightToArrivals(Airport destination, Flight flight)
     {
 
