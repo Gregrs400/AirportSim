@@ -28,7 +28,7 @@ public class Airport
 
     private final String airportCode;
 
-    private double latitude;
+    private final double latitude;
 
     public double getLatitude() {
         return latitude;
