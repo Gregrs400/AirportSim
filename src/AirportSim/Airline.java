@@ -7,7 +7,7 @@ public class Airline
 
     private final Random random = new Random();
 
-    private HashMap<Airport, ArrayList<Airport>> destinations = new HashMap<>();
+    private final HashMap<Airport, ArrayList<Airport>> destinations = new HashMap<>();
 
     //Airport ArrayList of all destinations of an airline
 
