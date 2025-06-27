@@ -68,7 +68,7 @@ public class Airport
         for(int i = 0; i < numOfGates; i++)
         {//begin gate declaration loop
 
-            Gate gate = new Gate(50, i+1 + "");
+            Gate gate = new Gate(i+1 + "");
             gates.add(gate);
             gateReservations.put(gate, new ArrayList<>());
 

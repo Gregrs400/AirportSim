@@ -7,14 +7,6 @@ import java.util.ArrayList;
 public class Gate
 {
 
-    private int seats;
-
-    public int getSeats(){return seats;}
-
-    public void setSeats(int seats) {
-        this.seats = seats;
-    }
-
     Deque<Plane> planeQueue = new LinkedList<>();
 
     Plane plane;
@@ -41,10 +33,9 @@ public class Gate
     public Plane getPlane(){ return plane; }
 
     public void setPlane(Plane plane){ this.plane = plane; }
-    public Gate(int numOfSeats, String name)
+    public Gate(String name)
     {//begin Gate parameterized constructor
 
-        setSeats(numOfSeats);
         setName(name);
         planeConnection = new ArrayList<>();
         gs = gateStatus.EMPTY;
