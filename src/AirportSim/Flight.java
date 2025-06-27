@@ -179,19 +179,6 @@ public class Flight
 
     }//end Flight parameterized constructor
 
-    // copy constructor
-
-    public Flight(Flight anotherFlight)
-    {
-
-        this(anotherFlight.plane, anotherFlight.destination, anotherFlight.originAirport,
-                anotherFlight.number, anotherFlight.departureTime, anotherFlight.departureGate,
-                anotherFlight.arrivalGate);
-        this.arrivalTime = anotherFlight.arrivalTime;
-        generateUnreservedSeats();
-
-    }
-
     public boolean isSoldOut()
     {//begin isSoldOut
 
