@@ -134,10 +134,6 @@ public class Flight
         return taxiingToGateDuration;
     }
 
-    public void setDeboardingDuration(int deboardingDuration) {
-        this.deboardingDuration = deboardingDuration;
-    }
-
     public void setEndTime(int endTime) {
         this.endTime = endTime;
     }
