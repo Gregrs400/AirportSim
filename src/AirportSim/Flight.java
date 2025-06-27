@@ -163,22 +163,6 @@ public class Flight
 
     }//end Flight parameterized constructor
 
-    public Flight(Plane plane, Airport originAirport, Airport destination, int number, int departureTime,
-                  Gate departureGate, Gate arrivalGate)
-    {//begin Flight parameterized constructor
-
-        setPlane(plane);
-        setOriginAirport(originAirport);
-        setDestination(destination);
-        setNumber(number);
-        setDepartureTime(departureTime);
-        setDepartureGate(departureGate);
-        generateUnreservedSeats();
-        fs = flightStatus.ONTIME;
-        tickets = new ArrayList<>(plane.getPassengerCapacity());
-
-    }//end Flight parameterized constructor
-
     public boolean isSoldOut()
     {//begin isSoldOut
 
