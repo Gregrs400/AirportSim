@@ -38,7 +38,6 @@ public class Gate
 
         setName(name);
         planeConnection = new ArrayList<>();
-        gs = gateStatus.EMPTY;
 
     }//end Gate parameterized constructor
 
@@ -52,16 +51,6 @@ public class Gate
         paxAtGate.add(passenger);
 
     }
-
-    enum gateStatus
-    {
-
-        EMPTY,
-        OCCUPIED
-
-    }
-
-    gateStatus gs;
 
     public String toString()
     {
