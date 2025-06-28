@@ -8,7 +8,7 @@ public class Ticket {
 
     String ticketNum = "";
 
-    private Flight flight;
+    private final Flight flight;
 
     private String seatCode;
 
