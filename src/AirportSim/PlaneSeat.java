@@ -32,7 +32,6 @@ public class PlaneSeat extends Seat
 
     public void setRow(int row){ this.row = row; }
 
-    public String getCol(){ return col; }
     public void setCol(String col){ this.col = col; }
 
     public PlaneSeat(String seatID, Airline airline, PlaneSeatClass seatClass)
