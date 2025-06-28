@@ -20,13 +20,6 @@ public class Ticket {
         this.flight = flight;
     }
 
-    public Ticket(Ticket anotherTicket)
-    {
-
-        this(anotherTicket.airline, anotherTicket.getFlight());
-
-    }
-
     public String formatter() {
 
         DecimalFormat df = new DecimalFormat("#");
