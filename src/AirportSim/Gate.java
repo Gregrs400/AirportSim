@@ -1,7 +1,5 @@
 package AirportSim;
 
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.ArrayList;
 
 public class Gate
