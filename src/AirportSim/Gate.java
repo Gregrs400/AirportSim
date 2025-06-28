@@ -7,22 +7,11 @@ import java.util.ArrayList;
 public class Gate
 {
 
-    Deque<Plane> planeQueue = new LinkedList<>();
-
     Plane plane;
-
-    public void addPlane(Plane plane)
-    {
-
-        planeQueue.add(plane);
-
-    }
 
     private final ArrayList<Passenger> planeConnection;
 
     public ArrayList<Passenger> getPlaneConnection() { return planeConnection; }
-
-    public Plane getLastPlane(){return planeQueue.peekLast();}
 
     private String name;
 
