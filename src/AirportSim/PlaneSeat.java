@@ -1,7 +1,5 @@
 package AirportSim;
 
-import java.util.ArrayList;
-
 public class PlaneSeat extends Seat
 {
 
