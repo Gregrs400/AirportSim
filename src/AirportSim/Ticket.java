@@ -12,7 +12,7 @@ public class Ticket {
 
     private String seatCode;
 
-    private Airline airline;
+    private final Airline airline;
 
     public Ticket(Airline airline, Flight flight) {
         ticketNum = formatter();
