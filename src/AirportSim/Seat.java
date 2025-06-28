@@ -21,6 +21,4 @@ public abstract class Seat
 
     public void setPassenger(Passenger passenger) { this.passenger = passenger; }
 
-    public String getSeatID(){ return seatID; }
-
 }
