@@ -11,13 +11,13 @@ public abstract class Seat
     {
 
         this.seatID = seatID;
-        vacantSeat();
+        vacateSeat();
 
     }
 
     public void occupySeat(Passenger passenger) { setPassenger(passenger); }
 
-    public void vacantSeat() { setPassenger(null); }
+    public void vacateSeat() { setPassenger(null); }
 
     public void setPassenger(Passenger passenger) { this.passenger = passenger; }
 
