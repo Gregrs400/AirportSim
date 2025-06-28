@@ -43,6 +43,7 @@ public class PlaneSeat extends Seat
         this(anotherPlaneSeat.getSeatID(), anotherPlaneSeat.getAirline(), anotherPlaneSeat.getSeatClass());
         this.setPlane(anotherPlaneSeat.getPlane());
         this.setPlaneSeatDescription(anotherPlaneSeat.getPlaneSeatDescription());
+        this.setSeatCode(null);
 
     }
 
@@ -52,7 +53,7 @@ public class PlaneSeat extends Seat
         this(differentID, seatTemplate.getAirline(), seatTemplate.getSeatClass());
         this.setPlane(seatTemplate.getPlane());
         this.setPlaneSeatDescription(seatTemplate.getPlaneSeatDescription());
-        setSeatCode(String.valueOf(row) + col);
+        setSeatCode((row) + col);
 
     }
 
