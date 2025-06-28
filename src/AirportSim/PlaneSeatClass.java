@@ -19,4 +19,7 @@ public class PlaneSeatClass
     }
 
     public String getClassCode(){ return classCode; }
+
+    public String toString() { return this.className; }
+
 }
