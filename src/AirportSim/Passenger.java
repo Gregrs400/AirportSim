@@ -259,7 +259,7 @@ public class Passenger extends Person implements MovingObject
 
         reservedSeat = currentPlane.getSeats().get(rowIndex).get(colIndex);
 
-        reservedSeat.setPassenger(this);
+        reservedSeat.occupySeat(this);
 
         currentPlane.getPassengers().add(this);
 
