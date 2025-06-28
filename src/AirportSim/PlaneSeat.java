@@ -30,7 +30,6 @@ public class PlaneSeat extends Seat
     public String getSeatCode(){ return seatCode; }
     public void setSeatCode(String seatCode){ this.seatCode = seatCode; }
 
-    public int getRow(){ return row; }
     public void setRow(int row){ this.row = row; }
 
     public String getCol(){ return col; }
