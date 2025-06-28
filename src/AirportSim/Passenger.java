@@ -270,7 +270,7 @@ public class Passenger extends Person implements MovingObject
 
         // passenger is removed from plane and added to planeConnection
 
-        reservedSeat.setPassenger(null);
+        reservedSeat.vacateSeat();
         reservedSeat = null;
         Plane paxPlane = ticket.getFlight().getPlane();
         Gate paxGate = ticket.getFlight().getArrivalGate();
