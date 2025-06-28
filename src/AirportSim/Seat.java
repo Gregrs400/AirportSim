@@ -3,7 +3,7 @@ package AirportSim;
 public abstract class Seat
 {
 
-    private String seatID;
+    private final String seatID;
 
     private Passenger passenger;
 
