@@ -6,7 +6,7 @@ public class PlaneSeatClass
 {
 
     private final String className;
-    private ArrayList<String> amenities;
+    private final ArrayList<String> amenities;
     private final String classCode;
 
     public PlaneSeatClass(String className, ArrayList<String> amenities, String classCode)
