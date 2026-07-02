@@ -48,33 +48,47 @@ public class Sim   // upper level class to enclose all objects
 
         }
 
-        Airline airlineOne = new Airline(airports);
+        Airline airlineOne = new Airline("Airline One", airports);
         airlines.add(airlineOne);
-
-        Plane plane1 = new Plane(50);
 
         String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
 
-        PlaneSeatClass airlineOneEconomyClass = new PlaneSeatClass("airlineOneEconomy",
-                new ArrayList<>(List.of("Seat")), "E");
-        PlaneSeatClass airlineOneFirstClass = new PlaneSeatClass("airlineOneFirst",
-                new ArrayList<>(List.of("Lie-flat Seat", "Pillows", "Blanket")), "F");
+        airlineOne.createSeatClass("Economy", "Seat", "E");
+        airlineOne.createSeatClass("First", "Lie-flat Seat,Pillows,Blanket", "F");
 
-        PlaneSeat airlineOneEconomySeat = new PlaneSeat("a1sampleEconomy", airlineOne, airlineOneEconomyClass);
-        PlaneSeat airlineOneFirstSeat = new PlaneSeat("a1sampleFirst", airlineOne, airlineOneFirstClass);
+        // airlineOne.createPlaneTemplate(airlineOnePlane1SeatLayoutStr);
 
-        Map<String, PlaneSeat> airlineOneSeatTemplateMap = new HashMap<>();
-        airlineOneSeatTemplateMap.put(airlineOneEconomySeat.getSeatClass().getClassCode(), airlineOneEconomySeat);
-        airlineOneSeatTemplateMap.put(airlineOneFirstSeat.getSeatClass().getClassCode(), airlineOneFirstSeat);
-
-        Plane airlineOnePlane1Template = new Plane(plane1, airlineOnePlane1SeatLayoutStr, airlineOneSeatTemplateMap);
+        PlaneManufacturer planeManufacturerOne = new PlaneManufacturer();
 
         for (int i = 0; i < 100; i++)
         {
 
-            airlineOne.addPlane(new Plane(airlineOnePlane1Template, "a1p1_" + i));
+            planeManufacturerOne.createPlane("plane1", 50);
+            
+        }
+        airlines.getFirst().addPlane(planeManufacturerOne.getPlaneByModel("plane1"), airlineOnePlane1SeatLayoutStr);
+
+        for (int i = 0; i < 100; i++)
+        {
+
+            airlineOne.addPlane(planeManufacturerOne.getPlanes().getFirst(), airlineOnePlane1SeatLayoutStr);
+            planeManufacturerOne.getPlanes().removeFirst();
 
         }
+
+
+
+    }
+
+    public static void addToObjectMovementSchedule(int startTime, MovingObject object)
+    {
+
+        objectMovementSchedule.get(startTime).add(object);
+
+    }
+
+    public static void runUpdateLoop()
+    {
 
         //simulation loop
 
@@ -90,7 +104,7 @@ public class Sim   // upper level class to enclose all objects
 
             }
 
-            System.out.println("Flights generated: " + airlineOne.getFlights().size());
+            // System.out.println("Flights generated: " + airlineOne.getFlights().size());
 
             // sim update loop
 
@@ -129,13 +143,6 @@ public class Sim   // upper level class to enclose all objects
             }
 
         }
-
-    }
-
-    public static void addToObjectMovementSchedule(int startTime, MovingObject object)
-    {
-
-        objectMovementSchedule.get(startTime).add(object);
 
     }
 
