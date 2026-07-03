@@ -43,11 +43,6 @@ public class Sim   // upper level class to enclose all objects
         initializePlanes();
         acquirePlanes();
 
-        // airline created, acquires a type of plane, that plane needs a seating layout.
-        // the airline gets the seating layout as a string, and decodes it in the airline class
-
-        // airlineOne.createPlaneTemplate(airlineOnePlane1SeatLayoutStr)
-
         runUpdateLoop();
 
     }
