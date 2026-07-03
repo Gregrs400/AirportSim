@@ -35,7 +35,7 @@ public class Airline
 
     //Airline parameterized constructor
 
-    public Airline(String name, ArrayList<Airport> destinationList) // all destinations available from all airports
+    public Airline(String name, ArrayList<Airport> destinationList, String seatClassesString) // all destinations available from all airports
     {//begin Airline parameterized constructor
 
         this.name = name;
@@ -62,6 +62,8 @@ public class Airline
         }
 
         allDestinations.addAll(destinationList);
+
+        decodeSeatClasses(seatClassesString);
 
     }//end Airline parameterized constructor
 
@@ -641,6 +643,32 @@ public class Airline
     {
 
 
+
+    }
+
+    private void decodeSeatClasses(String seatClassesString)
+    {
+
+        String[] seatClasses = seatClassesString.split(";");
+
+        for (String seatClass : seatClasses)
+        {
+
+            int indexOfOpenParen = seatClass.indexOf('(');
+            int indexOfCloseParen = seatClass.indexOf(')');
+            String className = seatClass.substring(0, indexOfOpenParen-2);
+            String amenities = seatClass.substring(indexOfCloseParen, seatClass.length()-1);
+            String classCode = seatClass.substring(indexOfOpenParen+1, indexOfCloseParen);
+
+            createSeatClass(className, amenities, classCode);
+
+        }
+
+
+        //"Economy (E): Seat
+        // First (F): Lie-flat Seat,Pillows,Blanket"
+
+        //public void createSeatClass(String className, String amenities, String classCode)
 
     }
 

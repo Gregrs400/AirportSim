@@ -17,6 +17,8 @@ public class Sim   // upper level class to enclose all objects
 
     static Scanner airportFileReader;
 
+    static String airlineSeatClasses;
+
     static {
         try {
             airportFileReader = new Scanner(airportFile);
@@ -34,12 +36,9 @@ public class Sim   // upper level class to enclose all objects
 
         initializeAirports();
 
-        initializeAirlines();
-
         String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
 
-        airlineOne.createSeatClass("Economy", "Seat", "E");
-        airlineOne.createSeatClass("First", "Lie-flat Seat,Pillows,Blanket", "F");
+        initializeAirlines();
 
         // airlineOne.createPlaneTemplate(airlineOnePlane1SeatLayoutStr);
 
@@ -56,7 +55,7 @@ public class Sim   // upper level class to enclose all objects
         for (int i = 0; i < 100; i++)
         {
 
-            airlineOne.addPlane(planeManufacturerOne.getPlanes().getFirst(), airlineOnePlane1SeatLayoutStr);
+            airlines.getFirst().addPlane(planeManufacturerOne.getPlanes().getFirst(), airlineOnePlane1SeatLayoutStr);
             planeManufacturerOne.getPlanes().removeFirst();
 
         }
@@ -162,7 +161,9 @@ public class Sim   // upper level class to enclose all objects
     public static void initializeAirlines()
     {
 
-        Airline airlineOne = new Airline("Airline One", airports);
+        String airlineOneSeatClasses = "Economy (E): Seat;First (F): Lie-flat Seat,Pillows,Blanket";
+
+        Airline airlineOne = new Airline("Airline One", airports, airlineOneSeatClasses);
         airlines.add(airlineOne);
 
     }
