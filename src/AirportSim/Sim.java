@@ -32,16 +32,7 @@ public class Sim   // upper level class to enclose all objects
 
         initializeObjectMovementSchedule();
 
-        while (airportFileReader.hasNext())
-        {
-
-            String airportFileLine = airportFileReader.nextLine();
-            String[] airportItems = airportFileLine.split(",");
-            Airport airport = new Airport(airportItems[0], airportItems[1], Double.parseDouble(airportItems[2]),
-                                  Double.parseDouble(airportItems[3]), 50);
-            airports.add(airport);
-
-        }
+        initializeAirports();
 
         Airline airlineOne = new Airline("Airline One", airports);
         airlines.add(airlineOne);
@@ -148,6 +139,22 @@ public class Sim   // upper level class to enclose all objects
 //        {
 //
 //            objectMovementSchedule.add(new ArrayList<>());
+//
+//        }
+
+    }
+
+    public static void initializeAirports()
+    {
+
+//        while (airportFileReader.hasNext())
+//        {
+//
+//            String airportFileLine = airportFileReader.nextLine();
+//            String[] airportItems = airportFileLine.split(",");
+//            Airport airport = new Airport(airportItems[0], airportItems[1], Double.parseDouble(airportItems[2]),
+//                    Double.parseDouble(airportItems[3]), 50);
+//            airports.add(airport);
 //
 //        }
 
