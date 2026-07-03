@@ -30,12 +30,7 @@ public class Sim   // upper level class to enclose all objects
     public static void main(String[] args)
     {
 
-        for (int i = 0; i < 1440; i++)
-        {
-
-            objectMovementSchedule.add(new ArrayList<>());
-
-        }
+        initializeObjectMovementSchedule();
 
         while (airportFileReader.hasNext())
         {
@@ -76,7 +71,7 @@ public class Sim   // upper level class to enclose all objects
 
         }
 
-
+        runUpdateLoop();
 
     }
 
@@ -90,59 +85,71 @@ public class Sim   // upper level class to enclose all objects
     public static void runUpdateLoop()
     {
 
-        //simulation loop
+//        //simulation loop
+//
+//        for (int day = 0; day < 1; day++)
+//        {
+//
+//            //flight generation loop
+//
+//            for (Airline airline : airlines)
+//            {
+//
+//                airline.generateFlights(day);
+//
+//            }
+//
+//            // System.out.println("Flights generated: " + airlineOne.getFlights().size());
+//
+//            // sim update loop
+//
+//            for (int min = 0; min < 1440; min++)
+//            {
+//
+//                for (Airport airport : airports)
+//                {
+//
+//                    if(!airport.getDepartures().isEmpty())
+//                        airport.updateAirport(min);
+//
+//                }
+//
+//                ArrayList<MovingObject> objectsReadyToMove = objectMovementSchedule.get(min);
+//
+//                if (!(objectsReadyToMove.isEmpty()))
+//                {
+//
+//                    movingObjects.addAll(objectsReadyToMove);
+//
+//                }
+//
+//                if (!(movingObjects.isEmpty()))
+//                {//begin if statement checking for moving objects
+//
+//                    for (MovingObject movingObject : movingObjects)
+//                    {//begin for loop that moves objects in movingObjects
+//
+//                        movingObject.move();
+//
+//                    }//end for loop that moves planes in movingObjects
+//
+//                }//end if statement to move moving objects
+//
+//            }
+//
+//        }
 
-        for (int day = 0; day < 1; day++)
-        {
+    }
 
-            //flight generation loop
+    public static void initializeObjectMovementSchedule()
+    {
 
-            for (Airline airline : airlines)
-            {
-
-                airline.generateFlights(day);
-
-            }
-
-            // System.out.println("Flights generated: " + airlineOne.getFlights().size());
-
-            // sim update loop
-
-            for (int min = 0; min < 1440; min++)
-            {
-
-                for (Airport airport : airports)
-                {
-
-                    if(!airport.getDepartures().isEmpty())
-                        airport.updateAirport(min);
-
-                }
-
-                ArrayList<MovingObject> objectsReadyToMove = objectMovementSchedule.get(min);
-
-                if (!(objectsReadyToMove.isEmpty()))
-                {
-
-                    movingObjects.addAll(objectsReadyToMove);
-
-                }
-
-                if (!(movingObjects.isEmpty()))
-                {//begin if statement checking for moving objects
-
-                    for (MovingObject movingObject : movingObjects)
-                    {//begin for loop that moves objects in movingObjects
-
-                        movingObject.move();
-
-                    }//end for loop that moves planes in movingObjects
-
-                }//end if statement to move moving objects
-
-            }
-
-        }
+//        for (int i = 0; i < 1440; i++)
+//        {
+//
+//            objectMovementSchedule.add(new ArrayList<>());
+//
+//        }
 
     }
 
