@@ -5,6 +5,8 @@ import java.util.*;
 public class Airline
 {//begin Airline class
 
+    private String name;
+
     private final Random random = new Random();
 
     private final HashMap<Airport, ArrayList<Airport>> destinations = new HashMap<>();
@@ -27,10 +29,16 @@ public class Airline
 
     private final ArrayList<Plane> airlineFleet = new ArrayList<>();
 
+    private final HashMap<String, PlaneSeatClass> planeSeatClassMap = new HashMap<>();
+
+    public HashMap<String, PlaneSeatClass> getPlaneSeatClassMap() { return planeSeatClassMap; }
+
     //Airline parameterized constructor
 
-    public Airline(ArrayList<Airport> destinationList) // all destinations available from all airports
+    public Airline(String name, ArrayList<Airport> destinationList) // all destinations available from all airports
     {//begin Airline parameterized constructor
+
+        this.name = name;
 
         for (Airport origin : destinationList)
         {
@@ -59,16 +67,18 @@ public class Airline
 
     //addPlane to add a plane to an airline's fleet
 
-    public void addPlane(Plane plane)
+    public void addPlane(Plane plane, String layoutString)
     {//begin addPlane
 
         airlineFleet.add(plane);
+        generateSeatingLayout(plane, layoutString);
+
 
     }//end addPlane
 
     //generateFlight to create a flight for an airline, assigning each flight a plane, a destination, a flight number, and a departure time
 
-    public void generateFlight(Plane plane)
+    public Flight generateFlight(Plane plane)
     {
 
         Airport origin, destination;
@@ -143,7 +153,18 @@ public class Airline
         flight.setEndTime(flightEndTime);
         flight.setDepartureTime(flightStartTime + flight.getBoardingDuration());
         flight.setArrivalTime(flight.getEndTime() - flight.getDeboardingDuration());
+
+        return flight;
+
+    }
+
+    public void addFlightToPlane(Flight flight, Plane plane)
+    {
+
         int flightArrivalTime = flight.getArrivalTime();
+        int flightStartTime = flight.getStartTime();
+        Airport origin = flight.getOriginAirport();
+        Airport destination = flight.getDestination();
 
         reserveGatesForFlight(origin, destination, flight, plane, flightStartTime, flightArrivalTime);
 
@@ -161,12 +182,17 @@ public class Airline
         for (Plane plane : airlineFleet)
         {
 
-            do
-            {
+            Flight flight = null;
 
-                generateFlight(plane);
+            do {
 
-            }while(plane.getLastGeneratedFlight().getEndTime() < ((day+1) * 1440));
+                if (flight != null)
+                {
+                    addFlightToPlane(flight, plane);
+                }
+                flight = generateFlight(plane);
+
+            } while (flight.getEndTime() < (((day + 1) * 1440)));
 
             plane.loadNextFlight();
 
@@ -508,6 +534,113 @@ public class Airline
         flight.setArrivalGate(arrivalGate);
         flight.setStartTime(startTime);
         flight.setArrivalTime(arrivalTime);
+
+    }
+
+    public void generateSeatingLayout(Plane plane, String layoutString)
+    {
+        // Row 1: FF
+        // Row 2-13: EEEE
+
+        ArrayList<ArrayList<PlaneSeat>> seats;
+
+        seats = new ArrayList<>();
+
+        String[] layoutInstructions = layoutString.split(",");
+
+//        for (String instruction : layoutInstructions)
+//        {
+//
+//            System.out.println(instruction);
+//
+//        }
+        int rowNum = 1;
+        String colString = "";
+
+        for(String layoutInstruction : layoutInstructions)
+        {
+
+            int colonIndex = layoutInstruction.indexOf(':');
+            String seatCodeString = layoutInstruction.substring(colonIndex+2);
+
+            int startingRow;
+            int endingRow;
+            int instructionNumOfRows;
+            if (layoutInstruction.contains("-"))
+            {
+
+                startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')));
+                endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-') + 1, layoutInstruction.indexOf(':')));
+                instructionNumOfRows = endingRow - startingRow + 1;
+
+            }
+            else
+            {
+
+                instructionNumOfRows = 1;
+
+            }
+            for (int i = 0; i < instructionNumOfRows; i++)
+            {
+
+                seats.add(new ArrayList<>());
+
+                for (int j = 0; j < seatCodeString.length(); j++)
+                {
+
+                    String currentSeatClassCode = String.valueOf(seatCodeString.charAt(j));
+
+                    int currentColIndex = j;
+
+                    if (currentColIndex > 25)
+                    {
+                        do {
+                            colString += 'Z';
+                            currentColIndex = (int) (Math.log(currentColIndex) / Math.log(26));
+                        } while (currentColIndex > 25);
+                    }
+
+                    colString = String.valueOf(((char) ('A' + currentColIndex)));
+
+                    String seatCode = rowNum+colString;
+
+                    // set plane seat of plane to plane seat type in template; may not be necessary
+                    // more realistic for airline to configure seating for each plane after purchase
+                    // having the string that is referenced for creating the seat layout is very realistic
+
+                    seats.getLast().add(
+                            new PlaneSeat(
+                                    plane.getPlaneID()+"_"+rowNum+colString,
+                                    this,
+                                    planeSeatClassMap.get(currentSeatClassCode),
+                                    seatCode)
+                    );
+
+                }
+
+                rowNum++;
+
+            }
+
+        }
+
+        plane.setSeats(seats);
+
+    }
+
+    public void createSeatClass(String className, String amenities, String classCode)
+    {
+
+        String[] amenitiesArr = amenities.split(",");
+        PlaneSeatClass seatClass = new PlaneSeatClass(className,
+                new ArrayList<>(Arrays.asList(amenitiesArr)), classCode);
+        planeSeatClassMap.put(className, seatClass);
+    }
+
+    public void createPlaneTemplate()
+    {
+
+
 
     }
 
