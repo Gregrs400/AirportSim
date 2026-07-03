@@ -34,8 +34,7 @@ public class Sim   // upper level class to enclose all objects
 
         initializeAirports();
 
-        Airline airlineOne = new Airline("Airline One", airports);
-        airlines.add(airlineOne);
+        initializeAirlines();
 
         String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
 
@@ -157,6 +156,14 @@ public class Sim   // upper level class to enclose all objects
 //            airports.add(airport);
 //
 //        }
+
+    }
+
+    public static void initializeAirlines()
+    {
+
+        Airline airlineOne = new Airline("Airline One", airports);
+        airlines.add(airlineOne);
 
     }
 
