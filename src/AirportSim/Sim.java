@@ -41,22 +41,12 @@ public class Sim   // upper level class to enclose all objects
         initializeAirlines();
         initializePlaneManufacturers();
         initializePlanes();
-
-        String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
+        acquirePlanes();
 
         // airline created, acquires a type of plane, that plane needs a seating layout.
         // the airline gets the seating layout as a string, and decodes it in the airline class
 
-        // airlineOne.createPlaneTemplate(airlineOnePlane1SeatLayoutStr);
-        airlines.getFirst().addPlane(planeManufacturerOne.getPlaneByModel("plane1"), airlineOnePlane1SeatLayoutStr);
-
-        for (int i = 0; i < 100; i++)
-        {
-
-            airlines.getFirst().addPlane(planeManufacturerOne.getPlanes().getFirst(), airlineOnePlane1SeatLayoutStr);
-            planeManufacturerOne.getPlanes().removeFirst();
-
-        }
+        // airlineOne.createPlaneTemplate(airlineOnePlane1SeatLayoutStr)
 
         runUpdateLoop();
 
@@ -182,6 +172,20 @@ public class Sim   // upper level class to enclose all objects
         {
 
             planeManufacturerOne.createPlane("plane1", 50);
+
+        }
+
+    }
+
+    public static void acquirePlanes()
+    {
+
+        String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
+        for (int i = 0; i < 100; i++)
+        {
+
+            airlines.getFirst().addPlane(planeManufacturerOne.getPlanes().getFirst(), airlineOnePlane1SeatLayoutStr);
+            planeManufacturerOne.getPlanes().removeFirst();
 
         }
 
