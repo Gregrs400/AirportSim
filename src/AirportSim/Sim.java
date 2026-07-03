@@ -19,6 +19,8 @@ public class Sim   // upper level class to enclose all objects
 
     static String airlineSeatClasses;
 
+    static PlaneManufacturer planeManufacturerOne;
+
     static {
         try {
             airportFileReader = new Scanner(airportFile);
@@ -29,20 +31,22 @@ public class Sim   // upper level class to enclose all objects
 
     static ArrayList<Airport> airports = new ArrayList<>();
 
+//----------------------Main Method---------------------------------
+
     public static void main(String[] args)
     {
 
         initializeObjectMovementSchedule();
-
         initializeAirports();
+        initializeAirlines();
+        initializePlaneManufacturers();
 
         String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
 
-        initializeAirlines();
+        // airline created, acquires a type of plane, that plane needs a seating layout.
+        // the airline gets the seating layout as a string, and decodes it in the airline class
 
         // airlineOne.createPlaneTemplate(airlineOnePlane1SeatLayoutStr);
-
-        PlaneManufacturer planeManufacturerOne = new PlaneManufacturer();
 
         for (int i = 0; i < 100; i++)
         {
@@ -63,6 +67,8 @@ public class Sim   // upper level class to enclose all objects
         runUpdateLoop();
 
     }
+
+//----------------------Other Methods---------------------------------
 
     public static void addToObjectMovementSchedule(int startTime, MovingObject object)
     {
@@ -165,6 +171,13 @@ public class Sim   // upper level class to enclose all objects
 
         Airline airlineOne = new Airline("Airline One", airports, airlineOneSeatClasses);
         airlines.add(airlineOne);
+
+    }
+
+    public static void initializePlaneManufacturers()
+    {
+
+        planeManufacturerOne = new PlaneManufacturer();
 
     }
 
