@@ -163,10 +163,12 @@ public class Sim   // upper level class to enclose all objects
     public static void initializePlanes()
     {
 
+        planeManufacturerOne.createPlaneModel("plane1", 50);
+
         for (int i = 0; i < 100; i++)
         {
 
-            planeManufacturerOne.createPlane("plane1", 50);
+            planeManufacturerOne.createPlane("plane1");
 
         }
 
@@ -179,7 +181,7 @@ public class Sim   // upper level class to enclose all objects
         for (int i = 0; i < 100; i++)
         {
 
-            airlines.getFirst().addPlane(planeManufacturerOne.getPlanes().getFirst(), airlineOnePlane1SeatLayoutStr);
+            airlines.getFirst().addPlane(planeManufacturerOne.getPlanes().getFirst());
             planeManufacturerOne.getPlanes().removeFirst();
 
         }

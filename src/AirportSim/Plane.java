@@ -7,9 +7,12 @@ public class Plane implements MovingObject
 
     private String planeID;
 
+    private String modelName;
+
     public String getPlaneID(){ return planeID; }
     public void setPlaneID(String planeID){ this.planeID = planeID; }
 
+    public String getModelName(){ return modelName; }
     //declaring int variable to store how many passengers can board plane, defining characteristic of each plane
 
     private final int passengerCapacity;
@@ -245,26 +248,24 @@ public class Plane implements MovingObject
 
     }//end Plane parameterized constructor
 
-    public Plane(Plane planeTemplate, String seatLayoutStr, Map<String, PlaneSeat> seatTemplateMap)
+    public Plane(String modelName, int capacity)
+    {
+
+        this.modelName = modelName;
+        this.passengerCapacity = capacity;
+
+    }
+
+    public Plane(Plane planeTemplate)
     {//begin Plane parameterized constructor
 
         this(planeTemplate.getPlaneID(), planeTemplate.getPassengerCapacity());
         setPassengers(new ArrayList<>());
         ps = PlaneStatus.AT_DEPART_GATE;
-        generateSeats(seatLayoutStr, seatTemplateMap);
 
     }//end Plane parameterized constructor
 
     //Plane parameterized constructor for use by airlines
-    public Plane(String id, int capacity)
-    {//begin Plane parameterized constructor
-
-        setPlaneID(id);
-        this.passengerCapacity = capacity;
-        setPassengers(new ArrayList<>());
-        ps = PlaneStatus.AT_DEPART_GATE;
-
-    }//end Plane parameterized constructor
 
     public Plane(Plane planeTemplate, String planeID)
     {
@@ -285,82 +286,6 @@ public class Plane implements MovingObject
 
     public ArrayList<ArrayList<PlaneSeat>> getSeats() { return seats; }
     public void setSeats(ArrayList<ArrayList<PlaneSeat>> seats) { this.seats = seats; }
-    public void generateSeats(String layoutString, Map<String, PlaneSeat> seatTemplateMap)
-    {
-        // Row 1: FF
-        // Row 2-13: EEEE
-
-        seats = new ArrayList<>();
-
-        String[] layoutInstructions = layoutString.split(",");
-
-        for (String instruction : layoutInstructions)
-        {
-
-            System.out.println(instruction);
-
-        }
-        int rowNum = 1;
-        String colString = "";
-
-        for(String layoutInstruction : layoutInstructions)
-        {
-
-            int colonIndex = layoutInstruction.indexOf(':');
-            String seatCodeString = layoutInstruction.substring(colonIndex+2);
-
-            System.out.println(seatCodeString.length());
-
-            int startingRow;
-            int endingRow;
-            int instructionNumOfRows;
-            if (layoutInstruction.contains("-"))
-            {
-
-                startingRow = Integer.parseInt(layoutInstruction.substring(4, layoutInstruction.indexOf('-')));
-                endingRow = Integer.parseInt(layoutInstruction.substring(layoutInstruction.indexOf('-') + 1, layoutInstruction.indexOf(':')));
-                instructionNumOfRows = endingRow - startingRow + 1;
-
-            }
-            else
-            {
-
-                instructionNumOfRows = 1;
-
-            }
-            for (int i = 0; i < instructionNumOfRows; i++)
-            {
-
-                seats.add(new ArrayList<>());
-
-                for (int j = 0; j < seatCodeString.length(); j++)
-                {
-
-                    String currentSeatCode = String.valueOf(seatCodeString.charAt(j));
-
-                    int currentColIndex = j;
-
-                    if (currentColIndex > 25)
-                    {
-                        do {
-                            colString += 'Z';
-                            currentColIndex = (int) (Math.log(currentColIndex) / Math.log(26));
-                        } while (currentColIndex > 25);
-                    }
-
-                    colString = String.valueOf(((char) ('A' + currentColIndex)));
-
-                    seats.getLast().add(new PlaneSeat(seatTemplateMap.get(currentSeatCode), planeID+"_"+rowNum+colString, rowNum, colString));
-
-                }
-
-                rowNum++;
-
-            }
-
-        }
-
-    }
 
     public void loadNextFlight()
     {
@@ -374,6 +299,7 @@ public class Plane implements MovingObject
         passengerBoardingDuration = currentFlight.getBoardingDuration();
         passengerDeboardingDuration = currentFlight.getDeboardingDuration();
         int startTime = currentFlight.getStartTime();
+        // System.out.println("Start time: " + startTime);
         Sim.addToObjectMovementSchedule(startTime, this);
 
     }
