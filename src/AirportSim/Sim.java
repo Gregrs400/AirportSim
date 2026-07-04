@@ -43,7 +43,7 @@ public class Sim   // upper level class to enclose all objects
         initializePlanes();
         acquirePlanes();
 
-        runUpdateLoop();
+        runUpdateLoop(1);
 
     }
 
@@ -56,16 +56,16 @@ public class Sim   // upper level class to enclose all objects
 
     }
 
-    public static void runUpdateLoop()
+    public static void runUpdateLoop(int days)
     {
 
-//        //simulation loop
-//
-//        for (int day = 0; day < 1; day++)
-//        {
-//
-//            //flight generation loop
-//
+        //simulation loop
+
+        for (int day = 0; day < days; day++)
+        {
+
+            //flight generation loop
+
 //            for (Airline airline : airlines)
 //            {
 //
@@ -110,8 +110,8 @@ public class Sim   // upper level class to enclose all objects
 //                }//end if statement to move moving objects
 //
 //            }
-//
-//        }
+
+        }
 
     }
 
