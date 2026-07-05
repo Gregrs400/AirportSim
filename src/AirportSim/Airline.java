@@ -7,6 +7,8 @@ public class Airline
 
     private String name;
 
+    private String airlineAbbreviation;
+
     private final Random random = new Random();
 
     private final HashMap<Airport, ArrayList<Airport>> destinations = new HashMap<>();
@@ -27,7 +29,7 @@ public class Airline
 
     //Plane object ArrayList storing the different plane models in an airline's fleet
 
-    private final ArrayList<Plane> airlineFleet = new ArrayList<>();
+    private final HashMap<Plane, ArrayList<Plane>> fleet = new HashMap<>();
 
     private final HashMap<String, PlaneSeatClass> planeSeatClassMap = new HashMap<>();
 
@@ -35,10 +37,12 @@ public class Airline
 
     //Airline parameterized constructor
 
-    public Airline(String name, ArrayList<Airport> destinationList, String seatClassesString) // all destinations available from all airports
+    public Airline(String name, String abbreviation, ArrayList<Airport> destinationList, String seatClassesString) // all destinations available from all airports
     {//begin Airline parameterized constructor
 
         this.name = name;
+
+        this.airlineAbbreviation = abbreviation;
 
         for (Airport origin : destinationList)
         {
@@ -69,10 +73,10 @@ public class Airline
 
     //addPlane to add a plane to an airline's fleet
 
-    public void addPlane(Plane plane)
+    public void addPlane(Plane model, Plane plane)
     {//begin addPlane
 
-        airlineFleet.add(plane);
+        fleet.get(model).add(plane);
 
     }//end addPlane
 
@@ -176,28 +180,28 @@ public class Airline
 
     }
 
-    public void generateFlights(int day)
-    {
+    public void generateFlights(int day) {
 
-        for (Plane plane : airlineFleet)
+        for (Plane model : fleet.keySet())
         {
 
-            Flight flight = null;
+            for (Plane plane : fleet.get(model)) {
 
-            do {
+                Flight flight = null;
 
-                if (flight != null)
-                {
-                    addFlightToPlane(flight, plane);
-                }
-                flight = generateFlight(plane);
+                do {
 
-            } while (flight.getEndTime() < (((day + 1) * 1440)));
+                    if (flight != null) {
+                        addFlightToPlane(flight, plane);
+                    }
+                    flight = generateFlight(plane);
 
-            plane.loadNextFlight();
+                } while (flight.getEndTime() < (((day + 1) * 1440)));
 
+                plane.loadNextFlight();
+
+            }
         }
-
     }
 
     public int generateFlightNumber()
@@ -576,6 +580,22 @@ public class Airline
         // First (F): Lie-flat Seat,Pillows,Blanket"
 
         //public void createSeatClass(String className, String amenities, String classCode)
+
+    }
+
+    public String generatePlaneID(Plane model)
+    {
+
+        String planeID = "";
+
+        fleet.computeIfAbsent(model, k -> new ArrayList<>());
+        int currentCountOfModel = fleet.get(model).size();
+
+        planeID = airlineAbbreviation + "_"
+                + model.getModelName() + "_"
+                + (currentCountOfModel+1);
+
+        return planeID;
 
     }
 

@@ -148,7 +148,7 @@ public class Sim   // upper level class to enclose all objects
 
         String airlineOneSeatClasses = "Economy (E): Seat;First (F): Lie-flat Seat,Pillows,Blanket";
 
-        Airline airlineOne = new Airline("Airline One", airports, airlineOneSeatClasses);
+        Airline airlineOne = new Airline("Airline One", "AL1", airports, airlineOneSeatClasses);
         airlines.add(airlineOne);
 
     }
@@ -177,14 +177,29 @@ public class Sim   // upper level class to enclose all objects
     public static void acquirePlanes()
     {
 
-        String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
+        Airline airlineOne = airlines.getFirst();
+
+        Plane desiredModel = planeManufacturerOne.getPlaneCatalog().get("plane1");
+
         for (int i = 0; i < 100; i++)
         {
 
-            airlines.getFirst().addPlane(planeManufacturerOne.getPlanes().getFirst());
-            planeManufacturerOne.getPlanes().removeFirst();
+            String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
+
+            ArrayList<String> airlineOnePlane1Configuration = new ArrayList<>();
+
+            airlineOnePlane1Configuration.add(airlineOnePlane1SeatLayoutStr);
+
+            String planeID = airlineOne.generatePlaneID(desiredModel);
+
+            airlineOnePlane1Configuration.add(planeID);
+
+            Plane plane = planeManufacturerOne.configurePlane(desiredModel, airlineOnePlane1Configuration, airlineOne);
+            planeManufacturerOne.deliverPlane(airlineOne, desiredModel, plane);
 
         }
+
+        System.out.println("test");
 
     }
 

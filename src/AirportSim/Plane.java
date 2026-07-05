@@ -259,7 +259,7 @@ public class Plane implements MovingObject
     public Plane(Plane planeTemplate)
     {//begin Plane parameterized constructor
 
-        this(planeTemplate.getPlaneID(), planeTemplate.getPassengerCapacity());
+        this(planeTemplate.getModelName(), planeTemplate.getPassengerCapacity());
         setPassengers(new ArrayList<>());
         ps = PlaneStatus.AT_DEPART_GATE;
 
@@ -270,7 +270,7 @@ public class Plane implements MovingObject
     public Plane(Plane planeTemplate, String planeID)
     {
 
-        this(planeID, planeTemplate.getPassengerCapacity());
+        this(planeTemplate.modelName, planeTemplate.getPassengerCapacity());
         setPassengers(planeTemplate.getPassengers());
         ps = PlaneStatus.AT_DEPART_GATE;
         setSeats(planeTemplate.getSeats());
