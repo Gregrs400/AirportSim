@@ -35,6 +35,8 @@ public class Airline
 
     public HashMap<String, PlaneSeatClass> getPlaneSeatClassMap() { return planeSeatClassMap; }
 
+    public HashMap<Plane, String[]> planeConfigurations = new HashMap<>();
+
     //Airline parameterized constructor
 
     public Airline(String name, String abbreviation, ArrayList<Airport> destinationList, String seatClassesString) // all destinations available from all airports
@@ -550,10 +552,15 @@ public class Airline
         planeSeatClassMap.put(className, seatClass);
     }
 
-    public void createPlaneFormat()
+    public void createPlaneConfiguration(String seatingLayoutString, Plane model)
     {
 
+        String[] configuration = new String[2];
 
+        configuration[0] = seatingLayoutString;
+        configuration[1] = "";
+
+        planeConfigurations.put(model, configuration);
 
     }
 
@@ -596,6 +603,24 @@ public class Airline
                 + (currentCountOfModel+1);
 
         return planeID;
+
+    }
+
+    public void requestPlane(String modelName, PlaneManufacturer manufacturer)
+    {
+
+        String[] currentConfiguration = new String[2];
+
+        Plane desiredModel = manufacturer.getPlaneCatalog().get(modelName);
+
+        currentConfiguration[0] = planeConfigurations.get(desiredModel)[0];
+
+        fleet.computeIfAbsent(desiredModel, k -> new ArrayList<>());
+        currentConfiguration[1] = generatePlaneID(desiredModel);
+        manufacturer.configurePlane(desiredModel, currentConfiguration, this);
+
+        currentConfiguration[0] = "";
+        currentConfiguration[1] = "";
 
     }
 

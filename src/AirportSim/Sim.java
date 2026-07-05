@@ -179,23 +179,20 @@ public class Sim   // upper level class to enclose all objects
 
         Airline airlineOne = airlines.getFirst();
 
-        Plane desiredModel = planeManufacturerOne.getPlaneCatalog().get("plane1");
+        HashMap<String, Plane> modelCatalog = planeManufacturerOne.getPlaneCatalog();
+        int modelCatalogLength = modelCatalog.size();
+        String[] planeModels = modelCatalog.keySet().toArray(new String[modelCatalogLength]);
+        String desiredModelName = planeModels[0];
+        Plane desiredModel = modelCatalog.get(desiredModelName);
+
+        String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
+
+        airlineOne.createPlaneConfiguration(airlineOnePlane1SeatLayoutStr, desiredModel);
 
         for (int i = 0; i < 100; i++)
         {
 
-            String airlineOnePlane1SeatLayoutStr = "Row 1: FF,Row 2-13: EEEE";
-
-            ArrayList<String> airlineOnePlane1Configuration = new ArrayList<>();
-
-            airlineOnePlane1Configuration.add(airlineOnePlane1SeatLayoutStr);
-
-            String planeID = airlineOne.generatePlaneID(desiredModel);
-
-            airlineOnePlane1Configuration.add(planeID);
-
-            Plane plane = planeManufacturerOne.configurePlane(desiredModel, airlineOnePlane1Configuration, airlineOne);
-            planeManufacturerOne.deliverPlane(airlineOne, desiredModel, plane);
+            airlineOne.requestPlane(desiredModelName, planeManufacturerOne);
 
         }
 

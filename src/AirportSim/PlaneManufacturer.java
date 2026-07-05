@@ -50,7 +50,7 @@ public class PlaneManufacturer
 
     // configuring plane that already exists
 
-    public Plane configurePlane(Plane model, ArrayList<String> configuration, Airline airline)
+    public void configurePlane(Plane model, String[] configuration, Airline airline)
     {
 
         ArrayList<Plane> planeModelInventory = planeInventory.get(model.getModelName());
@@ -58,13 +58,15 @@ public class PlaneManufacturer
         if (planeModelInventory.isEmpty())
             createPlane(model.getModelName());
 
-        String planeID = configuration.get(1);
-        Plane plane = planeModelInventory.getFirst();
+        Plane planeToConfigure = planeModelInventory.getFirst();
 
-        addSeatingToPlane(model, configuration.getFirst(), airline);
-        plane.setPlaneID(planeID);
+        String seatingLayout = configuration[0];
+        addSeatingToPlane(model, seatingLayout, airline);
 
-        return plane;
+        String planeID = configuration[1];
+        planeToConfigure.setPlaneID(planeID);
+
+        deliverPlane(airline, model, planeToConfigure);
 
     }
 
