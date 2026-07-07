@@ -130,16 +130,16 @@ public class Sim   // upper level class to enclose all objects
     public static void initializeAirports()
     {
 
-//        while (airportFileReader.hasNext())
-//        {
-//
-//            String airportFileLine = airportFileReader.nextLine();
-//            String[] airportItems = airportFileLine.split(",");
-//            Airport airport = new Airport(airportItems[0], airportItems[1], Double.parseDouble(airportItems[2]),
-//                    Double.parseDouble(airportItems[3]), 50);
-//            airports.add(airport);
-//
-//        }
+        while (airportFileReader.hasNext())
+        {
+
+            String airportFileLine = airportFileReader.nextLine();
+            String[] airportItems = airportFileLine.split(",");
+            Airport airport = new Airport(airportItems[0], airportItems[1], Double.parseDouble(airportItems[2]),
+                    Double.parseDouble(airportItems[3]), 50);
+            airports.add(airport);
+
+        }
 
     }
 
