@@ -60,11 +60,11 @@ public class PlaneManufacturer
 
         Plane planeToConfigure = planeModelInventory.getFirst();
 
-        String seatingLayout = configuration[0];
-        addSeatingToPlane(model, seatingLayout, airline);
-
         String planeID = configuration[1];
         planeToConfigure.setPlaneID(planeID);
+
+        String seatingLayout = configuration[0];
+        addSeatingToPlane(planeToConfigure, seatingLayout, airline);
 
         deliverPlane(airline, model, planeToConfigure);
 
