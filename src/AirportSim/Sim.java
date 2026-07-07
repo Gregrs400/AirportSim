@@ -118,12 +118,12 @@ public class Sim   // upper level class to enclose all objects
     public static void initializeObjectMovementSchedule()
     {
 
-//        for (int i = 0; i < 1440; i++)
-//        {
-//
-//            objectMovementSchedule.add(new ArrayList<>());
-//
-//        }
+        for (int i = 0; i < 1440; i++)
+        {
+
+            objectMovementSchedule.add(new ArrayList<>());
+
+        }
 
     }
 
