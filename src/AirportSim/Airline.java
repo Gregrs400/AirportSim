@@ -164,6 +164,79 @@ public class Airline
 
     }
 
+    public Flight generateFlight(Plane plane, Airport origin)
+    {
+
+        Airport destination;
+
+        int destIndex = random.nextInt(destinations.get(origin).size());
+        destination = destinations.get(origin).get(destIndex);
+
+        if (destination == origin)
+        {
+
+            while (destination == origin)
+            {
+
+                destIndex = random.nextInt(destinations.get(origin).size()-1);
+                destination = destinations.get(origin).get(destIndex);
+
+            }
+
+        }
+
+        Flight flight = new Flight(plane, origin, destination, generateFlightNumber());
+        flight.setAirline(this);
+
+        ArrayList<Ticket> flightTickets = flight.getTickets();
+
+        ArrayList<String> seatCodes = new ArrayList<>();
+
+        ArrayList<ArrayList<PlaneSeat>> planeSeats = flight.getPlane().getSeats();
+
+        for (ArrayList<PlaneSeat> planeSeat : planeSeats) {
+            for (PlaneSeat seat : planeSeat) {
+
+                seatCodes.add(seat.getSeatCode());
+
+            }
+
+        }
+
+        for (int i = 0; i < plane.getPassengerCapacity(); i++)
+        {
+
+            Ticket ticket = new Ticket(this, flight);
+            ticket.setSeatCode(seatCodes.get(i));
+            flightTickets.add(i, ticket);
+
+        }
+
+        flight.setFlightTimes(generateFlightTimes(380, origin, destination));
+
+        int flightStartTime, flightEndTime;
+
+        if (!plane.getFlightQueue().isEmpty())
+        {
+
+            flightStartTime = plane.getLastGeneratedFlight().getEndTime();
+
+        }
+        else
+        {
+            flightStartTime = 240;
+        }
+
+        flight.setStartTime(flightStartTime);
+        flightEndTime = flightStartTime + flight.getTotalDuration();
+        flight.setEndTime(flightEndTime);
+        flight.setDepartureTime(flightStartTime + flight.getBoardingDuration());
+        flight.setArrivalTime(flight.getEndTime() - flight.getDeboardingDuration());
+
+        return flight;
+
+    }
+
     public void addFlightToPlane(Flight flight, Plane plane)
     {
 
