@@ -12,6 +12,14 @@ public class PlaneManufacturer
     private final HashMap<String, ArrayList<Plane>> planeInventory =  new HashMap<>();
     private ArrayList<Plane> planes = new ArrayList<>();
     private final HashMap<String, Plane> planeCatalog = new HashMap<>();
+    private final Airport location;
+
+    public PlaneManufacturer(Airport location)
+    {
+
+        this.location = location;
+
+    }
 
     // for adding planes to the sim
 
@@ -20,6 +28,7 @@ public class PlaneManufacturer
 
         Plane template = planeCatalog.get(modelName);
         Plane plane = new Plane(template);
+        plane.setCurrentAirport(location);
         ArrayList<Plane> planeModelInventory = planeInventory.get(modelName);
         planeModelInventory.add(plane);
 

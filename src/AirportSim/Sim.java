@@ -21,6 +21,8 @@ public class Sim   // upper level class to enclose all objects
 
     static PlaneManufacturer planeManufacturerOne;
 
+    static Random random;
+
     static {
         try {
             airportFileReader = new Scanner(airportFile);
@@ -156,7 +158,13 @@ public class Sim   // upper level class to enclose all objects
     public static void initializePlaneManufacturers()
     {
 
-        planeManufacturerOne = new PlaneManufacturer();
+        random = new Random();
+
+        int airportQuantity = airports.size();
+        int randomIndex = random.nextInt(airportQuantity);
+        Airport manufacturerLocation = airports.get(randomIndex);
+
+        planeManufacturerOne = new PlaneManufacturer(manufacturerLocation);
 
     }
 
@@ -165,7 +173,7 @@ public class Sim   // upper level class to enclose all objects
 
         planeManufacturerOne.createPlaneModel("plane1", 50);
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 1; i++)
         {
 
             planeManufacturerOne.createPlane("plane1");
@@ -189,7 +197,7 @@ public class Sim   // upper level class to enclose all objects
 
         airlineOne.createPlaneConfiguration(airlineOnePlane1SeatLayoutStr, desiredModel);
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 1; i++)
         {
 
             airlineOne.requestPlane(desiredModelName, planeManufacturerOne);
