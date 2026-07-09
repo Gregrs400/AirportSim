@@ -174,7 +174,6 @@ public class Airport
 
             Passenger passenger = new Passenger(ranTicket, "pax_" + this.airportCode + "_" + (paxCounter++));
 
-
             paxInAirport.add(passenger);
 
             ranFlight.getPaxWithTickets().add(passenger);
