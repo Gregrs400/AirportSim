@@ -6,5 +6,6 @@ This document will go through the fields and functionality present in the Airpor
 | :----: | :----: | :-------: |
 | random | Random (java.util) | Generating random values |
 | gates | ArrayList\<Gate\> | Storing gate objects |
+| parkingReservations | HashMap\<ParkingLocation, ArrayList\<ParkingReservation\>\> | Storing reservations for plane parking |
 
 # Functions
