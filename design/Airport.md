@@ -8,5 +8,6 @@ This document will go through the fields and functionality present in the Airpor
 | gates | ArrayList\<Gate\> | Storing gate objects |
 | parkingReservations | HashMap\<ParkingLocation, ArrayList\<ParkingReservation\>\> | Storing reservations for plane parking |
 | apronParkingSpots | ArrayList\<ApronParking\> | Storing parking spots on the apron | 
+| paxInAirport | ArrayList\<Passenger\> | Storing the passengers currently in the airport | 
 
 # Functions
