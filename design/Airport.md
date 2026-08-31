@@ -11,5 +11,6 @@ This document will go through the fields and functionality present in the Airpor
 | paxInAirport | ArrayList\<Passenger\> | Storing the passengers currently in the airport | 
 | airportLocation | String | Storing city name of airport's location |
 | airportCode | String | Storing shorter name of airport for referencing |
+| latitude | double | Storing latitude location of Airport |
 
 # Functions
