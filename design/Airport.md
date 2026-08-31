@@ -19,5 +19,6 @@ This document will go through the fields and functionality present in the Airpor
 | totalPaxCapacity | int | Storing total number of passengers that can be generated |
 | departures | ArrayList\<Flight\> | Storing flights scheduled to leave airport |
 | arrivals | ArrayList\<Flight\> | Storing flights scheduled to arrive at airport |
+| flightsWithVacantSeats | HashMap\<Airline, ArrayList\<Flight\>\> | Storing flights that can still accept passengers by airline |
 
 # Functions
