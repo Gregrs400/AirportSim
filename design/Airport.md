@@ -23,6 +23,17 @@ This document will go through the fields and functionality present in the Airpor
 
 # Constructors
 
-
-
+### <ins>Airport (String location, String code, double latitude, double longitude, int numOfGates)<ins>
+Currently only constructor for Airports
+Sets:
+- location
+- airportCode
+- latitude
+- longitude
+- gates
+Initializes:
+- parkingReservations
+- apronParkingSpots
+- flightsWithVacantSeats
+  
 # Functions
