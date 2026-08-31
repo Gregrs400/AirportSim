@@ -12,5 +12,6 @@ This document will go through the fields and functionality present in the Airpor
 | airportLocation | String | Storing city name of airport's location |
 | airportCode | String | Storing shorter name of airport for referencing |
 | latitude | double | Storing latitude location of Airport |
+| longitude | double | Storing longitude location of Airport |
 
 # Functions
