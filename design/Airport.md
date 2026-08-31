@@ -13,5 +13,6 @@ This document will go through the fields and functionality present in the Airpor
 | airportCode | String | Storing shorter name of airport for referencing |
 | latitude | double | Storing latitude location of Airport |
 | longitude | double | Storing longitude location of Airport |
+| paxCounter | int | Storing number of passengers generated for passenger generation |
 
 # Functions
