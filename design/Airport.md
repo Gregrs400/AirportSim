@@ -16,5 +16,6 @@ This document will go through the fields and functionality present in the Airpor
 | paxCounter | int | Storing passengers generated counter for use during passenger generation |
 | paxGenerated | int | Storing total number of passengers generated | 
 | paxBeingGenerated | int | Storing number of passengers being generated during 1 generation session |
+| totalPaxCapacity | int | Storing total number of passengers that can be generated |
 
 # Functions
