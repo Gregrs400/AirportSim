@@ -21,4 +21,8 @@ This document will go through the fields and functionality present in the Airpor
 | arrivals | ArrayList\<Flight\> | Storing flights scheduled to arrive at airport |
 | flightsWithVacantSeats | HashMap\<Airline, ArrayList\<Flight\>\> | Storing flights that can still accept passengers by airline |
 
+# Constructors
+
+
+
 # Functions
